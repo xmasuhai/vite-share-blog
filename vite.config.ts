@@ -2,7 +2,7 @@ import {defineConfig} from 'vite';
 import vue from '@vitejs/plugin-vue';
 import path from 'path';
 import vueJsx from '@vitejs/plugin-vue-jsx';
-// 自动引入组件
+// 自动引入组件和方法
 import autoComponents from 'unplugin-vue-components/vite';
 import {
   ElementPlusResolver,
@@ -10,14 +10,17 @@ import {
   VantResolver,
   HeadlessUiResolver,
 } from 'unplugin-vue-components/resolvers';
+import AutoImport from 'unplugin-auto-import/vite'
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     vue(),
     vueJsx(),
+    // unplugin-vue-components/vite
     autoComponents({
       // ui库解析器，也可以自定义
+      // resolvers: [ElementPlusResolver()],
       resolvers: [
         ElementPlusResolver(),
         AntDesignVueResolver(),
@@ -26,12 +29,34 @@ export default defineConfig({
       ],
       // 指定组件位置，默认是src/components
       dirs: ['src/components'],
-      // ui库解析器
-      // resolvers: [ElementPlusResolver()],
-      extensions: ['vue'],
+      // valid file extensions for components.
+      // 组件的有效文件扩展名。
+      extensions: ['vue', 'tsx'],
       // 配置文件生成位置
-      dts: 'src/components.d.ts'
-    })
+      dts: 'src/components/components.d.ts',
+      // search for subdirectories
+      // 搜索子目录
+      deep: true,
+      // Allow subdirectories as namespace prefix for components.
+      // 允许子目录作为组件的命名空间前缀。
+      directoryAsNamespace: false,
+      // filters for transforming targets
+      include: [/.vue$/, /.vue?vue/],
+      exclude: [/[\/]node_modules[\/]/, /[\/].git[\/]/, /[\/].nuxt[\/]/],
+    }),
+    AutoImport({
+      // targets to transform
+      include: [
+        /\.[tj]sx?$/, // .ts, .tsx, .js, .jsx
+        /\.vue$/, /\.vue\?vue/, // .vue
+        /\.md$/, // .md
+      ],
+      // global imports to register
+      imports: ['vue', 'vue-router', /*'vue-i18n', '@vueuse/head', '@vueuse/core'*/],
+      // 可以选择auto-import.d.ts生成的位置，使用ts建议设置为 'src/auto-import.d.ts'
+      // dts: 'src/auto-import.d.ts'
+
+    }),
   ],
   server: {
     host: '0.0.0.0' // 解决  Network: use --host to expose
