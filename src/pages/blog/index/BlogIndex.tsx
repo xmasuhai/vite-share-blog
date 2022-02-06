@@ -1,4 +1,4 @@
-import {Button} from 'ant-design-vue';
+import {Button, message} from 'ant-design-vue';
 import {defineComponent, inject} from 'vue';
 import 'ant-design-vue/dist/antd.css';
 
@@ -7,16 +7,23 @@ export default defineComponent({
   props: {},
   components: {},
   setup(/*props, ctx*/) {
-    const message = inject('$message');
+    const popMessage = inject<typeof message>('$message');
+
     return {
-      message
+      popMessage
     };
   },
   render() {
     // noinspection JSXNamespaceValidation
     return (
       <>
-        <Button>博客首页</Button>
+        <Button onClick={() => {
+          // this.popMessage && this.popMessage.error.bind(this, '这是一条错误消息', 2)
+          this.popMessage && this.popMessage.error('这是一条错误消息', 2)
+
+        }}>
+          博客首页
+        </Button>
       </>
     );
   }
