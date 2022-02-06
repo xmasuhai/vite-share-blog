@@ -1,19 +1,18 @@
 import {defineComponent,} from 'vue';
 
 export default defineComponent({
-  name: 'About',
+  name: 'User',
   props: {},
   components: {},
   setup(/*props, ctx*/) {
 
-    return {
-    };
+    return {};
   },
   render() {
     // noinspection JSXNamespaceValidation
     return (
       <>
-        关于页面
+        用户页面
       </>
     );
   }

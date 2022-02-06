@@ -12,9 +12,21 @@ export default defineComponent({
     <main class={appClass.app}>
       <img alt="Vue logo" src={logoImg}/>
       <HelloWorld msg="Hello Vue 3 + TypeScript + Vite"/>
-      <router-link to="/">Go to Home</router-link>
+      <router-link to="/">Home</router-link>
       &nbsp;
-      <router-link to="/about">Go to About</router-link>
+      <router-link to="/login">登录</router-link>
+      &nbsp;
+      <router-link to="/register">注册</router-link>
+      &nbsp;
+      <router-link to="/create">新建博客</router-link>
+      &nbsp;
+      <router-link to="/edit">编辑博客</router-link>
+      &nbsp;
+      <router-link to="/detail">博客详情</router-link>
+      &nbsp;
+      <router-link to="/myblog">我的博客</router-link>
+      &nbsp;
+      <router-link to="/about">关于</router-link>
       &nbsp;
       <router-view/>
     </main>

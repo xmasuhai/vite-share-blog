@@ -1,7 +1,9 @@
 import {defineConfig} from 'vite';
 import vue from '@vitejs/plugin-vue';
-import path from 'path';
+import path from 'path'; // @types/node
 import vueJsx from '@vitejs/plugin-vue-jsx';
+// setup name
+import VueSetupExtend from 'vite-plugin-vue-setup-extend';
 // 自动引入组件和方法
 import autoComponents from 'unplugin-vue-components/vite';
 import {
@@ -10,13 +12,14 @@ import {
   VantResolver,
   HeadlessUiResolver,
 } from 'unplugin-vue-components/resolvers';
-import AutoImport from 'unplugin-auto-import/vite'
+import AutoImport from 'unplugin-auto-import/vite';
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     vue(),
     vueJsx(),
+    VueSetupExtend(),
     // unplugin-vue-components/vite
     autoComponents({
       // ui库解析器，也可以自定义
@@ -75,7 +78,11 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: '@import "@/assets/style/main.scss";'
+        additionalData: `
+        @import "@/assets/style/variables.scss";
+        @import "@/assets/style/mixin.scss";
+        @import "@/assets/style/main.scss";
+        `,
       }
     }
   },

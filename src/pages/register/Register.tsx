@@ -1,7 +1,7 @@
 import {defineComponent,} from 'vue';
 
 export default defineComponent({
-  name: 'About',
+  name: 'Register',
   props: {},
   components: {},
   setup(/*props, ctx*/) {
@@ -13,7 +13,7 @@ export default defineComponent({
     // noinspection JSXNamespaceValidation
     return (
       <>
-        关于页面
+        注册页面
       </>
     );
   }

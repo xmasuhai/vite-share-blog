@@ -1,19 +1,18 @@
 import {defineComponent,} from 'vue';
 
 export default defineComponent({
-  name: 'About',
+  name: 'EditBlog',
   props: {},
   components: {},
   setup(/*props, ctx*/) {
 
-    return {
-    };
+    return {};
   },
   render() {
     // noinspection JSXNamespaceValidation
     return (
       <>
-        关于页面
+        编辑博客页面
       </>
     );
   }

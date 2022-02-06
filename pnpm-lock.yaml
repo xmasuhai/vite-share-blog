@@ -10,6 +10,7 @@ specifiers:
   unplugin-auto-import: ^0.5.11
   unplugin-vue-components: ^0.17.16
   vite: ^2.7.13
+  vite-plugin-vue-setup-extend: ^0.4.0
   vue: ^3.2.29
   vue-router: '4'
   vue-tsc: ^0.31.1
@@ -28,6 +29,7 @@ devDependencies:
   unplugin-auto-import: 0.5.11_vite@2.7.13
   unplugin-vue-components: 0.17.16_vite@2.7.13+vue@3.2.29
   vite: 2.7.13_sass@1.49.7
+  vite-plugin-vue-setup-extend: 0.4.0_vite@2.7.13
   vue-tsc: 0.31.1_typescript@4.5.5
 
 packages:
@@ -1552,6 +1554,16 @@ packages:
   /upath/2.0.1:
     resolution: {integrity: sha512-1uEe95xksV1O0CYKXo8vQvN1JEbtJp7lb7C5U9HMsIp6IVwntkH/oNUzyVNQSd4S1sYk2FpSSW44FqMc8qee5w==}
     engines: {node: '>=4'}
+    dev: true
+
+  /vite-plugin-vue-setup-extend/0.4.0_vite@2.7.13:
+    resolution: {integrity: sha512-WMbjPCui75fboFoUTHhdbXzu4Y/bJMv5N9QT9a7do3wNMNHHqrk+Tn2jrSJU0LS5fGl/EG+FEDBYVUeWIkDqXQ==}
+    peerDependencies:
+      vite: '>=2.0.0'
+    dependencies:
+      '@vue/compiler-sfc': 3.2.29
+      magic-string: 0.25.7
+      vite: 2.7.13_sass@1.49.7
     dev: true
 
   /vite/2.7.13_sass@1.49.7:
