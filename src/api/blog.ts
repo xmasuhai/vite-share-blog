@@ -52,3 +52,10 @@ export default {
     return request(URL.delete.replace(':blogId', `${blogId}`), 'DELETE');
   },
 };
+
+// 使用示例
+// auth.register({username: hungerXx', password: '123456})
+// auth.getInfo({)
+// blog.createBlog({title: hungerXx', atIndex: true})
+// blog.getBlogs()
+// blog.getBlogsByUserId(6)
