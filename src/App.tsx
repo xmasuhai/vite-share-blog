@@ -1,6 +1,6 @@
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
-import HelloWorld from '@/components/HelloWorld.vue';
+import HelloWorld from '@/components/BlogHeader.vue';
 import {defineComponent, provide} from 'vue';
 import appClass from '@/styles/app.module.scss'; // css modules
 import logoImg from '@/assets/logo.png'; // static assets
