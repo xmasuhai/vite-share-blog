@@ -2,7 +2,7 @@
 // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
 import HelloWorld from '@/components/HelloWorld.vue';
 import {defineComponent} from 'vue';
-import appClass from '@/styles/app.module.scss' // css modules
+import appClass from '@/styles/app.module.scss'; // css modules
 import logoImg from '@/assets/logo.png'; // static assets
 
 // 用defineComponent定义组件且要导出

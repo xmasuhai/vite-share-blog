@@ -80,6 +80,8 @@ export default defineConfig({
       scss: {
         additionalData: `
         @import "@/assets/style/variables.scss";
+        @import "@/assets/style/global.scss";
+        @import "@/assets/style/reset.scss";
         @import "@/assets/style/mixin.scss";
         @import "@/assets/style/main.scss";
         `,
