@@ -5,6 +5,7 @@ import {defineComponent, provide} from 'vue';
 import appClass from '@/styles/app.module.scss'; // css modules
 import logoImg from '@/assets/logo.png'; // static assets
 import {message} from 'ant-design-vue';
+import 'ant-design-vue/dist/antd.css';
 
 // 用defineComponent定义组件且要导出
 // noinspection JSXNamespaceValidation
