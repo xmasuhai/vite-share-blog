@@ -16,7 +16,7 @@ export default defineComponent({
     // noinspection JSXNamespaceValidation
     return (
       <>
-        <Button onClick={() => {
+        <Button onClick={({/*event: MouseEvent*/}) => {
           // this.popMessage && this.popMessage.error.bind(this, '这是一条错误消息', 2)
           this.popMessage && this.popMessage.error('这是一条错误消息', 2);
         }}>
