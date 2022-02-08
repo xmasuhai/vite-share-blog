@@ -1,15 +1,27 @@
 import {defineComponent} from 'vue';
 
+const BlogHeaderProps = {
+  desc: String,
+  thumb: String,
+  title: String,
+};
+
 export default defineComponent({
   name: 'BlogHeader',
-  props: {msg: String,},
+  props: BlogHeaderProps,
   components: {},
   setup(/*props, ctx*/) {
 
-    return () => (
+    return {
+
+    }
+  },
+  render() {
+    // noinspection JSXNamespaceValidation
+    return (
       <>
-       <h1>BlogHeader.tsx</h1>
+        <h1>BlogHeader</h1>
       </>
     );
   }
-})
+});
