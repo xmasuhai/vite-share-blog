@@ -9,7 +9,6 @@ export default defineComponent({
     return {};
   },
   render() {
-    // noinspection JSXNamespaceValidation
     return (
       <>
         编辑博客页面

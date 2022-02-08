@@ -76,6 +76,12 @@ export default defineConfig({
     },
   },
   css: {
+    // 配置 css modules 的行为
+    modules: {
+      scopeBehaviour: 'local',
+      // generateScopedName: // default,
+      localsConvention: 'camelCase',
+    },
     preprocessorOptions: {
       scss: {
         additionalData: `

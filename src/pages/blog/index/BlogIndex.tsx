@@ -1,6 +1,8 @@
 import {Button, message} from 'ant-design-vue';
 import {defineComponent, inject} from 'vue';
 
+import basic from '@/styles/basic.module.scss';
+
 export default defineComponent({
   name: 'BlogIndex',
   props: {},
@@ -13,10 +15,9 @@ export default defineComponent({
     };
   },
   render() {
-    // noinspection JSXNamespaceValidation
     return (
       <>
-        <Button onClick={({/*event: MouseEvent*/}) => {
+        <Button class={basic.btn} onClick={({/*event: MouseEvent*/}) => {
           // this.popMessage && this.popMessage.error.bind(this, '这是一条错误消息', 2)
           this.popMessage && this.popMessage.error('这是一条错误消息', 2);
         }}>

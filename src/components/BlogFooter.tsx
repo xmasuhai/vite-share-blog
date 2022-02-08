@@ -1,9 +1,8 @@
+import blogClass from '@/styles/blog.module.scss';
 import {defineComponent,} from 'vue';
 
 const BlogFooterProps = {
-  desc: String,
-  thumb: String,
-  title: String,
+  isSHow: Boolean
 };
 
 export default defineComponent({
@@ -16,9 +15,9 @@ export default defineComponent({
   },
   render() {
     return (
-      <>
-        <h1>BlogFooter</h1>
-      </>
+      <footer class={blogClass.blogFooter}>
+        <p>BlogFooter</p>
+      </footer>
     );
   }
 });

@@ -1,0 +1,13 @@
+@import '../assets/style/variables.scss';
+
+.btn {
+  color: $themeColor;
+  border: 1px solid $themeLighterColor;
+  background: none;
+  border-radius: 4px;
+
+  &:hover {
+    color: #fff;
+    background-color: $themeLighterColor;
+  }
+}
