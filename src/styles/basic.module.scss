@@ -1,13 +1,13 @@
-@import '../assets/style/variables.scss';
+@import '../assets/style/variables';
 
-.btn {
-  color: $themeColor;
-  border: 1px solid $themeLighterColor;
-  background: none;
+button.blog-btn {
+  background: $white;
+  border: 1px solid $theme-lighter-color;
   border-radius: 4px;
+  color: $theme-color;
 
   &:hover {
-    color: #fff;
-    background-color: $themeLighterColor;
+    background-color: $theme-lighter-color;
+    color: $white;
   }
 }
