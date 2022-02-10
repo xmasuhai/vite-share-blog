@@ -1,64 +1,67 @@
+@import 'src/assets/style/variables';
+
+%h1-style {
+  color: $white;
+  font-size: 40px;
+  text-transform: uppercase;
+}
+
 .blog-header {
   // 默认为未登录状态
-  background: darkolivegreen;
+  background: $bg-color-veg;
   display: grid;
   justify-items: center;
-  padding: 0 12% 30px 12%;
+  padding: 0 12% 30px;
 
   h1 {
-    color: #fff;
-    font-size: 40px;
-    margin: 60px 0 0 0;
-    text-transform: uppercase;
+    @extend %h1-style;
+    margin: 60px 0 0;
   }
 
   p {
-    color: #fff;
-    margin: 15px 0 0 0;
-  }
-
-  button {
-    margin: 20px 5px 0;
-  }
-
-  //切换为登录状态 覆盖未登录状态样式
-  .login {
-    align-items: center;
-    background: darkolivegreen;
-    display: flex;
-
-    h1 {
-      margin: 0;
-      padding: 0;
-      color: #fff;
-      font-size: 40px;
-      text-transform: uppercase;
-      flex: 1;
-    }
-
-    .edit {
-      color: #fff;
-      font-size: 30px;
-    }
-
-    .avatar {
-      width: 40px;
-      height: 40px;
-      border: 1px solid #fff;
-      border-radius: 50%;
-      margin-left: 15px;
-    }
+    color: $white;
+    margin: 15px 0 0;
   }
 
   .btns {
     margin-top: 20px;
   }
 
+  button {
+    margin: 20px 5px 0;
+  }
+
+  // 切换为登录状态 覆盖未登录状态样式
+  .login {
+    align-items: center;
+    display: flex;
+
+    h1 {
+      @extend %h1-style;
+      flex: 1;
+      margin: 0;
+      padding: 0;
+    }
+
+    .edit-icon {
+      color: $white;
+      font-size: 30px;
+    }
+
+    .avatar {
+      border: 1px solid $white;
+      border-radius: 50%;
+      height: 40px;
+      margin-left: 15px;
+      width: 40px;
+    }
+  }
+
 }
 
 .blog-footer {
-  background-color: #d7d7d7;
-  color: #666;
+  background-color: $bg-color-footer;
+  color: $font-color-footer;
   font-size: 13px;
   padding: 10px;
   text-align: center;
