@@ -41,27 +41,24 @@
 
   .slogan {
     @extend %h1-style;
-    flex: .4 1 0;
+    flex: 1;
     margin: 0;
     padding: 0;
   }
 
-  .tips {
-    color: $white;
-    flex: 1;
-  }
+  .user {
+    .edit-icon {
+      color: $white;
+      font-size: 30px;
+    }
 
-  .edit-icon {
-    color: $white;
-    font-size: 30px;
-  }
-
-  .avatar {
-    border: 1px solid $white;
-    border-radius: 50%;
-    height: 40px;
-    margin-left: 15px;
-    width: 40px;
+    .avatar {
+      border: 1px solid $white;
+      border-radius: 50%;
+      height: 40px;
+      margin-left: 15px;
+      width: 40px;
+    }
   }
 }
 

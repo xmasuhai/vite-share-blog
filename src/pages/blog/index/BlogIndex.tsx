@@ -1,12 +1,11 @@
-import {Button, message} from 'ant-design-vue';
+import {message} from 'ant-design-vue';
 import {defineComponent, inject} from 'vue';
 // CSS module
 import basic from '@/styles/basic.module.scss';
+import blogIndex from '@/styles/blog-index.module.scss';
 
 // multiClass
-import classnames from 'classnames';
-
-const btnClass = [basic.blogBtn];
+// const btnClass = [basic.blogBtn];
 
 export default defineComponent({
   name: 'BlogIndex',
@@ -21,12 +20,45 @@ export default defineComponent({
   render() {
     return (
       <>
-        <Button class={classnames(...btnClass)}
-                onClick={({/*event: MouseEvent*/}) => {
-                  this.popMessage && this.popMessage.error('这是一条错误消息', 2);
-                }}>
-          博客首页
-        </Button>
+        <section class={blogIndex.blogPost}>
+          <div class={blogIndex.item}>
+            <figure class={blogIndex.avatar}>
+              <img class={blogIndex.img} src="" alt=""/>
+              <figcaption class={blogIndex.info}>姓名</figcaption>
+            </figure>
+
+            <h3 class={blogIndex.title}>文章标题
+              <span class={blogIndex.date}>时间</span>
+            </h3>
+            <p class={blogIndex.article}>正文，最多显示前200字</p>
+          </div>
+
+
+          <div class={blogIndex.item}>
+            <figure class={blogIndex.avatar}>
+              <img class={blogIndex.img} src="" alt=""/>
+              <figcaption class={blogIndex.info}>姓名</figcaption>
+            </figure>
+
+            <h3 class={blogIndex.title}>文章标题
+              <span class={blogIndex.date}>时间</span>
+            </h3>
+            <p class={blogIndex.article}>正文，最多显示前200字</p>
+          </div>
+
+
+          <div class={blogIndex.item}>
+            <figure class={blogIndex.avatar}>
+              <img class={blogIndex.img} src="" alt=""/>
+              <figcaption class={blogIndex.info}>姓名</figcaption>
+            </figure>
+
+            <h3 class={blogIndex.title}>文章标题
+              <span class={blogIndex.date}>时间</span>
+            </h3>
+            <p class={blogIndex.article}>正文，最多显示前200字</p>
+          </div>
+        </section>
       </>
     );
   }

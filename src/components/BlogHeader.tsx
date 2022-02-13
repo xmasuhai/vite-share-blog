@@ -33,26 +33,28 @@ export default defineComponent({
 
     const renderUnLogin = () => {
       return (
-        <div class={blogClass.btns}>
-          {renderBtn('立即登录')}
-          {renderBtn('注册账号')}
-        </div>
+        <>
+          <p class={blogClass.tips}>精品博客汇聚</p>
+          <div class={blogClass.btns}>
+            {renderBtn('立即登录')}
+            {renderBtn('注册账号')}
+          </div>
+        </>
       );
     };
 
     const renderLogin = () => {
       return (
-        <>
+        <div class={blogClass.user}>
           <i>123</i>
-          <img src="" alt=""/>
-        </>
+          <img src="http://cn.gravatar.com/avatar/1?s=128&d=identicon" alt="avatar"/>
+        </div>
       );
     };
 
     return (
       <header class={classNames(...this.isLoginClass)}>
         <h1 class={blogClass.slogan}>Let's share</h1>
-        <p class={blogClass.tips}>精品博客汇聚</p>
         {this.isLogin
           ? renderLogin()
           : renderUnLogin()
