@@ -19,8 +19,8 @@ export default defineComponent({
 
     const isLoginClass = computed(() => {
       return (
-        isLogin
-          ? [blogClass.blogHeader, blogClass.login]
+        isLogin.value
+          ? [blogClass.login]
           : [blogClass.blogHeader]);
     });
     return {
@@ -51,8 +51,8 @@ export default defineComponent({
 
     return (
       <header class={classNames(...this.isLoginClass)}>
-        <h1>Let's share</h1>
-        <p>精品博客汇聚</p>
+        <h1 class={blogClass.slogan}>Let's share</h1>
+        <p class={blogClass.tips}>精品博客汇聚</p>
         {this.isLogin
           ? renderLogin()
           : renderUnLogin()
