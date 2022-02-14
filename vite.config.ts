@@ -2,6 +2,7 @@ import {defineConfig} from 'vite';
 import vue from '@vitejs/plugin-vue';
 import path from 'path'; // @types/node
 import vueJsx from '@vitejs/plugin-vue-jsx';
+import {viteMockServe} from 'vite-plugin-mock';
 // setup name
 import VueSetupExtend from 'vite-plugin-vue-setup-extend';
 // 自动引入组件和方法
@@ -13,6 +14,11 @@ import {
   HeadlessUiResolver,
 } from 'unplugin-vue-components/resolvers';
 import AutoImport from 'unplugin-auto-import/vite';
+
+// 本地开发模式
+const localEnabled: boolean = (process.env.USE_MOCK as unknown as boolean) || false;
+// 生产模式
+const prodEnabled: boolean = (process.env.USE_CHUNK_MOCK as unknown as boolean) || false;
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -36,7 +42,7 @@ export default defineConfig({
       // 组件的有效文件扩展名
       extensions: ['vue', 'tsx'],
       // 配置文件生成位置
-      dts: 'src/components/components.d.ts',
+      dts: 'src/components.d.ts',
       // search for subdirectories
       // 搜索子目录
       deep: true,
@@ -64,8 +70,23 @@ export default defineConfig({
         globalsPropValue: true // Default `true`, (true | false | 'readonly' | 'readable' | 'writable' | 'writeable')
       },
       // 可以选择auto-import.d.ts生成的位置，使用ts建议设置为 'src/auto-import.d.ts'
-      // dts: 'src/auto-import.d.ts'
+      dts: 'src/auto-import.d.ts'
     }),
+    viteMockServe({
+      // ignore: /^\_/, // 忽略的文件名
+      // ↓解析根目录下的mock文件夹
+      mockPath: './mock',
+      localEnabled: localEnabled,  // 开发打包开关
+      prodEnabled: prodEnabled, // 生产打包开关
+      supportTs: true, // 打开后，可以读取 ts 文件模块。 请注意，打开后将无法监视.js 文件
+      watchFiles: true, // 监视文件更改
+      // 下面这段代码会被注入 main.ts
+      injectCode: `
+      import { setupProdMockServer } from '../mock/_createProductionServer';
+      setupProdMockServer();
+      `,
+
+    })
   ],
   server: {
     host: '0.0.0.0' // 解决  Network: use --host to expose

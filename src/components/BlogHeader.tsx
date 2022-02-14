@@ -5,6 +5,7 @@ import {Button,} from 'ant-design-vue';
 import classNames from 'classnames';
 import blogClass from '@/styles/blog.module.scss';
 import basic from '@/styles/basic.module.scss';
+import axios from 'axios';
 
 // props
 const BlogHeaderProps = {
@@ -30,6 +31,13 @@ export default defineComponent({
   },
   render() {
     const renderBtn = (btnString: string) => { return (<Button class={basic.blogBtn}>{btnString}</Button>); };
+
+    /*
+    axios.get('/api/getUser')
+      .then(res => {
+      console.log('res', res)
+      });
+    */
 
     const renderUnLogin = () => {
       return (
