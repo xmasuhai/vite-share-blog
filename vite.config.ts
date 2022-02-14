@@ -15,10 +15,13 @@ import {
 } from 'unplugin-vue-components/resolvers';
 import AutoImport from 'unplugin-auto-import/vite';
 
+/*
+
 // 本地开发模式
 const localEnabled: boolean = (process.env.USE_MOCK as unknown as boolean) || false;
 // 生产模式
 const prodEnabled: boolean = (process.env.USE_CHUNK_MOCK as unknown as boolean) || false;
+*/
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -76,16 +79,20 @@ export default defineConfig({
       // ignore: /^\_/, // 忽略的文件名
       // ↓解析根目录下的mock文件夹
       mockPath: './mock',
+      /*
       localEnabled: localEnabled,  // 开发打包开关
       prodEnabled: prodEnabled, // 生产打包开关
+      */
+      localEnabled: true,
       supportTs: true, // 打开后，可以读取 ts 文件模块。 请注意，打开后将无法监视.js 文件
       watchFiles: true, // 监视文件更改
+      /*
       // 下面这段代码会被注入 main.ts
       injectCode: `
       import { setupProdMockServer } from '../mock/_createProductionServer';
-      setupProdMockServer();
+      ();
       `,
-
+      */
     })
   ],
   server: {
