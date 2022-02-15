@@ -7,18 +7,19 @@ import blogIndex from '@/styles/blog-index.module.scss';
 // multiClass
 // const btnClass = [basic.blogBtn];
 
+import blogApi from '@/api/blog';
+
+const {getBlogs} = blogApi;
+
 export default defineComponent({
   name: 'BlogIndex',
   props: {},
   setup(/*props, ctx*/) {
     const popMessage = inject<typeof message>('$message');
-/*
 
-    const getBlogList = async() => {
-
-    }
-*/
-
+    const getBlogList = async () => {
+      const BlogDataList = await getBlogs();
+    };
 
     return {
       popMessage
