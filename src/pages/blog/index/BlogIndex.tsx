@@ -12,6 +12,13 @@ export default defineComponent({
   props: {},
   setup(/*props, ctx*/) {
     const popMessage = inject<typeof message>('$message');
+/*
+
+    const getBlogList = async() => {
+
+    }
+*/
+
 
     return {
       popMessage

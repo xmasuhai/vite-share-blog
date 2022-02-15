@@ -34,7 +34,7 @@ export default function request(url: string, type: Method = 'GET', data = {}) {
 
     axios(option)
       .then(res => {
-        console.log(res.data);
+        // console.log(res.data);
         // 接口文档约定 res.data.status: 'ok' 见 http://dw-z.ink/2j4pC
         if (res.data.status === 'ok') {
           res.data.token && storeToken(res.data.token);
