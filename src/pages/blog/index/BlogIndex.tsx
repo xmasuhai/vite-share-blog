@@ -29,17 +29,6 @@ export default defineComponent({
     return (
       <>
         <section class={blogIndex.blogPost}>
-          <div class={blogIndex.item}>
-            <figure class={blogIndex.avatar}>
-              <img class={blogIndex.img} src="" alt=""/>
-              <figcaption class={blogIndex.info}>姓名</figcaption>
-            </figure>
-
-            <h3 class={blogIndex.title}>文章标题
-              <span class={blogIndex.date}>时间</span>
-            </h3>
-            <p class={blogIndex.article}>正文，最多显示前200字</p>
-          </div>
 
           <div class={blogIndex.item}>
             <figure class={blogIndex.avatar}>
@@ -47,23 +36,13 @@ export default defineComponent({
               <figcaption class={blogIndex.info}>姓名</figcaption>
             </figure>
 
-            <h3 class={blogIndex.title}>文章标题
+            <h3 class={blogIndex.title}>
+              文章标题
               <span class={blogIndex.date}>时间</span>
             </h3>
             <p class={blogIndex.article}>正文，最多显示前200字</p>
           </div>
 
-          <div class={blogIndex.item}>
-            <figure class={blogIndex.avatar}>
-              <img class={blogIndex.img} src="" alt=""/>
-              <figcaption class={blogIndex.info}>姓名</figcaption>
-            </figure>
-
-            <h3 class={blogIndex.title}>文章标题
-              <span class={blogIndex.date}>时间</span>
-            </h3>
-            <p class={blogIndex.article}>正文，最多显示前200字</p>
-          </div>
         </section>
       </>
     );

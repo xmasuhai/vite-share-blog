@@ -7,32 +7,35 @@
     margin: 20px 0;
 
     .avatar {
-      grid-column: 1;
+      grid-column: 1; // 等价写法 // grid-column: 1 / 2; // grid-column: 1 / span 1;
       grid-row: 1 / span 2;
       justify-self: center;
       margin-left: 0;
       text-align: center;
 
-      .img {
-        width: 60px;
-        height: 60px;
+      @at-root .img {
         border-radius: 50%;
+        height: 60px;
+        width: 60px;
       }
 
-      .info {
-        font-size: 12px;
+      @at-root .info {
         color: $theme-lighter-color;
+        font-size: 12px;
       }
     }
 
     .title {
+      align-items: center;
+      display: flex;
       grid-column: 2;
       grid-row: 1;
 
-      & > .date {
+      @at-root .date {
         color: $theme-lighter-color;
         font-size: 12px;
         font-weight: normal;
+        margin-left: 1em;
       }
     }
 
