@@ -1,5 +1,5 @@
 // layout 布局
-.app {
+.layout {
   display: grid;
   grid-template-areas: "header header header"
                        ".      main  ."
@@ -28,7 +28,7 @@
 }
 
 @media (max-width: 768px) {
-  .app {
+  .layout {
     grid-template-columns: 10px auto 10px;
 
     .blog-header,

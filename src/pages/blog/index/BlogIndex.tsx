@@ -1,7 +1,7 @@
 import {message} from 'ant-design-vue';
 import {defineComponent, inject} from 'vue';
 // CSS module
-import basic from '@/styles/basic.module.scss';
+// import basic from '@/styles/basic.module.scss';
 import blogIndex from '@/styles/blog-index.module.scss';
 
 // multiClass
@@ -33,7 +33,6 @@ export default defineComponent({
             <p class={blogIndex.article}>正文，最多显示前200字</p>
           </div>
 
-
           <div class={blogIndex.item}>
             <figure class={blogIndex.avatar}>
               <img class={blogIndex.img} src="" alt=""/>
@@ -45,7 +44,6 @@ export default defineComponent({
             </h3>
             <p class={blogIndex.article}>正文，最多显示前200字</p>
           </div>
-
 
           <div class={blogIndex.item}>
             <figure class={blogIndex.avatar}>

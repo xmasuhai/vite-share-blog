@@ -17,15 +17,15 @@ export default defineComponent({
     return {};
   },
   render() {
-    const renderBlogHeader = () => {return (<BlogHeader class={layoutClass.blogHeader}/>);};
-    const renderBlogFooter = () => {return (<BlogFooter class={layoutClass.blogFooter}/>);};
+    const renderBlogHeader = (cssModule: string) => {return (<BlogHeader class={cssModule}/>);};
+    const renderBlogFooter = (cssModule: string) => {return (<BlogFooter class={cssModule}/>);};
     return (
-      <div class={layoutClass.app}>
-        {renderBlogHeader()}
+      <div class={layoutClass.layout}>
+        {renderBlogHeader(layoutClass.blogHeader)}
         <main class={layoutClass.blogMain}>
           <router-view/>
         </main>
-        {renderBlogFooter()}
+        {renderBlogFooter(layoutClass.blogFooter)}
       </div>
     );
   }

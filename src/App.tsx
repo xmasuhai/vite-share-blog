@@ -1,10 +1,12 @@
-import Layout from '@/components/Layout';
 import {defineComponent, provide} from 'vue';
 
-// Comps ant
+// Comps
+import Layout from '@/components/Layout';
+
+// UI  ant
 import {message} from 'ant-design-vue';
 
-// CSS Style
+// UI lib CSS Style
 import 'ant-design-vue/es/button/style/index.css';
 import 'ant-design-vue/es/message/style/index.css';
 
@@ -17,7 +19,7 @@ export default defineComponent({
     provide('$message', message);
   },
   render: () => {
-    const renderLayout = () => { return (<Layout/>)}
+    const renderLayout = () => { return (<Layout/>);};
     return (
       renderLayout()
     );

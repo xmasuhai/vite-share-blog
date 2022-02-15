@@ -1,22 +1,28 @@
 import {defineConfig} from 'vite';
 import vue from '@vitejs/plugin-vue';
-import path from 'path'; // @types/node
+// @types/node
+import path from 'path';
+
+// plugins
 import vueJsx from '@vitejs/plugin-vue-jsx';
-import {viteMockServe} from 'vite-plugin-mock';
 // setup name
 import VueSetupExtend from 'vite-plugin-vue-setup-extend';
 // 自动引入组件和方法
 import autoComponents from 'unplugin-vue-components/vite';
 import {
-  ElementPlusResolver,
   AntDesignVueResolver,
+  /*
+  ElementPlusResolver,
   VantResolver,
   HeadlessUiResolver,
+  */
 } from 'unplugin-vue-components/resolvers';
 import AutoImport from 'unplugin-auto-import/vite';
 
-/*
+//mock
+import {viteMockServe} from 'vite-plugin-mock';
 
+/*
 // 本地开发模式
 const localEnabled: boolean = (process.env.USE_MOCK as unknown as boolean) || false;
 // 生产模式
@@ -34,10 +40,12 @@ export default defineConfig({
       // ui库解析器，也可以自定义
       // resolvers: [ElementPlusResolver()],
       resolvers: [
-        ElementPlusResolver(),
         AntDesignVueResolver(),
+        /*
+        ElementPlusResolver(),
         VantResolver(),
         HeadlessUiResolver(),
+        */
       ],
       // 指定组件位置，默认是src/components
       dirs: ['src/components'],
