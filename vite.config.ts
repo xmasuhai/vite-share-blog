@@ -125,7 +125,7 @@ export default defineConfig({
         @import "@/assets/style/global.scss";
         @import "@/assets/style/reset.scss";
         @import "@/assets/style/mixin.scss";
-        @import "@/assets/style/main.scss";
+        @import "@/assets/style/blog-article.scss";
         `,
       }
     }

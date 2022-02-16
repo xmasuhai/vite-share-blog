@@ -47,6 +47,7 @@
     }
 
     .article {
+      height: 65px;
       font-weight: lighter;
       grid-column: 2;
       grid-row: 2;
@@ -59,7 +60,7 @@
       word-wrap: break-word;
       white-space: normal;
       -webkit-box-orient: vertical;
-      -webkit-line-clamp: 2;
+      -webkit-line-clamp: 3;
     }
 
   }

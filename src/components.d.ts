@@ -5,6 +5,7 @@
 declare module 'vue' {
   export interface GlobalComponents {
     About: typeof import('./components/About.tsx')['default']
+    BlogBody: typeof import('./components/BlogBody.tsx')['default']
     BlogFooter: typeof import('./components/BlogFooter.tsx')['default']
     BlogHeader: typeof import('./components/BlogHeader.tsx')['default']
     Layout: typeof import('./components/Layout.tsx')['default']

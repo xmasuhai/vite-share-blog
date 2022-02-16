@@ -11,6 +11,9 @@ import 'ant-design-vue/es/button/style/index.css';
 import 'ant-design-vue/es/message/style/index.css';
 import 'ant-design-vue/es/input/style/index.css';
 
+// Cover ant-design-vue
+import '@/assets/style/cover-ant.scss';
+
 // 用defineComponent定义组件且要导出
 export default defineComponent({
   name: 'App',

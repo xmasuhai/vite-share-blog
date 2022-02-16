@@ -1,6 +1,7 @@
 // layout 布局
 .layout {
   align-items: center;
+
   display: grid;
   grid-template-areas: "header header header"
                        ".      main  ."
@@ -26,6 +27,10 @@
     padding-right: 12%;
   }
 
+}
+
+.isBlogDetail {
+  align-items: start;
 }
 
 @media (max-width: 768px) {
