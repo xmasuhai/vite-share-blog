@@ -1,0 +1,17 @@
+@import 'src/assets/style/variables';
+
+.create,
+.edit {
+
+  padding-bottom: 30px;
+
+  h1 {
+    text-align: center;
+  }
+
+  .msg {
+    color: $text-lighter-color;
+    font-size: 12px;
+    text-align: right;
+  }
+}
