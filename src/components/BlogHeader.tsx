@@ -1,4 +1,6 @@
 import {computed, defineComponent, ref} from 'vue';
+
+// UI lib
 import {Button,} from 'ant-design-vue';
 
 // CSS module
@@ -24,7 +26,7 @@ export default defineComponent({
       });
     */
 
-    const isLogin = ref(false);
+    const isLogin = ref(true);
 
     const isLoginClass = computed(() => {
       return (
@@ -38,7 +40,11 @@ export default defineComponent({
     };
   },
   render() {
-    const renderBtn = (btnString: string) => { return (<Button class={basic.blogBtn}>{btnString}</Button>); };
+    const renderBtn = (btnString: string) => {
+      return (
+        <Button class={basic.blogBtn}>{btnString}</Button>
+      );
+    };
 
     const renderUnLogin = () => {
       return (
@@ -55,8 +61,10 @@ export default defineComponent({
     const renderLogin = () => {
       return (
         <div class={blogClass.user}>
-          <i>123</i>
-          <img src="http://cn.gravatar.com/avatar/1?s=128&d=identicon" alt="avatar"/>
+          <i class={blogClass.editIcon}>Edit</i>
+          <img class={blogClass.avatar}
+               src="https://cn.gravatar.com/avatar/1?s=128&d=identicon"
+               alt="avatar"/>
         </div>
       );
     };

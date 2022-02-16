@@ -1,5 +1,18 @@
 @import 'src/assets/style/variables';
 
+%user-quicklook {
+  .img {
+    border-radius: 50%;
+    height: 60px;
+    width: 60px;
+  }
+
+  .info {
+    color: $theme-lighter-color;
+    font-size: 12px;
+  }
+}
+
 .blog-post {
   .item {
     display: grid;
@@ -13,16 +26,10 @@
       margin-left: 0;
       text-align: center;
 
-      @at-root .img {
-        border-radius: 50%;
-        height: 60px;
-        width: 60px;
+      @at-root & {
+        @extend %user-quicklook;
       }
 
-      @at-root .info {
-        color: $theme-lighter-color;
-        font-size: 12px;
-      }
     }
 
     .title {
@@ -40,11 +47,14 @@
     }
 
     .article {
+      font-weight: lighter;
       grid-column: 2;
       grid-row: 2;
       margin-top: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
-
 
   }
 }

@@ -47,17 +47,23 @@
   }
 
   .user {
+    display: flex;
+    align-items: center;
+
     .edit-icon {
       color: $white;
-      font-size: 30px;
+      font-size: 18px;
     }
 
     .avatar {
       border: 1px solid $white;
       border-radius: 50%;
       height: 40px;
-      margin-left: 15px;
       width: 40px;
+      margin-left: 15px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
 }
