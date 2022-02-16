@@ -26,7 +26,7 @@ export default defineComponent({
       });
     */
 
-    const isLogin = ref(true);
+    const isLogin = ref(false);
 
     const isLoginClass = computed(() => {
       return (

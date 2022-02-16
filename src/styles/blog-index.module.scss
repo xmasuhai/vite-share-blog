@@ -51,9 +51,15 @@
       grid-column: 2;
       grid-row: 2;
       margin-top: 0;
+
+      // 多行文字省略
+      display: -webkit-box;
       overflow: hidden;
       text-overflow: ellipsis;
-      white-space: nowrap;
+      word-wrap: break-word;
+      white-space: normal;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
     }
 
   }

@@ -9,6 +9,7 @@ import {message} from 'ant-design-vue';
 // UI lib CSS Style
 import 'ant-design-vue/es/button/style/index.css';
 import 'ant-design-vue/es/message/style/index.css';
+import 'ant-design-vue/es/input/style/index.css';
 
 // 用defineComponent定义组件且要导出
 export default defineComponent({

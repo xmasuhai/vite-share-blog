@@ -1,0 +1,42 @@
+@import 'src/assets/style/variables';
+
+.login,
+.register {
+  align-items: center;
+  display: grid;
+  justify-content: center;
+  padding-top: 30px;
+
+  h4 {
+    margin: 10px 0 5px;
+  }
+
+  p {
+    margin: 5px 0;
+  }
+
+  input {
+    width: 400px;
+  }
+
+  .error {
+    color: $color-warn;
+    font-size: 12px;
+  }
+
+  button {
+    justify-self: start;
+    margin-top: 10px;
+  }
+
+  .notice {
+    color: $text-lighter-color;
+    font-size: 12px;
+    margin-top: 30px;
+    text-align: center;
+
+    a {
+      color: $theme-color;
+    }
+  }
+}

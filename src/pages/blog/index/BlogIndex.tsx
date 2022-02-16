@@ -3,10 +3,7 @@ import {defineComponent, inject} from 'vue';
 // CSS module
 // import basic from '@/styles/basic.module.scss';
 import blogIndex from '@/styles/blog-index.module.scss';
-
-// multiClass
-// const btnClass = [basic.blogBtn];
-
+// request
 import blogApi from '@/api/blog';
 
 const {getBlogs} = blogApi;
