@@ -37,7 +37,7 @@ export default defineComponent({
                     auto-size={{minRows: 5, maxRows: 8}}/>
           <p class={cssCreateEdit.msg}>限30个字</p>
 
-          <Button class="blogBtn">
+          <Button class="blog-btn">
             确定
           </Button>
         </section>

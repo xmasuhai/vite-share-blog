@@ -33,21 +33,21 @@ export default function request(url: string, type: Method = 'GET', data = {}) {
     }
 
     axios(option)
-      .then(res => {
-        // console.log(res.data);
-        // 接口文档约定 res.data.status: 'ok' 见 http://dw-z.ink/2j4pC
-        if (res.data.status === 'ok') {
-          res.data.token && storeToken(res.data.token);
-          resolve(res.data);
-        } else {
-          errorMsg(res.data.msg);
-          reject(res.data);
-        }
-      })
-      .catch(err => {
-        errorMsg('网络异常');
-        reject({msg: '网络异常', errorDetail: err});
-      });
+    .then(res => {
+      // console.log(res.data);
+      // 接口文档约定 res.data.status: 'ok' 见 http://dw-z.ink/2j4pC
+      if (res.data.status === 'ok') {
+        res.data.token && storeToken(res.data.token);
+        resolve(res.data);
+      } else {
+        errorMsg(res.data.msg);
+        reject(res.data);
+      }
+    })
+    .catch(err => {
+      errorMsg('网络异常');
+      reject({msg: '网络异常', errorDetail: err});
+    });
   });
 }
 
