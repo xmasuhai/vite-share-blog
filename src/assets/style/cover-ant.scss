@@ -2,7 +2,7 @@
 
 body {
   color: #333;
-  font: 14px/1.6 Arial,"Microsoft YaHei","??","??",sans-serif;
+  font: 14px/1.6 Arial, "Microsoft YaHei", "??", "??", sans-serif;
   margin: 0;
 }
 
@@ -10,26 +10,23 @@ html, body, #app {
   height: 100%;
 }
 
-.ant-button {
-  color: $theme-color;
+button.blog-btn {
+  background: transparent;
   border: 1px solid $theme-lighter-color;
-  background: none;
   border-radius: 4px;
-}
-
-.ant-button{
-  font-size: 13px;
+  color: $theme-color;
+  font-size: 12px;
   font-weight: normal;
   line-height: 28px;
   padding: 0 8px;
+
+  &:hover {
+    color: #fff;
+    background-color: $theme-lighter-color;
+  }
 }
 
-.ant-button:hover {
-  color: #fff;
-  background-color: $theme-lighter-color;
-}
-
-.ant-input.is-active .ant-input__inner,
+input.is-active .ant-input__inner,
 .ant-input__inner:focus,
 .ant-textarea__inner:focus {
   border-color: $theme-lighter-color;

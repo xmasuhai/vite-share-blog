@@ -36,7 +36,10 @@ export default defineComponent({
                     placeholder="Autosize height with minimum and maximum number of lines"
                     auto-size={{minRows: 5, maxRows: 8}}/>
           <p class={cssCreateEdit.msg}>限30个字</p>
-          <Button>确定</Button>
+
+          <Button class="blogBtn">
+            确定
+          </Button>
         </section>
       </>
     );
