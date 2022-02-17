@@ -600,7 +600,7 @@ packages:
     name: '@simonwep/pickr'
     version: 1.8.2
     dependencies:
-      core-js: registry.npmmirror.com/core-js/3.21.0
+      core-js: registry.npmmirror.com/core-js/3.21.1
       nanopop: registry.npmmirror.com/nanopop/2.1.0
     dev: false
 
@@ -1188,10 +1188,10 @@ packages:
       safe-buffer: registry.npmmirror.com/safe-buffer/5.1.2
     dev: true
 
-  registry.npmmirror.com/core-js/3.21.0:
-    resolution: {integrity: sha512-YUdI3fFu4TF/2WykQ2xzSiTQdldLB4KVuL9WeAy5XONZYt5Cun/fpQvctoKbCgvPhmzADeesTk/j2Rdx77AcKQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/core-js/-/core-js-3.21.0.tgz}
+  registry.npmmirror.com/core-js/3.21.1:
+    resolution: {integrity: sha512-FRq5b/VMrWlrmCzwRrpDYNxyHP9BcAZC+xHJaqTgIE5091ZV1NTmyh0sGOg5XqpnHvR0svdy0sv1gWA1zmhxig==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/core-js/-/core-js-3.21.1.tgz}
     name: core-js
-    version: 3.21.0
+    version: 3.21.1
     requiresBuild: true
     dev: false
 
