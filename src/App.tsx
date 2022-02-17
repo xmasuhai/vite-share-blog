@@ -10,6 +10,7 @@ import {message} from 'ant-design-vue';
 import 'ant-design-vue/es/button/style/index.css';
 import 'ant-design-vue/es/message/style/index.css';
 import 'ant-design-vue/es/input/style/index.css';
+import 'ant-design-vue/es/input-number/style/index.css';
 
 // Cover ant-design-vue
 import '@/assets/style/cover-ant.scss';
