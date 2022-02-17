@@ -1,5 +1,6 @@
 import {defineComponent,} from 'vue';
 import cssDetail from '@/styles/blog-detail.module.scss';
+import classNames from 'classnames';
 
 export default defineComponent({
   name: 'BlogDetail',
@@ -12,18 +13,21 @@ export default defineComponent({
   render() {
     return (
       <>
-        <section class={cssDetail.userInfo}>
+        <section class={cssDetail.userBlog}>
           <img src="https://cn.gravatar.com/avatar/1?s=128&d=identicon"
                alt=""
                class={cssDetail.avatar}/>
-          <h3>前端异步大揭秘</h3>
-          <p>
-            <router-link to="/user">若愚</router-link>
+          <h3 class={cssDetail.title}>前端异步大揭秘</h3>
+          <p class={cssDetail.user}>
+            <router-link to="/user"
+                         class={cssDetail.userPage}>
+              若愚
+            </router-link>
             发布于3天前
           </p>
         </section>
 
-        <section class="article">
+        <section class={classNames([cssDetail.article, 'article'])}>
           <h1 id="css-网格布局学习指南">CSS 网格布局学习指南</h1>
           <p>文章正文,省略一万字...</p>
         </section>

@@ -18,18 +18,29 @@ export default defineComponent({
     return (
       <>
         <section class={cssAuth.login}>
-          <h4>用户名</h4>
+          <h4 class={cssAuth.name}>用户名</h4>
           <Input v-model={this.username}
-                 placeholder="用户名"/>
-          <p class="error">当前用户名已注册</p>
-          <h4>密码</h4>
+                 placeholder="用户名"
+                 class={cssAuth.userInput}/>
+          <p class={cssAuth.error}>
+            当前用户名已注册
+          </p>
+
+          <h4 class={cssAuth.password}>密码</h4>
           <Input v-model={this.password}
                  type="password"
-                 placeholder="密码"/>
-          <p class="error">当前用户名已注册</p>
-          <Button>立即注册</Button>
-          <p class="notice">已有账号？
-            <router-link to="/login">立即登录</router-link>
+                 placeholder="密码"
+                 class={cssAuth.userInput}/>
+          <p class={cssAuth.error}>
+            当前用户名已注册
+          </p>
+
+          <Button class={cssAuth.registerBtn}>
+            立即注册
+          </Button>
+          <p class={cssAuth.notice}>已有账号？
+            <router-link to="/login"
+                         class={cssAuth.toLogin}>立即登录</router-link>
           </p>
         </section>
       </>
