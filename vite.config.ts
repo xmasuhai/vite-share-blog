@@ -72,7 +72,7 @@ export default defineConfig({
         /\.md$/, // .md
       ],
       // global imports to register
-      imports: ['vue', 'vue-router', /*'vue-i18n', '@vueuse/head', '@vueuse/core'*/],
+      imports: ['vue', 'vue-router', 'pinia',/*'vue-i18n', '@vueuse/head', '@vueuse/core'*/],
       // 生成全局声明文件 .eslintrc-auto-import.json ，给eslint用
       // eslint globals Docs - https://eslint.org/docs/user-guide/configuring/language-options#specifying-globals
       eslintrc: {
