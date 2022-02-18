@@ -1,7 +1,7 @@
 import {defineComponent, ref} from 'vue';
-import {Input, Button} from 'ant-design-vue';
 import cssAuth from '@/styles/auth.module.scss';
-import classNames from 'classnames'
+import UserInput from '@/components/user-authentication/UserInput';
+import UserSubmitBtnTip from '@/components/user-authentication/UserSubmitBtnTip';
 
 export default defineComponent({
   name: 'Login',
@@ -19,30 +19,21 @@ export default defineComponent({
     return (
       <>
         <section class={cssAuth.login}>
-          <h4 class={cssAuth.name}>用户名</h4>
-          <Input v-model={this.username}
-                 placeholder="用户名"
-                 class={cssAuth.userInput}/>
-          <p class={cssAuth.error}>
-            当前用户名已注册
-          </p>
 
-          <h4 class={cssAuth.password}>密码</h4>
-          <Input v-model={this.password}
-                 type="password"
-                 placeholder="密码"
-                 class={cssAuth.userInput}/>
-          <p class={cssAuth.error}>当前用户名已注册</p>
+          <UserInput title="用户名"
+                     errorText="当前用户名已注册"
+                     doubleBind={this.username}/>
 
-          <Button class={classNames([cssAuth.registerBtn, 'blog-btn'])}>
-            立即登录
-          </Button>
-          <p class={cssAuth.notice}>没有账号？
-            <router-link to="/register"
-                         class={cssAuth.toRegister}>
-              注册新用户
-            </router-link>
-          </p>
+          <UserInput title="密码"
+                     inputType="password"
+                     errorText="当前用户名或密码不匹配"
+                     doubleBind={this.password}/>
+
+          <UserSubmitBtnTip btnName="立即登录"
+                            tipText="没有账号？"
+                            linkTo="/register"
+                            linkText="注册新用户"/>
+
         </section>
       </>
     );
