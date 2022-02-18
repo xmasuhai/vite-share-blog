@@ -6,7 +6,8 @@ export const useStore = defineStore('myFirstStore', {
     return {
       count: 0,
       name: 'foo',
-      list: [1, 2, 3]
+      list: [1, 2, 3],
+      showLoginRegister: false
     };
   },
   getters: {
@@ -16,7 +17,12 @@ export const useStore = defineStore('myFirstStore', {
     }
   },
   actions: {
-
+    ifLoginPage() {
+      this.showLoginRegister = true;
+    },
+    ifNotLoginPage() {
+      this.showLoginRegister = false;
+    },
     async changeName() {
       /*
       const newName: string = await new Promise((resolve/!*, reject*!/) => {

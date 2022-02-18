@@ -1,6 +1,7 @@
 import {defineComponent, ref,} from 'vue';
 import {Input, Button} from 'ant-design-vue';
 import cssAuth from '@/styles/auth.module.scss';
+import classNames from 'classnames';
 
 export default defineComponent({
   name: 'Register',
@@ -35,7 +36,16 @@ export default defineComponent({
             当前用户名已注册
           </p>
 
-          <Button class={cssAuth.registerBtn}>
+          <h4 class={cssAuth.password}>确认密码</h4>
+          <Input v-model={this.password}
+                 type="password"
+                 placeholder="请重复输入一遍密码"
+                 class={cssAuth.userInput}/>
+          <p class={cssAuth.error}>
+            两次密码输入不一致
+          </p>
+
+          <Button class={classNames([cssAuth.registerBtn, 'blog-btn'])}>
             立即注册
           </Button>
           <p class={cssAuth.notice}>已有账号？

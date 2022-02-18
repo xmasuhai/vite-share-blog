@@ -1,4 +1,6 @@
 import {createRouter, /*createWebHistory*/ createWebHashHistory, RouteRecordRaw} from 'vue-router';
+import {useStore} from '@/store';
+import {storeToRefs} from 'pinia';
 
 const routes: RouteRecordRaw[] = [
   {
@@ -54,7 +56,6 @@ const routes: RouteRecordRaw[] = [
   }
 ];
 
-
 const router = createRouter({
   history: createWebHashHistory(),
   routes,
@@ -62,12 +63,18 @@ const router = createRouter({
 
 // 路由全局前置守卫
 router.beforeEach((to, from, next) => {
-  // console.log("路由全局前置守卫", to, from);
+  let {/* count, name, list, */showLoginRegister,} = storeToRefs(useStore());
+
+  // 是否进入 注册 或 登录 的路由
+  ;['/register', '/login'].includes(to.path)
+    ? ((showLoginRegister.value = true))
+    : ((showLoginRegister.value = false));
+
   next();
 });
 
 // 路由全局后置守卫
-router.afterEach((to, from, next) => {
+router.afterEach((/*to, from, next*/) => {
   // console.log('路由全局后置守卫', to, from);
   // next();
 });

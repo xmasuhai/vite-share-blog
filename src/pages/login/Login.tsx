@@ -1,6 +1,7 @@
 import {defineComponent, ref} from 'vue';
 import {Input, Button} from 'ant-design-vue';
 import cssAuth from '@/styles/auth.module.scss';
+import classNames from 'classnames'
 
 export default defineComponent({
   name: 'Login',
@@ -33,7 +34,7 @@ export default defineComponent({
                  class={cssAuth.userInput}/>
           <p class={cssAuth.error}>当前用户名已注册</p>
 
-          <Button class={cssAuth.registerBtn}>
+          <Button class={classNames([cssAuth.registerBtn, 'blog-btn'])}>
             立即登录
           </Button>
           <p class={cssAuth.notice}>没有账号？

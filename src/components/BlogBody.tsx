@@ -4,6 +4,7 @@ import {defineComponent,} from 'vue';
 const BlogBodyProps = {
   isSHow: Boolean
 };
+
 export default defineComponent({
   name: 'BlogBody',
   props: BlogBodyProps,

@@ -1,5 +1,6 @@
-import {defineComponent, onMounted, getCurrentInstance, computed,} from 'vue';
+import {defineComponent, computed,} from 'vue';
 import classNames from 'classnames';
+import {useStore} from '@/store';
 
 // Comps
 import BlogHeader from '@/components/BlogHeader';
@@ -16,18 +17,14 @@ export default defineComponent({
   name: 'Layout',
   props: LayoutProps,
   setup(/*props, ctx*/) {
-    const instance = getCurrentInstance();
-    const hasBlogBody = ref<boolean>(false);
+    const store = useStore();
+
+    // 判断 <router-view/> 中的组件是否为 register 或 login
+    // 使得 对应组件居中，否则按顺序按 start 开头位置排列
     const cssBlogBody = computed(() => {
-      // console.log(hasBlogBody.value);
-      return hasBlogBody.value
-        ? [layoutClass.layout, layoutClass.isBlogDetail]
-        : [layoutClass.layout];
-    });
-
-    onMounted(() => {
-      hasBlogBody.value = ((instance?.subTree.children as Array<any>)[1].type.name === 'BlogBody');
-
+      return store.showLoginRegister
+        ? [layoutClass.layout]
+        : [layoutClass.layout, layoutClass.isBlogDetail];
     });
 
     return {
@@ -37,7 +34,11 @@ export default defineComponent({
   render() {
     const renderBlogHeader = (cssModule: string) => {return (<BlogHeader class={cssModule}/>);};
     const renderBlogFooter = (cssModule: string) => {return (<BlogFooter class={cssModule}/>);};
-    const renderBlogBody = (cssModule: string) => {return (<BlogBody class={cssModule}/>);};
+    const renderBlogBody = (cssModule: string) => {
+      return (
+        <BlogBody class={cssModule}/>
+      );
+    };
     return (
       <div class={classNames(...this.cssBlogBody)}>
         {renderBlogHeader(layoutClass.blogHeader)}
