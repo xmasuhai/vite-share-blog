@@ -32,6 +32,13 @@ export default defineComponent({
               本文以一个简单的文件读写为例，讲解了异步的不同写法，包括 普通的 callback、ES2016中的Promise和Generator、 Node 用于解决回调的co
               模块、ES2017中的async/await。适合初步接触 Node.js以及少量 ES6语法的同学阅读...
             </p>
+            <div class={cssUser.actions}>
+              <span>阅读量</span>
+              <a href="#"
+                 class={cssUser.delete}>
+                查看博客详情&gt;&gt;&gt;
+              </a>
+            </div>
           </div>
 
           <div class={cssUser.item}>
@@ -45,6 +52,13 @@ export default defineComponent({
               本文以一个简单的文件读写为例，讲解了异步的不同写法，包括 普通的 callback、ES2016中的Promise和Generator、 Node 用于解决回调的co
               模块、ES2017中的async/await。适合初步接触 Node.js以及少量 ES6语法的同学阅读...
             </p>
+            <div class={cssUser.actions}>
+              <span>阅读量</span>
+              <a href="#"
+                 class={cssUser.delete}>
+                查看博客详情&gt;&gt;&gt;
+              </a>
+            </div>
           </div>
 
         </section>

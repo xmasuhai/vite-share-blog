@@ -45,7 +45,7 @@ export default defineComponent({
             限30个字
           </p>
 
-          <Button class="blogBtn">
+          <Button class="blog-btn">
             确定
           </Button>
         </section>
