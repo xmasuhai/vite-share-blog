@@ -1,6 +1,6 @@
 import {defineStore} from 'pinia';
 
-// 定义 store 名为 myFirstStore 是 store 的名称，该名称必须唯一，不可重复
+// 定义 stores 名为 myFirstStore 是 stores 的名称，该名称必须唯一，不可重复
 export const useStore = defineStore('myFirstStore', {
   state: () => { // 必须用箭头函数代替函数声明，否则调用 state 时 失去类型
     return {

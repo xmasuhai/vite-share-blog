@@ -1,6 +1,6 @@
 import {defineComponent, computed,} from 'vue';
 import classNames from 'classnames';
-import {useStore} from '@/store';
+import {useStore} from '@/stores';
 
 // Comps
 import BlogHeader from '@/components/BlogHeader';
