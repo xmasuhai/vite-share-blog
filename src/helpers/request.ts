@@ -1,3 +1,4 @@
+import {responseData/*, userAuthInfo*/} from '@/types/responseData';
 import axios, {AxiosRequestConfig, Method, AxiosPromise,} from 'axios';
 import {message} from 'ant-design-vue';
 
@@ -14,7 +15,7 @@ const storeToken = (tokenStr: string) => {
     : (localStorage.token = tokenStr);
 };
 
-export default function request(url: string, type: Method = 'GET', data = {}): AxiosPromise {
+export default function request(url: string, type: Method = 'GET', data = {}): AxiosPromise<responseData> {
   return new Promise((resolve, reject) => {
     // 配置axios选项参数
     const option: AxiosRequestConfig = {
@@ -24,8 +25,8 @@ export default function request(url: string, type: Method = 'GET', data = {}): A
 
     // 配置数据
     type.toUpperCase() === 'GET'
-      ? option.params = data // 查询参数方式 传递数据
-      : option.data = data;
+      ? option.params = data // 以查询参数方式 传递数据
+      : option.data = data; // 以json方式 传递数据
 
     // 携带JWT，设置请求头字段 axios.defaults.headers.common['Authorization']
     if (localStorage.token) {

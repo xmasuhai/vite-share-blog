@@ -1,5 +1,7 @@
 // 接口文档见 http://dw-z.ink/2j4pC
 import request from '@/helpers/request';
+import {responseData, userAuthInfo} from '@/types/responseData';
+import {AxiosPromise} from 'axios';
 
 const URL = {
   register: '/auth/register',
@@ -8,13 +10,8 @@ const URL = {
   get_info: '/auth',
 };
 
-type userAuthInfo = {
-  username: string,
-  password: string
-}
-
 export default {
-  register(data: userAuthInfo) {
+  register(data: userAuthInfo): AxiosPromise<responseData> {
     return request(URL.register, 'POST', data);
   },
   login(data: userAuthInfo) {
@@ -23,7 +20,7 @@ export default {
   logout() {
     return request(URL.logout);
   },
-  getInfo() {
+  getInfo(): AxiosPromise {
     return request(URL.get_info);
   },
 };

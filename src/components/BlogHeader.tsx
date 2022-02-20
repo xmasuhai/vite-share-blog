@@ -1,3 +1,4 @@
+// import {useStore} from '@/stores';
 import {computed, defineComponent, ref} from 'vue';
 
 // UI lib
@@ -13,6 +14,9 @@ import basic from '@/styles/basic.module.scss';
 const BlogHeaderProps = {
   isSHow: Boolean
 };
+
+// store
+// import {mapState, mapActions} from 'pinia'
 
 export default defineComponent({
   name: 'BlogHeader',
@@ -34,6 +38,10 @@ export default defineComponent({
           ? [blogClass.login]
           : [blogClass.blogHeader]);
     });
+
+    // const store = useStore()
+    // console.log(store);
+
     return {
       isLogin,
       isLoginClass

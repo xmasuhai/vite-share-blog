@@ -1,4 +1,6 @@
-import {defineStore} from 'pinia';
+import {defineStore, mapState/*, mapActions*/} from 'pinia';
+import {useAuthStore} from '@/stores/modules/authStore';
+// import {useBlogStore} from '@/stores/modules/blogStore';
 
 // 定义 stores 名为 myFirstStore 是 stores 的名称，该名称必须唯一，不可重复
 export const useStore = defineStore('myFirstStore', {
@@ -7,7 +9,8 @@ export const useStore = defineStore('myFirstStore', {
       count: 0,
       name: 'foo',
       list: [1, 2, 3],
-      showLoginRegister: false
+      showLoginRegister: false,
+      ...mapState(useAuthStore, ['user', 'isLogin'])
     };
   },
   getters: {
