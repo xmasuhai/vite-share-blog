@@ -20,7 +20,7 @@ export default defineComponent({
   },
   render() {
     return (
-      <div>
+      <>
         <label for={this.title}>
           <h4 class={cssAuth.password}>
             {this.title}
@@ -34,7 +34,7 @@ export default defineComponent({
         <p class={cssAuth.error}>
           {this.errorText}
         </p>
-      </div>
+      </>
     );
   }
 
