@@ -31,6 +31,10 @@ const prodEnabled: boolean = (process.env.USE_CHUNK_MOCK as unknown as boolean) 
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  esbuild: {
+    jsxFactory: 'h',
+    jsxFragment: 'Fragment'
+  },
   plugins: [
     vue(),
     vueJsx(),

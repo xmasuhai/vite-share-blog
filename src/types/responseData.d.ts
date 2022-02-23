@@ -1,16 +1,16 @@
 // import {AxiosPromise} from 'axios';
 
 export interface responseData {
-  status: string;
+  status: 'ok' | 'fail';
   msg: string;
-  isLogin?: boolean;
-  data: {
+  isLogin: boolean;
+  data?: {
     id: number;
     username: string;
     avatar: string;
     createdAt: string;
     updatedAt: string;
-  }
+  };
 }
 
 export type userAuthInfo = {

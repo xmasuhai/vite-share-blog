@@ -1,5 +1,5 @@
 import {createRouter, /*createWebHistory*/ createWebHashHistory, RouteRecordRaw} from 'vue-router';
-import {useStore} from '@/stores';
+import useAuthStore from '@/store/modules/auth';
 import {storeToRefs} from 'pinia';
 
 const routes: RouteRecordRaw[] = [
@@ -63,12 +63,12 @@ const router = createRouter({
 
 // 路由全局前置守卫
 router.beforeEach((to, from, next) => {
-  let {/* count, name, list, */showLoginRegister,} = storeToRefs(useStore());
+  let {/* count, name, list, */isLogin,} = storeToRefs(useAuthStore());
 
   // 是否进入 注册 或 登录 的路由
   ;['/register', '/login'].includes(to.path)
-    ? ((showLoginRegister.value = true))
-    : ((showLoginRegister.value = false));
+    ? ((isLogin.value = true))
+    : ((isLogin.value = false));
 
   next();
 });

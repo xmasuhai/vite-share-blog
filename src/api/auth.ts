@@ -14,13 +14,13 @@ export default {
   register(data: userAuthInfo): AxiosPromise<responseData> {
     return request(URL.register, 'POST', data);
   },
-  login(data: userAuthInfo) {
+  login(data: userAuthInfo): AxiosPromise<responseData> {
     return request(URL.login, 'POST', data);
   },
   logout() {
     return request(URL.logout);
   },
-  getInfo(): AxiosPromise {
+  getInfo(): AxiosPromise<responseData> {
     return request(URL.get_info);
   },
 };
