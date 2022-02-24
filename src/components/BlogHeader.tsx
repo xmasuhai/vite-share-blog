@@ -1,4 +1,4 @@
-import {computed, defineComponent, ref} from 'vue';
+import {computed, defineComponent,} from 'vue';
 import useAuthStore from '@/store/modules/auth';
 // UI lib
 import {Button,} from 'ant-design-vue';
@@ -35,10 +35,9 @@ export default defineComponent({
     /* Data from store End */
 
     // Comp Local Data
-    const isLogin = ref(store.isLogin);
     const isLoginClass = computed(() => {
       return (
-        isLogin.value
+        getIsLogin
           ? [blogClass.login]
           : [blogClass.blogHeader]);
     });
@@ -46,7 +45,6 @@ export default defineComponent({
     checkLogin();
 
     return {
-      isLogin,
       isLoginClass,
       logout,
       getUser,
@@ -55,10 +53,12 @@ export default defineComponent({
     };
   },
   render() {
-    const renderBtn = (btnString: string) => {
+    const renderBtn = (btnString: string, toUrl: string = '#') => {
       return (
         <Button class={basic.blogBtn}>
-          {btnString}
+          <router-link to={toUrl}>
+            {btnString}
+          </router-link>
         </Button>
       );
     };
@@ -70,8 +70,8 @@ export default defineComponent({
             精品博客汇聚
           </p>
           <div class={blogClass.btns}>
-            {renderBtn('立即登录')}
-            {renderBtn('注册账号')}
+            {renderBtn('立即登录', '/login')}
+            {renderBtn('注册账号', '/register')}
           </div>
         </>
       );
@@ -83,7 +83,7 @@ export default defineComponent({
           <i class={blogClass.editIcon}>
             Edit
           </i>
-          <img class="avatar"/>
+          <img class="avatar" alt='' src=''/>
           <ul>
             <li>
               <router-link to="/myBlog">我的主页</router-link>
@@ -103,7 +103,7 @@ export default defineComponent({
         <h1 class={blogClass.slogan}>
           Let's share
         </h1>
-        {this.isLogin
+        {this.getIsLogin
           ? renderLogin()
           : renderUnLogin()
         }

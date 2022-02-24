@@ -1,5 +1,5 @@
 import {responseData/*, userAuthInfo*/} from '@/types/responseData';
-import axios, {AxiosRequestConfig, Method, AxiosPromise,} from 'axios';
+import axios, {AxiosRequestConfig, Method,} from 'axios';
 import {message} from 'ant-design-vue';
 
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
@@ -15,7 +15,7 @@ const storeToken = (tokenStr: string) => {
     : (localStorage.token = tokenStr);
 };
 
-export default function request(url: string, type: Method = 'GET', data = {}): AxiosPromise<responseData> {
+export default function request(url: string, type: Method = 'GET', data = {}): Promise<responseData> {
   return new Promise((resolve, reject) => {
     // 配置axios选项参数
     const option: AxiosRequestConfig = {
@@ -27,6 +27,13 @@ export default function request(url: string, type: Method = 'GET', data = {}): A
     type.toUpperCase() === 'GET'
       ? option.params = data // 以查询参数方式 传递数据
       : option.data = data; // 以json方式 传递数据
+
+    // 用户登出，删除 jwt parameters
+    if (url === '/auth/logout') {
+      window.localStorage
+        ? localStorage.removeItem('token')
+        : (localStorage.token = null);
+    }
 
     // 携带JWT，设置请求头字段 axios.defaults.headers.common['Authorization']
     if (localStorage.token) {

@@ -2,9 +2,8 @@ import {defineComponent, ref} from 'vue';
 import cssAuth from '@/styles/auth.module.scss';
 import UserInput from '@/components/user-authentication/UserInput';
 import UserSubmitBtnTip from '@/components/user-authentication/UserSubmitBtnTip';
-import {useRouter} from 'vue-router';
+// import {useRouter} from 'vue-router';
 import useAuthStore from '@/store/modules/auth';
-import {logString} from '@/store/modules/auth/interface';
 
 export default defineComponent({
   name: 'Login',
@@ -21,15 +20,15 @@ export default defineComponent({
       return store.login;
     };
 
-/*
-    const onLogin = (logString: logString) => {
-      asyncLogin(logString)
-        .then(() => {
-          router.push({path: '/'})
-            .then(() => {});
-        });
-    };
-*/
+    /*
+        const onLogin = (logString: logString) => {
+          asyncLogin(logString)
+            .then(() => {
+              router.push({path: '/'})
+                .then(() => {});
+            });
+        };
+    */
 
     return {
       username,

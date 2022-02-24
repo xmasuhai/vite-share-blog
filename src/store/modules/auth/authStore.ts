@@ -26,19 +26,17 @@ export const useAuthStore = defineStore('authStore', {
     login({username, password}: logString) {
       return auth.login({username, password})
         .then(res => {
-          this.setUser({user: res.data.data?.username});
+          this.setUser({user: res.data?.username});
           this.setLogin({isLogin: true});
         });
     },
     async register({username, password}: logString): Promise<authState> {
       const res = await auth.register({username, password});
-      this.setUser({user: res.data.data?.username});
+      this.setUser({user: res.data?.username});
       this.setLogin({isLogin: true});
-      return res.data; // 做进一步的处理
+      return res; // 做进一步的处理
     },
     async checkLogin(): Promise<boolean> {
-      // console.log('this.isLogin', this.isLogin);
-
       // 已处于登录状态，直接返回 true
       if (this.isLogin) {return true;}
 
@@ -46,12 +44,12 @@ export const useAuthStore = defineStore('authStore', {
       const res = await auth.getInfo();
 
       // 将返回结果的 isLogin 设置到 本地状态
-      this.setLogin({isLogin: res.data.isLogin});
-      res.data.isLogin
-        ? (this.setUser({user: res.data.data?.username})) // 服务器 验证用户 已登录
+      this.setLogin({isLogin: res.isLogin});
+      res.isLogin
+        ? (this.setUser({user: res.data?.username})) // 服务器 验证用户 已登录
         : (this.setUser({user: null})); // 服务器 验证用户 未登录
 
-      return res.data.isLogin;
+      return res.isLogin;
 
     },
     async logout() {
