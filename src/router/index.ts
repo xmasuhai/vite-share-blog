@@ -1,3 +1,4 @@
+import {Ref} from 'vue';
 import {createRouter, /*createWebHistory*/ createWebHashHistory, RouteRecordRaw} from 'vue-router';
 import useAuthStore from '@/store/modules/auth';
 import {storeToRefs} from 'pinia';
@@ -63,12 +64,11 @@ const router = createRouter({
 
 // 路由全局前置守卫
 router.beforeEach((to, from, next) => {
-  let {/* count, name, list, */isLogin,} = storeToRefs(useAuthStore());
-
+  const {/* count, name, list, */isLogin,} = storeToRefs(useAuthStore());
   // 是否进入 注册 或 登录 的路由
   ;['/register', '/login'].includes(to.path)
-    ? ((isLogin.value = true))
-    : ((isLogin.value = false));
+    ? (((isLogin as Ref<boolean>).value = true))
+    : (((isLogin as Ref<boolean>).value = false));
 
   next();
 });

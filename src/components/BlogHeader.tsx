@@ -37,7 +37,7 @@ export default defineComponent({
     // Comp Local Data
     const isLoginClass = computed(() => {
       return (
-        getIsLogin
+        getIsLogin.value
           ? [blogClass.login]
           : [blogClass.blogHeader]);
     });
@@ -83,10 +83,10 @@ export default defineComponent({
           <i class={blogClass.editIcon}>
             Edit
           </i>
-          <img class="avatar" alt='' src=''/>
+          <img class="avatar" alt="" src=""/>
           <ul>
             <li>
-              <router-link to="/myBlog">我的主页</router-link>
+              <router-link to={'/myblog'}>我的主页</router-link>
             </li>
             <li>
               <a href="#" onClick={this.logout}>

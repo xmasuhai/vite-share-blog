@@ -1,9 +1,10 @@
 import {defineComponent, ref} from 'vue';
+import router from '@/router';
+import useAuthStore from '@/store/modules/auth';
+import {logString} from '@/store/modules/auth/interface';
 import cssAuth from '@/styles/auth.module.scss';
 import UserInput from '@/components/user-authentication/UserInput';
 import UserSubmitBtnTip from '@/components/user-authentication/UserSubmitBtnTip';
-// import {useRouter} from 'vue-router';
-import useAuthStore from '@/store/modules/auth';
 
 export default defineComponent({
   name: 'Login',
@@ -16,25 +17,22 @@ export default defineComponent({
     const username = ref('');
     const password = ref('');
 
-    const asyncLogin = (/*logString: logString*/) => {
-      return store.login;
+    const asyncLogin = (logString: logString) => {
+      return store.login(logString);
     };
 
-    /*
-        const onLogin = (logString: logString) => {
-          asyncLogin(logString)
-            .then(() => {
-              router.push({path: '/'})
-                .then(() => {});
-            });
-        };
-    */
+    const onLogin = (logString: logString) => {
+      asyncLogin(logString)
+        .then(() => {
+          return router.push({path: '/'});
+        });
+    };
 
     return {
       username,
       password,
       asyncLogin,
-      // onLogin
+      onLogin
     };
   },
   render() {
@@ -43,14 +41,22 @@ export default defineComponent({
         <UserInput title="用户名"
                    errorText="当前用户名已注册"
                    v-model:username={this.username}/>
+
         <UserInput title="密码"
                    inputType="password"
                    errorText="当前用户名或密码不匹配"
-                   v-model:password={this.password}/>
+                   v-model:password={this.password}
+                   keyUpHandler={(e: KeyboardEvent) => {
+                     ['Enter'].includes(e.key) && this.onLogin({username: this.username, password: this.password});
+                   }}/>
+
         <UserSubmitBtnTip btnName="立即登录"
                           tipText="没有账号？"
                           linkTo="/register"
-                          linkText="注册新用户"/>
+                          linkText="注册新用户"
+                          onClick={() => {
+                            this.onLogin({username: this.username, password: this.password});
+                          }}/>
       </section>
     );
   }

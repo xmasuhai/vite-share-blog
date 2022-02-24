@@ -7,7 +7,7 @@ const UserInputProps = {
   inputType: {type: String, default: ''},
   placeholder: String,
   errorText: String,
-  doubleBind: String
+  keyUpHandler: Function
 };
 
 export default defineComponent({
@@ -25,11 +25,11 @@ export default defineComponent({
           <h4 class={cssAuth.password}>
             {this.title}
           </h4>
-          <Input v-model={this.doubleBind}
-                 type={this.inputType}
+          <Input type={this.inputType}
                  placeholder={this.placeholder ?? this.title}
                  id={this.title}
-                 class={cssAuth.userInput}/>
+                 class={cssAuth.userInput}
+                 onKeyup={(/*e: KeyboardEvent*/) => {this.keyUpHandler && this.keyUpHandler();}}/>
         </label>
         <p class={cssAuth.error}>
           {this.errorText}
