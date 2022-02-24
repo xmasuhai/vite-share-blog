@@ -29,7 +29,7 @@ export default defineComponent({
                  placeholder={this.placeholder ?? this.title}
                  id={this.title}
                  class={cssAuth.userInput}
-                 onKeyup={(/*e: KeyboardEvent*/) => {this.keyUpHandler && this.keyUpHandler();}}/>
+                 onKeyup={(e: KeyboardEvent) => {this.keyUpHandler && this.keyUpHandler(e);}}/>
         </label>
         <p class={cssAuth.error}>
           {this.errorText}

@@ -28,11 +28,23 @@ export default defineComponent({
         });
     };
 
+    const keyUpHandler = () => {
+      return (e: KeyboardEvent) => {
+        ['Enter'].includes(e.key) && onLogin({username: username.value, password: password.value});
+      };
+    };
+
+    const clickHandler = () => {
+      return onLogin({username: username.value, password: password.value});
+    };
+
     return {
       username,
       password,
       asyncLogin,
-      onLogin
+      onLogin,
+      keyUpHandler,
+      clickHandler
     };
   },
   render() {
@@ -46,17 +58,13 @@ export default defineComponent({
                    inputType="password"
                    errorText="当前用户名或密码不匹配"
                    v-model:password={this.password}
-                   keyUpHandler={(e: KeyboardEvent) => {
-                     ['Enter'].includes(e.key) && this.onLogin({username: this.username, password: this.password});
-                   }}/>
+                   keyUpHandler={this.keyUpHandler}/>
 
         <UserSubmitBtnTip btnName="立即登录"
                           tipText="没有账号？"
                           linkTo="/register"
                           linkText="注册新用户"
-                          onClick={() => {
-                            this.onLogin({username: this.username, password: this.password});
-                          }}/>
+                          clickHandler={this.clickHandler}/>
       </section>
     );
   }
