@@ -8,22 +8,26 @@ const UserSubmitBtnTipProps = {
   tipText: String,
   linkTo: String,
   linkText: String,
-  clickHandler: Function,
 };
 
 export default defineComponent({
   name: 'UserSubmitBtnTip',
   props: UserSubmitBtnTipProps,
+  emits: ['handleSubmit',],
   components: {},
-  setup(/*props, ctx*/) {
-
-    return {};
+  setup(props, ctx) {
+    const clickHandler = () => {
+      ctx.emit('handleSubmit');
+    };
+    return {
+      clickHandler
+    };
   },
   render() {
     return (
       <>
         <Button class={classNames([cssAuth.registerBtn, 'blog-btn'])}
-                onClick={() => {this.clickHandler && this.clickHandler();}}>
+                onClick={this.clickHandler}>
           {this.btnName}
         </Button>
         <p class={cssAuth.notice}>{this.tipText}
