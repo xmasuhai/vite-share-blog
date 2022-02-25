@@ -13,10 +13,16 @@ const UserInputProps = {
 export default defineComponent({
   name: 'UserInput',
   props: UserInputProps,
+  emits: ['keyUp'],
   components: {},
-  setup(/*props, ctx*/) {
+  setup(props, ctx) {
+    const keyUpHandler = (e: KeyboardEvent) => {
+      ctx.emit('keyUp', e);
+    };
 
-    return {};
+    return {
+      keyUpHandler
+    };
   },
   render() {
     return (
@@ -29,7 +35,7 @@ export default defineComponent({
                  placeholder={this.placeholder ?? this.title}
                  id={this.title}
                  class={cssAuth.userInput}
-                 onKeyup={(e: KeyboardEvent) => {this.keyUpHandler && this.keyUpHandler(e);}}/>
+                 onKeyup={this.keyUpHandler}/>
         </label>
         <p class={cssAuth.error}>
           {this.errorText}

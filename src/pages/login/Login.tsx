@@ -1,5 +1,5 @@
 import {defineComponent, ref} from 'vue';
-import router from '@/router';
+import {useRouter} from 'vue-router';
 import useAuthStore from '@/store/modules/auth';
 import {logString} from '@/store/modules/auth/interface';
 import cssAuth from '@/styles/auth.module.scss';
@@ -8,7 +8,7 @@ import UserSubmitBtnTip from '@/components/user-authentication/UserSubmitBtnTip'
 
 const LoginProps = {
   // onHandleSubmit: Function as PropType<() => void>,
-}
+};
 
 export default defineComponent({
   name: 'Login',
@@ -16,26 +16,31 @@ export default defineComponent({
   components: {},
   setup(/*props, ctx*/) {
     const store = useAuthStore();
-    // const router = useRouter();
+    const router = useRouter();
 
     const username = ref('');
     const password = ref('');
 
+    // store actions
     const asyncLogin = (logString: logString) => {
       return store.login(logString);
     };
 
+    // resolve => router.push
     const onLogin = (logString: logString) => {
       asyncLogin(logString)
         .then(() => {
+          // 成功，跳转首页
           return router.push({path: '/'});
-        });
+        }, /* reject */);
     };
 
-    const keyUpHandler = (logString: logString) => {
-      return (e: KeyboardEvent) => {
-        ['Enter'].includes(e.key) && onLogin(logString);
-      };
+    // watch keyup Enter
+    const keyUpHandler = (e: KeyboardEvent) => {
+      ;['Enter'].includes(e.key) && onLogin({
+        username: username.value,
+        password: password.value
+      });
     };
 
     const clickHandler = (logString: logString) => {
@@ -62,9 +67,7 @@ export default defineComponent({
                    inputType="password"
                    errorText="当前用户名或密码不匹配"
                    v-model={[this.password, 'password']}
-                   keyUpHandler={
-                     this.keyUpHandler({username: this.username, password: this.password})
-                   }/>
+                   onKeyUp={this.keyUpHandler}/>
 
         <UserSubmitBtnTip btnName="立即登录"
                           tipText="没有账号？"
