@@ -70,6 +70,12 @@ router.beforeEach((to, from, next) => {
     ? (((isLogin as Ref<boolean>).value = true))
     : (((isLogin as Ref<boolean>).value = false));
 
+  /*
+  * if(to.path === 'login') return next();
+  * if (to.path 受控页面或 未登录) return next('/login？');
+  * next()
+  * */
+
   next();
 });
 

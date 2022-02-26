@@ -24,10 +24,13 @@ export const useAuthStore = defineStore('authStore', {
     },
     // async Promise
     login({username, password}: logString) {
+      console.log('点击了按钮');
       return auth.login({username, password})
         .then(res => {
           this.setUser({user: res.data?.username});
           this.setLogin({isLogin: true});
+          console.log('res', res);
+          return res;
         });
     },
     async register({username, password}: logString): Promise<authState> {

@@ -21,14 +21,16 @@ export default defineComponent({
     const username = ref('');
     const password = ref('');
 
-    // store actions
-    const asyncLogin = (logString: logString) => {
-      return store.login(logString);
-    };
+    const userLoginInfo = computed(() => {
+      return {
+        username: username.value,
+        password: password.value
+      };
+    });
 
     // resolve => router.push
     const onLogin = (logString: logString) => {
-      asyncLogin(logString)
+      store.login(logString)
         .then(() => {
           // 成功，跳转首页
           return router.push({path: '/'});
@@ -41,16 +43,17 @@ export default defineComponent({
         username: username.value,
         password: password.value
       });
+      console.log('userLoginInfo', userLoginInfo.value);
     };
 
     const clickHandler = (logString: logString) => {
-      return onLogin(logString);
+      onLogin(logString);
     };
 
     return {
       username,
       password,
-      asyncLogin,
+      userLoginInfo,
       onLogin,
       keyUpHandler,
       clickHandler
@@ -73,7 +76,7 @@ export default defineComponent({
                           tipText="没有账号？"
                           linkTo="/register"
                           linkText="注册新用户"
-                          onHandleSubmit={this.clickHandler}/>
+                          onHandleSubmit={() => {this.clickHandler(this.userLoginInfo);}}/>
       </section>
     );
   }

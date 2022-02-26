@@ -1,4 +1,4 @@
-import {defineComponent,} from 'vue';
+import {defineComponent, PropType,} from 'vue';
 import cssAuth from '@/styles/auth.module.scss';
 import {Input} from 'ant-design-vue';
 
@@ -7,21 +7,27 @@ const UserInputProps = {
   inputType: {type: String, default: ''},
   placeholder: String,
   errorText: String,
-  keyUpHandler: Function
+  keyUpHandler: Function as PropType<() => void>,
 };
 
 export default defineComponent({
   name: 'UserInput',
   props: UserInputProps,
-  emits: ['keyUp'],
+  emits: ['keyUp', 'update:username', 'update:password'],
   components: {},
   setup(props, ctx) {
     const keyUpHandler = (e: KeyboardEvent) => {
       ctx.emit('keyUp', e);
     };
 
+    const changeValue = (e: InputEvent) => {
+      ctx.emit('update:password', (e.target as HTMLInputElement).value);
+      ctx.emit('update:username', (e.target as HTMLInputElement).value); // 以前是 `this.$emit('input', title)`
+    };
+
     return {
-      keyUpHandler
+      keyUpHandler,
+      changeValue
     };
   },
   render() {
@@ -35,7 +41,8 @@ export default defineComponent({
                  placeholder={this.placeholder ?? this.title}
                  id={this.title}
                  class={cssAuth.userInput}
-                 onKeyup={this.keyUpHandler}/>
+                 onKeyup={this.keyUpHandler}
+                 onInput={this.changeValue}/>
         </label>
         <p class={cssAuth.error}>
           {this.errorText}

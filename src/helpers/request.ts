@@ -46,15 +46,15 @@ export default function request(url: string, type: Method = 'GET', data = {}): P
         // 接口文档约定 res.data.status: 'ok' 见 http://dw-z.ink/2j4pC
         if (res.data.status === 'ok') {
           res.data.token && storeToken(res.data.token);
-          resolve(res.data);
+          return resolve(res.data);
         } else {
           errorMsg(res.data.msg);
-          reject(res.data);
+          return reject(res.data);
         }
       })
       .catch(err => {
         errorMsg('网络异常');
-        reject({msg: '网络异常', errorDetail: err});
+        return reject({msg: '网络异常', errorDetail: err});
       });
   });
 }
