@@ -47,8 +47,39 @@
   }
 
   .user {
-    display: flex;
     align-items: center;
+    display: flex;
+    position: relative;
+
+    &:hover .menu {
+      display: block;
+    }
+
+    .menu {
+      background-color: $white;
+      border: 1px solid $text-info-color;
+      display: none;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      position: absolute;
+      right: 0;
+      top: 100%;
+      transform: translateX(50%);
+
+      .link {
+        color: $text-color;
+        display: block;
+        font-size: 12px;
+        padding: 5px 10px;
+        text-decoration: none;
+
+        &:hover {
+          background-color: $text-info-color;
+        }
+      }
+
+    }
 
     .edit-icon {
       color: $white;
@@ -59,11 +90,11 @@
       border: 1px solid $white;
       border-radius: 50%;
       height: 40px;
-      width: 40px;
       margin-left: 15px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+      width: 40px;
     }
   }
 }

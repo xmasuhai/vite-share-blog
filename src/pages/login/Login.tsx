@@ -43,7 +43,6 @@ export default defineComponent({
         username: username.value,
         password: password.value
       });
-      console.log('userLoginInfo', userLoginInfo.value);
     };
 
     const clickHandler = (logString: logString) => {

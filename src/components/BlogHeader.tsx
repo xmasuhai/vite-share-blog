@@ -6,16 +6,15 @@ import {Button,} from 'ant-design-vue';
 import classNames from 'classnames';
 import blogClass from '@/styles/blog.module.scss';
 import basic from '@/styles/basic.module.scss';
+
 // props
-const BlogHeaderProps = {
-  isSHow: Boolean
-};
+const BlogHeaderProps = {};
 
 export default defineComponent({
   name: 'BlogHeader',
   props: BlogHeaderProps,
   setup(/*props, ctx*/) {
-    /* Data from store Start */
+    /* Data from store Start useAuthStore() */
     const store = useAuthStore();
 
     // computed
@@ -27,14 +26,16 @@ export default defineComponent({
       return store.getIsLogin;
     });
 
+    // actions
     const checkLogin = () => {
-      return store.checkLogin;
+      store.checkLogin();
     };
 
     const logout = () => {return store.logout;};
     /* Data from store End */
 
     // Comp Local Data
+    // CSS modules
     const isLoginClass = computed(() => {
       return (
         getIsLogin.value
@@ -45,11 +46,11 @@ export default defineComponent({
     checkLogin();
 
     return {
-      isLoginClass,
-      logout,
       getUser,
       getIsLogin,
-      checkLogin
+      checkLogin,
+      logout,
+      isLoginClass,
     };
   },
   render() {
@@ -83,13 +84,22 @@ export default defineComponent({
           <i class={blogClass.editIcon}>
             Edit
           </i>
-          <img class="avatar" alt="" src=""/>
-          <ul>
+          <img class={blogClass.avatar}
+               src={this.getUser?.avatar}
+               alt={this.getUser?.username}
+               title={this.getUser?.username}/>
+
+          <ul class={blogClass.menu}>
             <li>
-              <router-link to={'/myblog'}>我的主页</router-link>
+              <router-link to={'/myblog'}
+                           class={blogClass.link}>
+                我的主页
+              </router-link>
             </li>
             <li>
-              <a href="#" onClick={this.logout}>
+              <a href="#"
+                 onClick={this.logout}
+                 class={blogClass.link}>
                 注销
               </a>
             </li>

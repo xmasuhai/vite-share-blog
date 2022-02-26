@@ -4,7 +4,7 @@ export interface responseData {
   status: 'ok' | 'fail';
   msg: string;
   isLogin: boolean;
-  data?: {
+  data: {
     id: number;
     username: string;
     avatar: string;
