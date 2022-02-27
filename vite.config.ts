@@ -1,10 +1,13 @@
 import {defineConfig} from 'vite';
-import vue from '@vitejs/plugin-vue';
 // @types/node
 import path from 'path';
 
 // plugins
+import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
+// @ts-ignore
+import removeConsole from 'vite-plugin-remove-console';
+
 // setup name
 import VueSetupExtend from 'vite-plugin-vue-setup-extend';
 // 自动引入组件和方法
@@ -87,6 +90,7 @@ export default defineConfig({
       // 可以选择auto-import.d.ts生成的位置，使用ts建议设置为 'src/auto-import.d.ts'
       dts: 'src/auto-import.d.ts'
     }),
+    removeConsole(),
     viteMockServe({
       // ignore: /^\_/, // 忽略的文件名
       // ↓解析根目录下的mock文件夹
