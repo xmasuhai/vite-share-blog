@@ -1,4 +1,4 @@
-import {defineComponent, ref} from 'vue';
+import {defineComponent,} from 'vue';
 import ArticleTextarea from '@/components/article/ArticleTextarea';
 
 export default defineComponent({
@@ -6,17 +6,12 @@ export default defineComponent({
   props: {},
   components: {},
   setup(/*props, ctx*/) {
-    const description = ref('');
-    const articleText = ref('');
-    return {
-      description,
-      articleText
-    };
+    return {};
   },
   render() {
     return (
       <>
-        <ArticleTextarea title="保存编辑"
+        <ArticleTextarea mainTitle="保存编辑"
                          btnText="保存编辑"/>
       </>
     );

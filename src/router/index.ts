@@ -1,9 +1,9 @@
 import {createRouter, /*createWebHistory*/ createWebHashHistory, RouteRecordRaw} from 'vue-router';
+import {storeToRefs} from 'pinia';
 import useStore from '@/store';
 import useAuthStore from '@/store/modules/auth';
-import {storeToRefs} from 'pinia';
 
-/* 不支持动态加载组件 component: () => import('@/pages/blog/index/BlogIndex')  改为静态导入 */
+/* 动态加载组件出现警告 component: () => import('@/pages/blog/index/BlogIndex')  改为静态导入 */
 // components
 import BlogIndex from '@/pages/blog/index/BlogIndex';
 import Login from '@/pages/login/Login';
@@ -34,6 +34,11 @@ const routes: RouteRecordRaw[] = [
     component: Register,
   },
   {
+    path: '/detail/:blogId',
+    name: 'BlogDetail',
+    component: BlogDetail,
+  },
+  {
     path: '/create',
     name: 'CreateBlog',
     component: CreateBlog,
@@ -47,12 +52,7 @@ const routes: RouteRecordRaw[] = [
     meta: {requiresAuth: true},
   },
   {
-    path: '/detail/:blogId',
-    name: 'BlogDetail',
-    component: BlogDetail,
-  },
-  {
-    path: '/user/:blogId',
+    path: '/user/:userId',
     name: 'User',
     component: User,
     meta: {requiresAuth: true},
@@ -111,7 +111,6 @@ router.beforeEach((to, from, next) => {
     ? (console.log('向服务器发送请求，验证登录'))
     : (console.log('不做任何处理', isLogin));
 */
-
 
 });
 

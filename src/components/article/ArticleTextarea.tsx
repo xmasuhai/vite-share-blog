@@ -3,19 +3,21 @@ import cssCreateEdit from '@/styles/blog-create-edit.module.scss';
 import {Button, Textarea} from 'ant-design-vue';
 
 const ArticleTextarea = {
-  title: String,
+  mainTitle: String,
   btnText: String,
-}
+};
 
 export default defineComponent({
   name: 'ArticleTextarea',
   props: ArticleTextarea,
   components: {},
   setup(/*props, ctx*/) {
+    const title = ref('');
     const description = ref('');
     const articleText = ref('');
 
     return {
+      title,
       description,
       articleText
     };
@@ -46,7 +48,7 @@ export default defineComponent({
           <h3>文章内容</h3>
           <Textarea v-model={this.articleText}
                     placeholder="限30000个字"
-                    auto-size={{minRows: 5, maxRows: 8}}/>
+                    auto-size={{minRows: 18, maxRows: 30}}/>
           <p class={cssCreateEdit.msg}>
             限30000个字
           </p>

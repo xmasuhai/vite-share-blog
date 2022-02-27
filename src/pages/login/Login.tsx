@@ -40,10 +40,7 @@ export default defineComponent({
 
     // watch keyup Enter
     const keyUpHandler = (e: KeyboardEvent) => {
-      ;['Enter'].includes(e.key) && onLogin({
-        username: username.value,
-        password: password.value
-      });
+      ;['Enter'].includes(e.key) && onLogin(userLoginInfo.value);
     };
 
     const clickHandler = (logString: logString) => {

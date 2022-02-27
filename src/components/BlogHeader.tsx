@@ -86,9 +86,11 @@ export default defineComponent({
     const renderLogin = () => {
       return (
         <div class={blogClass.user}>
-          <i class={blogClass.editIcon}>
-            Edit
-          </i>
+          <router-link to={'/create'}>
+            <i class={blogClass.editIcon}>
+              Edit
+            </i>
+          </router-link>
           <img class={blogClass.avatar}
                src={this.getUser?.avatar}
                alt={this.getUser?.username}
@@ -116,7 +118,7 @@ export default defineComponent({
     return (
       <header class={classNames(...this.isLoginClass)}>
         <h1 class={blogClass.slogan}>
-          Let's share
+          <router-link to={'/'}>Let's share</router-link>
         </h1>
         {this.getIsLogin
           ? renderLogin()
