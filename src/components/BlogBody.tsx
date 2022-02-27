@@ -10,7 +10,6 @@ export default defineComponent({
   props: BlogBodyProps,
   components: {},
   setup(/*props, ctx*/) {
-
     return {};
   },
   render() {

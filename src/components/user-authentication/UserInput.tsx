@@ -8,6 +8,7 @@ const UserInputProps = {
   placeholder: String,
   errorText: String,
   keyUpHandler: Function as PropType<() => void>,
+  autoComplete: {type: String, default: 'on'}
 };
 
 export default defineComponent({
@@ -37,12 +38,15 @@ export default defineComponent({
           <h4 class={cssAuth.password}>
             {this.title}
           </h4>
+          <a-input/>
           <Input type={this.inputType}
                  placeholder={this.placeholder ?? this.title}
                  id={this.title}
                  class={cssAuth.userInput}
                  onKeyup={this.keyUpHandler}
-                 onInput={this.changeValue}/>
+                 onInput={this.changeValue}
+            // @ts-ignore
+                 autoComplete={this.autoComplete}/>
         </label>
         <p class={cssAuth.error}>
           {this.errorText}

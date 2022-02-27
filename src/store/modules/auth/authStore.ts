@@ -1,6 +1,8 @@
 import auth from '@/api/auth';
+import {responseData} from '@/types/responseData';
 import {defineStore} from 'pinia';
 import AuthModuleTypes, {logString} from '@/store/modules/auth/interface';
+import {message} from 'ant-design-vue';
 
 type getUser = Pick<AuthModuleTypes, 'userData'>;
 type getIsLogin = Pick<AuthModuleTypes, 'isLogin'>;
@@ -31,17 +33,24 @@ export const useAuthStore = defineStore('authStore', {
         .then(res => {
           this.setUser({userData: res.data});
           this.setLogin({isLogin: true});
+          message.success(res.msg);
           return res;
         });
     },
-    async register({username, password}: logString): Promise<unknown> {
+    async register({username, password}: logString): Promise<responseData> {
       const res = await auth.register({username, password});
-      this.setUser({userData: res.data});
-      this.setLogin({isLogin: true});
-      return res; // 做进一步的处理
+      // this.setUser({userData: res.data});
+      this.setUser({userData: null});
+      // this.setLogin({isLogin: true});
+      this.setLogin({isLogin: false});
+      message.success(res.msg);
+      message.info('请重新登录');
+      // 提示注册成功 重新登录
+      return res;// 做进一步的处理
     },
     async checkLogin(): Promise<boolean> {
       // 已处于登录状态，直接返回 true，短路先验
+      console.log('this.isLogin test first', this.isLogin);
       if (this.isLogin) {return true;}
 
       // 处于非登录状态
@@ -58,10 +67,10 @@ export const useAuthStore = defineStore('authStore', {
 
     },
     async logout() {
-      await auth.logout();
       // 注销用户
       this.userData = null;
       this.isLogin = false;
+      return await auth.logout();
     }
   },
 });

@@ -30,6 +30,8 @@ export default function request(url: string, type: Method = 'GET', data = {}): P
 
     // 用户登出，删除 jwt parameters
     if (url === '/auth/logout') {
+      console.log('url', url);
+      console.log('localStorage.token', localStorage.token);
       window.localStorage
         ? localStorage.removeItem('token')
         : (localStorage.token = null);
@@ -46,6 +48,7 @@ export default function request(url: string, type: Method = 'GET', data = {}): P
         // 接口文档约定 res.data.status: 'ok' 见 http://dw-z.ink/2j4pC
         if (res.data.status === 'ok') {
           res.data.token && storeToken(res.data.token);
+          res.data.msg && message.info(res.data.msg);
           return resolve(res.data);
         } else {
           errorMsg(res.data.msg);

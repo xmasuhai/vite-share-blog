@@ -1,6 +1,7 @@
-import {Ref} from 'vue';
+// import {Ref} from 'vue';
 import {createRouter, /*createWebHistory*/ createWebHashHistory, RouteRecordRaw} from 'vue-router';
-import useAuthStore from '@/store/modules/auth';
+import useStore from '@/store';
+// import useAuthStore from '@/store/modules/auth';
 import {storeToRefs} from 'pinia';
 
 const routes: RouteRecordRaw[] = [
@@ -64,12 +65,14 @@ const router = createRouter({
 
 // 路由全局前置守卫
 router.beforeEach((to, from, next) => {
-  const {/* count, name, list, */isLogin,} = storeToRefs(useAuthStore());
-  // 是否进入 注册 或 登录 的路由
-  ;['/register', '/login'].includes(to.path)
-    ? (((isLogin as Ref<boolean>).value = true))
-    : (((isLogin as Ref<boolean>).value = false));
+  /*
+  const {isLogin,} = storeToRefs(useAuthStore());
 
+  // 判断是否进入 注册 或 登录 的路由，先检查是否已登录
+  ;['/register', '/login'].includes(to.path)
+    ? (console.log('向服务器发送请求，验证登录'))
+    : (console.log('不做任何处理', isLogin));
+*/
   /*
   * if(to.path === 'login') return next();
   * if (to.path 受控页面或 未登录) return next('/login？');
@@ -80,9 +83,12 @@ router.beforeEach((to, from, next) => {
 });
 
 // 路由全局后置守卫
-router.afterEach((/*to, from, next*/) => {
+router.afterEach((/* to, from, failure */) => {
   // console.log('路由全局后置守卫', to, from);
-  // next();
+
+  // 清除 记录的 router-view 中的 组件名
+  const {routerCompName,} = storeToRefs(useStore());
+  routerCompName.value = '';
 });
 
 export default router;

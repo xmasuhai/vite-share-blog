@@ -8,7 +8,9 @@ import blogClass from '@/styles/blog.module.scss';
 import basic from '@/styles/basic.module.scss';
 
 // props
-const BlogHeaderProps = {};
+const BlogHeaderProps = {
+  isSHow: Boolean
+};
 
 export default defineComponent({
   name: 'BlogHeader',
@@ -28,10 +30,13 @@ export default defineComponent({
 
     // actions
     const checkLogin = () => {
+      console.log('触发了checkLogin');
       store.checkLogin();
     };
 
-    const logout = () => {return store.logout;};
+    const logout = () => {
+      store.logout();
+    };
     /* Data from store End */
 
     // Comp Local Data
@@ -44,6 +49,11 @@ export default defineComponent({
     });
 
     checkLogin();
+
+    watchEffect(() => {
+
+      console.log('this.getIsLogin', getIsLogin.value);
+    });
 
     return {
       getUser,

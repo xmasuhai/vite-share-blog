@@ -16,9 +16,7 @@
     padding-right: 12%;
   }
 
-  .blog-main {
-    grid-area: main;
-  }
+  .blog-main {grid-area: main;}
 
   .blog-footer {
     align-self: end;
@@ -29,9 +27,7 @@
 
 }
 
-.isBlogDetail {
-  align-items: start;
-}
+.is-blog-detail { align-items: start;}
 
 @media (max-width: 768px) {
   .layout {

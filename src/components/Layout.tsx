@@ -1,6 +1,6 @@
+import useStore from '@/store';
 import {defineComponent, computed,} from 'vue';
 import classNames from 'classnames';
-import useAuthStore from '@/store/modules/auth';
 
 // Comps
 import BlogHeader from '@/components/BlogHeader';
@@ -17,17 +17,22 @@ export default defineComponent({
   name: 'Layout',
   props: LayoutProps,
   setup(/*props, ctx*/) {
-    const store = useAuthStore();
+    const store = useStore();
+
+    const ifLoginComp = computed(() => {
+      return (['Login', 'Register'].includes(store.getRouterCompName));
+    });
 
     // 判断 <router-view/> 中的组件是否为 register 或 login
     // 使得 对应组件居中，否则按顺序按 start 开头位置排列
     const cssBlogBody = computed(() => {
-      return store.isLogin
+      return ifLoginComp.value
         ? [layoutClass.layout]
         : [layoutClass.layout, layoutClass.isBlogDetail];
     });
 
     return {
+      ifLoginComp,
       cssBlogBody
     };
   },
@@ -39,6 +44,7 @@ export default defineComponent({
         <BlogBody class={cssModule}/>
       );
     };
+
     return (
       <div class={classNames(...this.cssBlogBody)}>
         {renderBlogHeader(layoutClass.blogHeader)}
