@@ -1,6 +1,6 @@
+import {defineStore} from 'pinia';
 import auth from '@/api/auth';
 import {responseData} from '@/types/responseData';
-import {defineStore} from 'pinia';
 import AuthModuleTypes, {logString} from '@/store/modules/auth/interface';
 import {message} from 'ant-design-vue';
 

@@ -38,7 +38,6 @@ export default defineComponent({
           <h4 class={cssAuth.password}>
             {this.title}
           </h4>
-          <a-input/>
           <Input type={this.inputType}
                  placeholder={this.placeholder ?? this.title}
                  id={this.title}
