@@ -5,7 +5,7 @@ import {logString} from '@/store/modules/auth/interface';
 import cssAuth from '@/styles/auth.module.scss';
 import UserInput from '@/components/user-authentication/UserInput';
 import UserSubmitBtnTip from '@/components/user-authentication/UserSubmitBtnTip';
-import useIdentifyCompName from '@/hooks/useIdentifyCompName'
+import useIdentifyCompName from '@/hooks/useIdentifyCompName';
 
 const LoginProps = {
   // onHandleSubmit: Function as PropType<() => void>,
@@ -19,7 +19,6 @@ export default defineComponent({
     useIdentifyCompName();
     const authStore = useAuthStore();
     const router = useRouter();
-
     const username = ref('');
     const password = ref('');
 
@@ -34,8 +33,8 @@ export default defineComponent({
     const onLogin = (logString: logString) => {
       authStore.login(logString)
         .then(() => {
-          // 成功，跳转首页
-          return router.push({path: '/'});
+          // 成功，跳转重定向页面 或者 首页 作为保底
+          return router.push({path: (router.currentRoute.value.query.redirect as string) || '/'  /* 首页保底 */});
         }, /* reject */);
     };
 

@@ -4,6 +4,7 @@ import useAuthStore from '@/store/modules/auth';
 import {storeToRefs} from 'pinia';
 
 /* 不支持动态加载组件 component: () => import('@/pages/blog/index/BlogIndex')  改为静态导入 */
+// components
 import BlogIndex from '@/pages/blog/index/BlogIndex';
 import Login from '@/pages/login/Login';
 import Register from '@/pages/register/Register';
@@ -81,28 +82,28 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   // 匹配路由元信息
   // 判断是需要登录
-  const {getIsLogin,} = storeToRefs(useAuthStore());
+  // const {getIsLogin,} = storeToRefs(useAuthStore()); // 使用 store.checkLogin() 服务器验证 的登录状态 代替
 
+  const store = useAuthStore();
   /*
   * if(to.path === 'login') return next();
   * if (to.path 受控页面或 未登录) return next('/login？');
   * next()
   * */
 
-  if (to.matched.some(record => {
-    return record.meta.requiresAuth;
-  })) {
-    if (!getIsLogin.value) {
-      next({
-        path: '/login',
-        query: {redirect: to.fullPath}
-      });
-    } else {
-      next();
-    }
-  } else {
-    next();
-  }
+  const ifRequiresAuth: boolean = to.matched.some(record => { return record.meta.requiresAuth; });
+
+  // URL 是否需要 身份验证
+  ifRequiresAuth
+    ? (// 需要身份验证的 URL
+      store.checkLogin() // 向服务器请求，获取当前登录状态
+        .then((isLogin) => {
+          !isLogin
+            ? next({path: '/login', query: {redirect: to.fullPath}})
+            : next(); // 服务器响应验证已登录
+        }))
+    : next(); // 不需要身份验证的 URL;
+  /* 确保最后执行且只一次 next() */
 
   // 判断是否进入 注册 或 登录 的路由，先检查是否已登录
   /*

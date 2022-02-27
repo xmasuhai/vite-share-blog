@@ -30,7 +30,6 @@ export default defineComponent({
 
     // actions
     const checkLogin = () => {
-      console.log('触发了checkLogin');
       store.checkLogin();
     };
 
@@ -48,12 +47,8 @@ export default defineComponent({
           : [blogClass.blogHeader]);
     });
 
+    // 创建时 向服务器验证以下身份 登录状态
     checkLogin();
-
-    watchEffect(() => {
-
-      console.log('this.getIsLogin', getIsLogin.value);
-    });
 
     return {
       getUser,

@@ -19,10 +19,7 @@ export default [
     url: '/api/getUser',
     method: 'get',
     response: (req: Record<string, unknown>) => {
-      // console.log('req', req);
-
       const items = data.items;
-      // console.log('body>>>>>>>>')
       return {
         code: 0, // 自定义 code
         message: 'ok',

@@ -50,7 +50,6 @@ export const useAuthStore = defineStore('authStore', {
     },
     async checkLogin(): Promise<boolean> {
       // 已处于登录状态，直接返回 true，短路先验
-      console.log('this.isLogin test first', this.isLogin);
       if (this.isLogin) {return true;}
 
       // 处于非登录状态
@@ -70,7 +69,8 @@ export const useAuthStore = defineStore('authStore', {
       // 注销用户
       this.userData = null;
       this.isLogin = false;
-      return await auth.logout();
+      const res = await auth.logout();
+      message.info(res.msg);
     }
   },
 });

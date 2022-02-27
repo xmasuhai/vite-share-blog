@@ -17,7 +17,6 @@ export default {
     return request(URL.login, 'POST', data);
   },
   logout() {
-    console.log('触发了logout');
     return request(URL.logout);
   },
   getInfo(): Promise<responseData> {
