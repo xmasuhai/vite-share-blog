@@ -5,6 +5,7 @@ import path from 'path';
 // plugins
 import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
+import {createSvgIconsPlugin} from 'vite-plugin-svg-icons';
 // @ts-ignore
 import removeConsole from 'vite-plugin-remove-console';
 
@@ -91,6 +92,24 @@ export default defineConfig({
       dts: 'src/auto-import.d.ts'
     }),
     removeConsole(),
+    createSvgIconsPlugin({
+      // Specify the icon folder to be cached
+      iconDirs: [path.resolve(process.cwd(), 'src/icons')],
+      // Specify symbolId format
+      symbolId: 'icon-[dir]-[name]',
+
+      /**
+       * custom insert position
+       * @default: body-last
+       */
+      inject: 'body-last', /*| 'body-first'*/
+
+      /**
+       * custom dom id
+       * @default: __svg__icons__dom__
+       */
+      customDomId: '__svg__icons__dom__',
+    }),
     viteMockServe({
       // ignore: /^\_/, // 忽略的文件名
       // ↓解析根目录下的mock文件夹

@@ -10,6 +10,7 @@ declare module 'vue' {
     BlogFooter: typeof import('./components/BlogFooter.tsx')['default']
     BlogHeader: typeof import('./components/BlogHeader.tsx')['default']
     Layout: typeof import('./components/Layout.tsx')['default']
+    SvgIcon: typeof import('./components/SvgIcon.tsx')['default']
     UserInput: typeof import('./components/user-authentication/UserInput.tsx')['default']
     UserSubmitBtnTip: typeof import('./components/user-authentication/UserSubmitBtnTip.tsx')['default']
   }
