@@ -1,0 +1,24 @@
+.ruby {
+  position: relative;
+  ruby-position: under;
+
+  .icon {
+    fill: currentColor;
+    height: 1em;
+    overflow: hidden;
+    vertical-align: -.15em;
+    width: 1em;
+
+    &:hover + .tips {
+      opacity: 1;
+    }
+  }
+
+  .tips {
+    opacity: 0;
+    position: absolute;
+    transform: translateY(30%);
+    transition: all .5s;
+  }
+
+}

@@ -6,6 +6,8 @@ import {Button,} from 'ant-design-vue';
 import classNames from 'classnames';
 import blogClass from '@/styles/blog.module.scss';
 import basic from '@/styles/basic.module.scss';
+// Comps
+import SvgIcon from '@/components/SvgIcon';
 
 // props
 const BlogHeaderProps = {
@@ -88,7 +90,8 @@ export default defineComponent({
         <div class={blogClass.user}>
           <router-link to={'/create'}>
             <i class={blogClass.editIcon}>
-              Edit
+              <SvgIcon name="create"
+                       color="white"/>
             </i>
           </router-link>
           <img class={blogClass.avatar}
