@@ -14,6 +14,7 @@ export default defineComponent({
     const popMessage = inject<typeof message>('$message');
     const router = useRouter();
 
+    // TODO 将所有逻辑 合并到 store 中
     const createBlog = () => {
       blog.createBlog(BlogStore.getBlogFullInfo)
         .then(res => {

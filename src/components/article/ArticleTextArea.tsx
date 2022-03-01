@@ -35,7 +35,7 @@ export default defineComponent({
                   auto-size={this.autoSize}
                   v-model:value={this.inputString}/>
         <p class={cssCreateEdit.msg}>
-          {`0/${this.wordCount}`} {/* 校验逻辑 */}
+          {`0/${this.wordCount}`} {/* TODO 校验逻辑 */}
         </p>
       </>
     );
