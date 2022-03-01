@@ -1,8 +1,8 @@
-import {responseData} from '@/types/responseData';
+import {responseAuthData} from '@/types/responseData';
 
 export default interface AuthModuleTypes {
   isLogin: boolean
-  userData: responseData['data'] | null,
+  userData: responseAuthData['data'] | null,
 }
 
 export type logString = {

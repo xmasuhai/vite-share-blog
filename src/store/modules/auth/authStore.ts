@@ -1,6 +1,6 @@
 import {defineStore} from 'pinia';
 import auth from '@/api/auth';
-import {responseData} from '@/types/responseData';
+import {responseAuthData, responseData} from '@/types/responseData';
 import AuthModuleTypes, {logString} from '@/store/modules/auth/interface';
 import {message} from 'ant-design-vue';
 
@@ -37,7 +37,7 @@ export const useAuthStore = defineStore('authStore', {
           return res;
         });
     },
-    async register({username, password}: logString): Promise<responseData> {
+    async register({username, password}: logString): Promise<responseAuthData> {
       const res = await auth.register({username, password});
       // this.setUser({userData: res.data});
       this.setUser({userData: null});

@@ -1,6 +1,6 @@
 // 接口文档见 http://dw-z.ink/2j4pC
 import request from '@/helpers/request';
-import {responseData, userAuthInfo} from '@/types/responseData';
+import {responseAuthData, userAuthInfo} from '@/types/responseData';
 
 const URL = {
   register: '/auth/register',
@@ -10,16 +10,16 @@ const URL = {
 };
 
 export default {
-  register(data: userAuthInfo): Promise<responseData> {
+  register(data: userAuthInfo): Promise<responseAuthData> {
     return request(URL.register, 'POST', data);
   },
-  login(data: userAuthInfo): Promise<responseData> {
+  login(data: userAuthInfo): Promise<responseAuthData> {
     return request(URL.login, 'POST', data);
   },
   logout() {
     return request(URL.logout);
   },
-  getInfo(): Promise<responseData> {
+  getInfo(): Promise<responseAuthData> {
     return request(URL.get_info);
   },
 };

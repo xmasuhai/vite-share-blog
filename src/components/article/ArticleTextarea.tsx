@@ -1,6 +1,7 @@
 import {defineComponent, ref,} from 'vue';
 import cssCreateEdit from '@/styles/blog-create-edit.module.scss';
 import {Button, Textarea, Switch} from 'ant-design-vue';
+import createArticle from '@/styles/article.module.scss';
 
 const ArticleTextarea = {
   mainTitle: String,
@@ -10,18 +11,24 @@ const ArticleTextarea = {
 export default defineComponent({
   name: 'ArticleTextarea',
   props: ArticleTextarea,
+  emits: ['handleClick',],
   components: {},
-  setup(/*props, ctx*/) {
+  setup(props, ctx) {
     const title = ref('');
     const description = ref('');
     const content = ref('');
     const atIndex = ref<boolean>(false);
 
+    const handleClick = () => {
+      ctx.emit('handleClick');
+    };
+
     return {
       title,
       description,
       content,
-      atIndex
+      atIndex,
+      handleClick
     };
   },
   render() {
@@ -56,14 +63,15 @@ export default defineComponent({
             限30000个字
           </p>
 
-          <p>
+          <div class={cssCreateEdit.switchBox}>
             <label for="isShowAtIndex"> 是否展示到首页：
               <Switch id="isShowAtIndex"
                       v-model:checked={this.atIndex}/>
             </label>
-          </p>
+          </div>
 
-          <Button class="blog-btn">
+          <Button class="blog-btn"
+                  onClick={this.handleClick}>
             {this.btnText}
           </Button>
 

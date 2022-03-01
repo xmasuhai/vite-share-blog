@@ -50,9 +50,27 @@
     align-items: center;
     display: flex;
     position: relative;
+    height: 100%;
 
-    &:hover .menu {
+    &:hover > .menu {
       display: block;
+    }
+
+    .edit-icon {
+      color: $white;
+      font-size: 24px;
+    }
+
+    .avatar {
+      border: 1px solid $white;
+      border-radius: 50%;
+      height: 100%;
+      margin-left: 15px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      width: 40px;
+
     }
 
     .menu {
@@ -64,7 +82,7 @@
       padding: 0;
       position: absolute;
       right: 0;
-      top: 100%;
+      top: 105%;
       transform: translateX(50%);
 
       .link {
@@ -81,21 +99,6 @@
 
     }
 
-    .edit-icon {
-      color: $white;
-      font-size: 24px;
-    }
-
-    .avatar {
-      border: 1px solid $white;
-      border-radius: 50%;
-      height: 40px;
-      margin-left: 15px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      width: 40px;
-    }
   }
 }
 

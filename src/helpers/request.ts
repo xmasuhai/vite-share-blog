@@ -1,4 +1,4 @@
-import {responseData/*, userAuthInfo*/} from '@/types/responseData';
+import {responseAuthData, responseBlogData, responseData/*, userAuthInfo*/} from '@/types/responseData';
 import axios, {AxiosRequestConfig, Method,} from 'axios';
 import {message} from 'ant-design-vue';
 
@@ -15,7 +15,14 @@ const storeToken = (tokenStr: string) => {
     : (localStorage.token = tokenStr);
 };
 
-export default function request(url: string, type: Method = 'GET', data = {}): Promise<responseData> {
+// 函数重写
+function request(url: string): Promise<responseAuthData>
+function request(url: string, type: Method, data: {}): Promise<responseAuthData>
+function request(url: string, type: Method, data: {}): Promise<responseBlogData>
+function request(url: string, type: Method): Promise<responseBlogData>
+function request(url: string,
+                 type: Method = 'GET',
+                 data = {}): Promise<responseBlogData | responseAuthData> {
   return new Promise((resolve, reject) => {
     // 配置axios选项参数
     const option: AxiosRequestConfig = {
@@ -60,6 +67,7 @@ export default function request(url: string, type: Method = 'GET', data = {}): P
   });
 }
 
+export default request;
 // 方法使用范例
 // request('/auth/login', 'POST', {username: 'Jack', password: '123456'})
 // .then(response => { console.log(response.data)})

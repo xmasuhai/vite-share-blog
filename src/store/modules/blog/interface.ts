@@ -1,10 +1,6 @@
-import {ActionContext} from 'vuex';
-import RootStateTypes from '@/store/interface';
+import {responseAuthData} from '@/types/responseData';
 
-export default interface BlogModuleTypes {
-  user: string | null,
+export default interface BolgModuleTypes {
   isLogin: boolean
+  userData: responseAuthData['data'] | null,
 }
-export type ActionContextType = ActionContext<BlogModuleTypes, RootStateTypes>;
-
-export type blogState = BlogModuleTypes
