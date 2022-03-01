@@ -1,5 +1,6 @@
 // 接口文档见 http://dw-z.ink/2j4pC
 import request from '@/helpers/request';
+import {responseCreatedBlog} from '@/types/responseData';
 // RESTful API URL
 const URL = {
   get_list: '/blog',
@@ -35,13 +36,18 @@ export default {
   getDetail({blogId}: { blogId: number }) {
     return request(URL.get_detail.replace(':blogId', `${blogId}`));
   },
-  createBlog({title = '', content = '', description = '', atIndex = false} = {
+  createBlog({
+               title,
+               content,
+               description,
+               atIndex
+             } = {
     title: '',
     content: '',
     description: '',
     atIndex: false
-  }) {
-    return request(URL.update, 'POST', {title, content, description, atIndex});
+  }): Promise<responseCreatedBlog> {
+    return request(URL.create, 'POST', {title, content, description, atIndex});
   },
   updateBlog({blogId}: { blogId: number }, {title, content, description, atIndex}: blogDetail) {
     return request(URL.update.replace(':blogId', `${blogId}`),

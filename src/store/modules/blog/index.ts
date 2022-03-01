@@ -1,5 +1,3 @@
+import {useBlogStore} from '@/store/modules/blog/blogStore';
 
-
-import blogStore from '@/store/modules/blog/blogStore';
-
-export default blogStore;
+export default useBlogStore;

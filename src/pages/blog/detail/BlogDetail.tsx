@@ -1,12 +1,22 @@
 import {defineComponent,} from 'vue';
 import cssDetail from '@/styles/blog-detail.module.scss';
 import classNames from 'classnames';
+// import useBlogStore from '@/store/modules/blog';
 
 export default defineComponent({
   name: 'BlogDetail',
   props: {},
   components: {},
   setup(/*props, ctx*/) {
+
+/*
+    const BlogStore = useBlogStore();
+
+    const title = ref('');
+    const description = ref('');
+    const rawContent = ref('');
+    const user = ref({});
+*/
 
     return {};
   },

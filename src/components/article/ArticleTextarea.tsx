@@ -1,7 +1,7 @@
 import {defineComponent, ref,} from 'vue';
 import cssCreateEdit from '@/styles/blog-create-edit.module.scss';
 import {Button, Textarea, Switch} from 'ant-design-vue';
-import createArticle from '@/styles/article.module.scss';
+import useBlogStore from '@/store/modules/blog';
 
 const ArticleTextarea = {
   mainTitle: String,
@@ -14,10 +14,23 @@ export default defineComponent({
   emits: ['handleClick',],
   components: {},
   setup(props, ctx) {
+    const BlogStore = useBlogStore();
+
     const title = ref('');
     const description = ref('');
     const content = ref('');
     const atIndex = ref<boolean>(false);
+
+    // 将变更 patch 到 BlogStore 中
+    watch([title, description, content, atIndex],
+      ([title, description, content, atIndex]) => {
+        BlogStore.$patch({
+          title: title,
+          description,
+          content,
+          atIndex
+        });
+      }, {immediate: true});
 
     const handleClick = () => {
       ctx.emit('handleClick');
@@ -36,13 +49,13 @@ export default defineComponent({
       <>
         <section class={cssCreateEdit.create}>
           <h1 class={cssCreateEdit.article}>
-            {this.title}
+            {this.mainTitle}
           </h1>
 
           <h3>文章标题</h3>
           <Textarea placeholder="限30个字"
                     auto-size
-                    v-model={this.title}/>
+                    v-model:value={this.title}/>
           <p class={cssCreateEdit.msg}>
             限30个字
           </p>
@@ -50,7 +63,7 @@ export default defineComponent({
           <h3>内容简介</h3>
           <Textarea placeholder="限30个字"
                     auto-size={{minRows: 2, maxRows: 3}}
-                    v-model={this.description}/>
+                    v-model:value={this.description}/>
           <p class={cssCreateEdit.msg}>
             限30个字
           </p>
@@ -58,7 +71,7 @@ export default defineComponent({
           <h3>文章内容</h3>
           <Textarea placeholder="限30000个字"
                     auto-size={{minRows: 18, maxRows: 30}}
-                    v-model={this.content}/>
+                    v-model:value={this.content}/>
           <p class={cssCreateEdit.msg}>
             限30000个字
           </p>

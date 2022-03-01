@@ -1,4 +1,4 @@
-import {responseAuthData, responseBlogData, responseData/*, userAuthInfo*/} from '@/types/responseData';
+import {responseAuthData, responseCreatedBlog,/*, userAuthInfo*/} from '@/types/responseData';
 import axios, {AxiosRequestConfig, Method,} from 'axios';
 import {message} from 'ant-design-vue';
 
@@ -18,11 +18,11 @@ const storeToken = (tokenStr: string) => {
 // 函数重写
 function request(url: string): Promise<responseAuthData>
 function request(url: string, type: Method, data: {}): Promise<responseAuthData>
-function request(url: string, type: Method, data: {}): Promise<responseBlogData>
-function request(url: string, type: Method): Promise<responseBlogData>
+function request(url: string, type: 'POST', data: {}): Promise<responseCreatedBlog>
+function request(url: string, type: Method): Promise<responseCreatedBlog>
 function request(url: string,
                  type: Method = 'GET',
-                 data = {}): Promise<responseBlogData | responseAuthData> {
+                 data = {}): Promise<responseCreatedBlog | responseAuthData> {
   return new Promise((resolve, reject) => {
     // 配置axios选项参数
     const option: AxiosRequestConfig = {
@@ -61,8 +61,8 @@ function request(url: string,
         }
       })
       .catch(err => {
-        errorMsg('网络异常');
-        return reject({msg: '网络异常', errorDetail: err});
+        errorMsg('网络有异常');
+        return reject({msg: '网络有异常', errorDetail: err});
       });
   });
 }

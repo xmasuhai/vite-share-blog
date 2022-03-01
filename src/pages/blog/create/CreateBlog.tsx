@@ -1,24 +1,25 @@
 import {defineComponent,} from 'vue';
 import ArticleTextarea from '@/components/article/ArticleTextarea';
 import blog from '@/api/blog';
+import useBlogStore from '@/store/modules/blog';
+import {message} from 'ant-design-vue';
+import {useRouter} from 'vue-router';
 
 export default defineComponent({
   name: 'CreateBlog',
   props: {},
   components: {},
   setup(/*props, ctx*/) {
+    const BlogStore = useBlogStore();
+    const popMessage = inject<typeof message>('$message');
+    const router = useRouter();
+
     const createBlog = () => {
-      /*
-      blog.createBlog({
-      title: this.title,
-      content: this.content,
-      description: this.description,
-      atIndex: this.atIndex})
+      blog.createBlog(BlogStore.getBlogFullInfo)
         .then(res => {
-          this.$message.success(res.msg)
-          this.$router.push({ path: `/detail/${res.data.id}`})
-        })
-      */
+          popMessage && popMessage.success(res.msg);
+          return router.push({path: `/detail/${res.data.id}`});
+        });
     };
     return {
       createBlog
