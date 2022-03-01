@@ -14,8 +14,17 @@
     text-align: right;
   }
 
-  .switch-box {
-    margin: 15px 0;
+}
+
+.switch-box {
+  align-items: center;
+  display: flex;
+  margin: 15px 0;
+
+  .label {
+    .label-text {
+      vertical-align: middle;
+    }
   }
 
 }

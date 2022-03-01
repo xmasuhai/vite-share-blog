@@ -1,5 +1,5 @@
 import {defineComponent,} from 'vue';
-import ArticleTextarea from '@/components/article/ArticleTextarea';
+import ArticleTextarea from '@/components/article/ArticleTemplate';
 
 export default defineComponent({
   name: 'EditBlog',

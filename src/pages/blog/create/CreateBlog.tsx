@@ -1,5 +1,5 @@
 import {defineComponent,} from 'vue';
-import ArticleTextarea from '@/components/article/ArticleTextarea';
+import ArticleTextarea from '@/components/article/ArticleTemplate';
 import blog from '@/api/blog';
 import useBlogStore from '@/store/modules/blog';
 import {message} from 'ant-design-vue';
@@ -27,11 +27,9 @@ export default defineComponent({
   },
   render() {
     return (
-      <>
-        <ArticleTextarea mainTitle="创建文章"
-                         btnText="发布文章"
-                         onHandleClick={this.createBlog}/>
-      </>
+      <ArticleTextarea mainTitle="创建文章"
+                       btnText="发布文章"
+                       onHandleClick={this.createBlog}/>
     );
   }
 
