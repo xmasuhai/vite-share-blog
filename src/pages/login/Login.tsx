@@ -22,6 +22,9 @@ export default defineComponent({
     const username = ref('');
     const password = ref('');
 
+    const defaultUsername = ref('admin001');
+    const defaultPassword = ref('123456');
+
     const userLoginInfo = computed(() => {
       return {
         username: username.value,
@@ -50,6 +53,8 @@ export default defineComponent({
     return {
       username,
       password,
+      defaultUsername,
+      defaultPassword,
       userLoginInfo,
       onLogin,
       keyUpHandler,
@@ -61,13 +66,15 @@ export default defineComponent({
       <section class={cssAuth.login}>
         <UserInput title="用户名"
                    errorText="当前用户名已注册"
-                   v-model={[this.username, 'username']}/>
+                   v-model={[this.username, 'username']}
+                   placeholder={`默认登录名：${this.defaultUsername}`}/>
 
         <UserInput title="密码"
                    inputType="password"
                    errorText="当前用户名或密码不匹配"
                    v-model={[this.password, 'password']}
-                   onKeyUp={this.keyUpHandler}/>
+                   onKeyUp={this.keyUpHandler}
+                   placeholder={`默认密码：${this.defaultPassword}`}/>
 
         <UserSubmitBtnTip btnName="立即登录"
                           tipText="没有账号？"

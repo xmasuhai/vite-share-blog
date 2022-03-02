@@ -8,13 +8,14 @@ const UserInputProps = {
   placeholder: String,
   errorText: String,
   keyUpHandler: Function as PropType<() => void>,
-  autoComplete: {type: String, default: 'on'}
+  autoComplete: {type: String, default: 'on'},
+  inputValue: {type: String, default: ''}
 };
 
 export default defineComponent({
   name: 'UserInput',
   props: UserInputProps,
-  emits: ['keyUp', 'update:username', 'update:password'],
+  emits: ['keyUp', 'update:username', 'update:password', 'update:passwordCheck'],
   components: {},
   setup(props, ctx) {
     const keyUpHandler = (e: KeyboardEvent) => {
@@ -23,6 +24,7 @@ export default defineComponent({
 
     const changeValue = (e: InputEvent) => {
       ctx.emit('update:password', (e.target as HTMLInputElement).value);
+      ctx.emit('update:passwordCheck', (e.target as HTMLInputElement).value);
       ctx.emit('update:username', (e.target as HTMLInputElement).value); // 以前是 `this.$emit('input', title)`
     };
 
