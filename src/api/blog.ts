@@ -1,6 +1,6 @@
 // 接口文档见 http://dw-z.ink/2j4pC
 import request from '@/helpers/request';
-import {responseCreatedBlog} from '@/types/responseData';
+import {blogInfo, blogPostInfo, responseBlogDetail,} from '@/types/responseData';
 // RESTful API URL
 const URL = {
   get_list: '/blog',
@@ -10,54 +10,42 @@ const URL = {
   delete: '/blog/:blogId',
 };
 
-type blogInfo = {
-  page: number,
-  userId?: number,
-  atIndex?: boolean
+export function getBlogs({page, atIndex, userId}: blogInfo = {page: 1, atIndex: true,}) {
+  return request(URL.get_list, 'GET', {page, atIndex, userId});
 }
 
-type blogDetail = {
-  title?: string,
-  content?: string,
-  description?: string,
-  atIndex?: boolean
+// 首页 全部博客数据 已分页
+export function getIndexBlogs({page} = {page: 1}) {
+  return getBlogs({page, atIndex: true});
 }
 
-export default {
-  getBlogs({page = 1, userId, atIndex}: blogInfo = {page: 1}) {
-    return request(URL.get_list, 'GET', {page, userId, atIndex});
-  },
-  getIndexBlogs({page = 1} = {page: 1}) {
-    return this.getBlogs({page, atIndex: true});
-  },
-  getBlogsByUserId(userId: number, {page, atIndex}: blogInfo = {page: 1}) {
-    return this.getBlogs({userId, page, atIndex});
-  },
-  getDetail({blogId}: { blogId: number }) {
-    return request(URL.get_detail.replace(':blogId', `${blogId}`));
-  },
-  createBlog({
-               title,
-               content,
-               description,
-               atIndex
-             } = {
-    title: '',
-    content: '',
-    description: '',
-    atIndex: false
-  }): Promise<responseCreatedBlog> {
-    return request(URL.create, 'POST', {title, content, description, atIndex});
-  },
-  updateBlog({blogId}: { blogId: number }, {title, content, description, atIndex}: blogDetail) {
-    return request(URL.update.replace(':blogId', `${blogId}`),
-      'PATCH',
-      {title, content, description, atIndex});
-  },
-  deleteBlog({blogId}: { blogId: number }) {
-    return request(URL.delete.replace(':blogId', `${blogId}`), 'DELETE');
-  },
-};
+export function getDetail({blogId}: { blogId: number }) {
+  return request(URL.get_detail.replace(':blogId', `${blogId}`));
+}
+
+export function createBlog({
+                             title,
+                             content,
+                             description,
+                             atIndex
+                           } = {
+  title: '',
+  content: '',
+  description: '',
+  atIndex: false
+}): Promise<responseBlogDetail> {
+  return request(URL.create, 'POST', {title, content, description, atIndex});
+}
+
+export function updateBlog({blogId}: { blogId: number }, {title, content, description, atIndex}: blogPostInfo) {
+  return request(URL.update.replace(':blogId', `${blogId}`),
+    'PATCH',
+    {title, content, description, atIndex});
+}
+
+export function deleteBlog({blogId}: { blogId: number }) {
+  return request(URL.delete.replace(':blogId', `${blogId}`), 'DELETE');
+}
 
 // 使用示例
 // auth.register({username: hungerXx', password: '123456})

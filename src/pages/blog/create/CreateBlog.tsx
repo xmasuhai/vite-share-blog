@@ -1,6 +1,6 @@
 import {defineComponent,} from 'vue';
 import ArticleTextarea from '@/components/article/ArticleTemplate';
-import blog from '@/api/blog';
+import {createBlog} from '@/api/blog';
 import useBlogStore from '@/store/modules/blog';
 import {message} from 'ant-design-vue';
 import {useRouter} from 'vue-router';
@@ -15,22 +15,22 @@ export default defineComponent({
     const router = useRouter();
 
     // TODO 将所有逻辑 合并到 store 中
-    const createBlog = () => {
-      blog.createBlog(BlogStore.getBlogFullInfo)
+    const postBlog = () => {
+      createBlog(BlogStore.getBlogFullInfo)
         .then(res => {
           popMessage && popMessage.success(res.msg);
-          return router.push({path: `/detail/${res.data.id}`});
+          return (res.data && router.push({path: `/detail/${res.data.id}`}));
         });
     };
     return {
-      createBlog
+      postBlog
     };
   },
   render() {
     return (
       <ArticleTextarea mainTitle="创建文章"
                        btnText="发布文章"
-                       onHandleClick={this.createBlog}/>
+                       onHandleClick={this.postBlog}/>
     );
   }
 

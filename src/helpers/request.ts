@@ -1,4 +1,10 @@
-import {responseAuthData, responseCreatedBlog,/*, userAuthInfo*/} from '@/types/responseData';
+import {
+  blogInfo, blogPostInfo,
+  responseAuthData,
+  responseBlogDetail,
+  responseCreatedBlog,
+  responseGetBlogsData, responsePossibleData, userAuthInfo,/*, userAuthInfo*/
+} from '@/types/responseData';
 import axios, {AxiosRequestConfig, Method,} from 'axios';
 import {message} from 'ant-design-vue';
 
@@ -15,14 +21,39 @@ const storeToken = (tokenStr: string) => {
     : (localStorage.token = tokenStr);
 };
 
-// 函数重写
-function request(url: string): Promise<responseAuthData>
-function request(url: string, type: Method, data: {}): Promise<responseAuthData>
-function request(url: string, type: 'POST', data: {}): Promise<responseCreatedBlog>
-function request(url: string, type: Method): Promise<responseCreatedBlog>
+
+// 函数重载
+/*
+* Auth
+* GET '/auth' @API getInfo()
+* GET '/auth/logout' @API logout()
+* POST '/auth/register' @API register()
+* POST '/auth/login' @API login()
+*
+* Blog
+* GET '/blog' without userId @API getIndexBlogs()
+* GET '/blog' with userId @API getBlogs()
+* GET '/blog/:blogId' @API getBlogs()
+* POST '/blog' @API createBlog()
+* PATCH '/blog/:blogId' @API updateBlog()
+* DELETE '/blog/:blogId' @API deleteBlog()
+* */
+
+// '/auth'
+function request(url: '/auth', type: 'GET'): Promise<responseAuthData> // GET '/auth' @API getInfo()
+function request(url: '/auth/logout', type: 'GET'): Promise<responseAuthData> // '/auth/logout' @API logout()
+function request(url: '/auth/register', type: 'POST', data: { username: string, password: string }): Promise<responseAuthData> // POST '/auth/register' @API register()
+function request(url: string, type: 'POST', data: { username: string, password: string }): Promise<responseAuthData> // POST '/auth/login' @API login()
+// '/blog'
+function request(url: string, type: 'GET', data: { page: number, atIndex: boolean, }): Promise<responseCreatedBlog> // GET '/blog' without userId @API getIndexBlogs()
+function request(url: string, type: 'GET', data: { page: number, atIndex: boolean, userId?: number }): Promise<responseGetBlogsData> // '/blog' with userId @API getBlogs()
+function request(url: string, type?: 'GET'): Promise<responseBlogDetail> // GET '/blog/:blogId' @API getBlogs()
+function request(url: string, type: 'POST', data: blogPostInfo): Promise<responseBlogDetail> // POST '/blog' @API createBlog()
+function request(url: string, type: 'PATCH', data: blogPostInfo): Promise<responseCreatedBlog> // PATCH '/blog/:blogId' @API updateBlog()
+function request(url: string, type: 'DELETE'): Promise<responseCreatedBlog> // DELETE '/blog/:blogId' @API deleteBlog()
 function request(url: string,
                  type: Method = 'GET',
-                 data = {}): Promise<responseCreatedBlog | responseAuthData> {
+                 data?: blogInfo | userAuthInfo | blogPostInfo): Promise<responsePossibleData> {
   return new Promise((resolve, reject) => {
     // 配置axios选项参数
     const option: AxiosRequestConfig = {

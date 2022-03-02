@@ -6,7 +6,6 @@ declare module 'vue' {
   export interface GlobalComponents {
     About: typeof import('./components/About.tsx')['default']
     ArticleTemplate: typeof import('./components/article/ArticleTemplate.tsx')['default']
-    ArticleTextarea: typeof import('./components/article/ArticleTextarea.tsx')['default']
     ArticleTextArea: typeof import('./components/article/ArticleTextArea.tsx')['default']
     BlogBody: typeof import('./components/BlogBody.tsx')['default']
     BlogFooter: typeof import('./components/BlogFooter.tsx')['default']

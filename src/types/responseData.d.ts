@@ -1,5 +1,12 @@
 // import {AxiosPromise} from 'axios';
 
+type blogPostInfo = {
+  title: string,
+  description?: string,
+  content: string,
+  atIndex: boolean
+}
+
 type blogFullInfo = {
   id: number, // 博客 id
   title: string,
@@ -14,25 +21,29 @@ type blogFullInfo = {
   updatedAt: string // 更新时间
 }
 
+export interface responseBlogDetail extends responseData {
+  data?: blogFullInfo;
+}
+
 export interface responseCreatedBlog extends responseData {
   total?: number, // 全部博客的总数
   page?: number, // 当前页数
   totalPage?: number, // 总页数
   isLogin?: boolean;
-  data: blogFullInfo
+  data?: blogFullInfo
 }
 
-export interface responseGetBlogData extends responseData {
+export interface responseGetBlogsData extends responseData {
   total?: number, // 全部博客的总数
   page?: number, // 当前页数
   totalPage?: number, // 总页数
   isLogin?: boolean;
-  data: blogFullInfo[]
+  data?: blogFullInfo[]
 }
 
 export interface responseAuthData extends responseData {
-  isLogin: boolean;
-  data: {
+  isLogin?: boolean;
+  data?: {
     id: number;
     username: string;
     avatar: string;
@@ -50,3 +61,11 @@ export type userAuthInfo = {
   username: string,
   password: string
 }
+
+export type blogInfo = {
+  page: number,
+  atIndex: boolean,
+  userId?: number
+}
+
+export type responsePossibleData = responseAuthData | responseCreatedBlog | responseGetBlogsData | responseBlogDetail

@@ -9,30 +9,29 @@ export default defineComponent({
   components: {},
   setup(/*props, ctx*/) {
 
-/*
-    const BlogStore = useBlogStore();
+    /*
+        const BlogStore = useBlogStore();
+        const blogId = ref('')
+        const title = ref('');
+        const description = ref('');
+        const rawContent = ref('');
+        const user = ref({});
 
-    const blogId = ref('')
-    const title = ref('');
-    const description = ref('');
-    const rawContent = ref('');
-    const user = ref({});
+        this.blogId = this.$route.params.blogId
 
-    this.blogId = this.$route.params.blogId
+        const getBlogDetail = async() => {
+          const res = await blog.getDetail({ blogId: this.blogId})
+          this.title = res.data.title
+          this.rawContent = res.data.content
+          this.createdAt = res.data.createdAt
+          this.user = res.data.user
+        }
 
-    const getBlogDetail = async() => {
-      const res = await blog.getDetail({ blogId: this.blogId})
-      this.title = res.data.title
-      this.rawContent = res.data.content
-      this.createdAt = res.data.createdAt
-      this.user = res.data.user
-    }
-
-    // 生成 网页内容 HTML
-    renderArticleDom = computed(() => {
-      return marked(this.rawContent)
-    });
-*/
+        // 生成 网页内容 HTML
+        renderArticleDom = computed(() => {
+          return marked(this.rawContent)
+        });
+    */
 
     return {};
   },
