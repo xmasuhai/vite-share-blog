@@ -1,25 +1,12 @@
 @import 'src/assets/style/variables';
 
 .user-blog {
-  border-bottom: 1px solid $text-info-color;
-  display: grid;
-  grid: auto auto / 80px 1fr;
-  margin-top: 30px;
-  padding-bottom: 20px;
-
-  .avatar {
-    border-radius: 50%;
-    grid-column: 1;
-    grid-row: 1 / span 2;
-    height: 60px;
-    width: 60px;
-  }
+  @extends %use-info;
 
   .title {
     grid-column: 2;
     grid-row: 1;
     margin: 5px 0;
-
   }
 
   .user {
@@ -36,6 +23,6 @@
   }
 }
 
-.article {
+.description {
   padding: 10px 0;
 }

@@ -1,19 +1,13 @@
 @import 'src/assets/style/variables';
 
 .user-info {
-  border-bottom: 1px solid #ebebeb;
-  display: grid;
+  @extends %use-info;
 
-  grid: auto auto / 80px 1fr;
-  margin-top: 30px;
-  padding-bottom: 20px;
-
-  .avatar {
-    border-radius: 50%;
-    grid-column: 1;
-    grid-row: 1 / span 2;
-    height: 60px;
-    width: 60px;
+  // use by BlogDetail.tsx
+  .title {
+    grid-column: 2;
+    grid-row: 1;
+    margin: 5px 0;
   }
 
   .name {
@@ -50,7 +44,7 @@ section .item {
     grid-row: 1;
   }
 
-  .article {
+  .description {
     grid-column: 2;
     grid-row: 2;
     margin-top: 0;

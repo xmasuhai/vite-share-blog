@@ -2,16 +2,18 @@
 
 %user-quicklook {
   .img {
-    flex-grow: 1;
+    aspect-ratio: 1/1;
     border-radius: 50%;
-    height: 60px;
     width: 60px;
   }
 
   .info {
-    flex-grow: 1;
+    align-items: center;
     color: $theme-lighter-color;
+    display: flex;
+    flex-grow: 1;
     font-size: 12px;
+    justify-content: center;
   }
 }
 
@@ -28,7 +30,6 @@
       grid-row: 1 / span 3;
       justify-self: center;
       margin-left: 0;
-      text-align: center;
 
       @at-root & {
         @extend %user-quicklook;
@@ -50,7 +51,7 @@
       }
     }
 
-    .article {
+    .description {
       -webkit-box-orient: vertical;
       display: -webkit-box;
       font-weight: lighter;
@@ -62,6 +63,10 @@
       -webkit-line-clamp: 3;
       margin-top: 0;
       overflow: hidden;
+      padding: {
+        bottom: 1em;
+        top: 1em;
+      }
       text-overflow: ellipsis;
       white-space: normal;
       word-wrap: break-word;
@@ -71,6 +76,8 @@
       color: $theme-font-color;
       grid-column: 2/ span 2;
       grid-row: 3/span 1;
+      margin-left: auto;
+      right: 0;
     }
   }
 }

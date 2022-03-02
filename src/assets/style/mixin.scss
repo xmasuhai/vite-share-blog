@@ -1,0 +1,17 @@
+@import './variables';
+
+%use-info {
+  border-bottom: 1px solid $text-info-color;
+  display: grid;
+  grid: auto auto / 80px 1fr;
+  margin-top: 30px;
+  padding-bottom: 20px;
+
+  .avatar {
+    border-radius: 50%;
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    height: 60px;
+    width: 60px;
+  }
+}
