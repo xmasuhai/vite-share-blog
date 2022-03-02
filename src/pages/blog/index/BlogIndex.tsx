@@ -56,7 +56,7 @@ export default defineComponent({
               </figure>
 
               <h3 class={blogIndex.title}>
-                {title}
+                <span class={blogIndex.text}>{title}</span>
                 <span class={blogIndex.date}>
               {createdAt}
             </span>

@@ -1,4 +1,4 @@
-@import 'src/assets/style/variables';
+@import "src/assets/style/variables";
 
 %user-quicklook {
   .img {
@@ -40,36 +40,47 @@
     .title {
       align-items: center;
       display: flex;
+      flex-wrap: nowrap;
       grid-column: 2/ span 2;
       grid-row: 1;
+      width: 50%;
+
+      @at-root .text {
+        flex-shrink: 2;
+        font-weight: normal;
+        overflow: hidden;
+        text-overflow: ellipsis; // 多行文字省略
+        white-space: nowrap;
+      }
 
       @at-root .date {
         color: $theme-lighter-color;
+        flex-grow: 1;
         font-size: 12px;
         font-weight: normal;
         margin-left: 1em;
+        width: 50%;
       }
     }
 
     .description {
       -webkit-box-orient: vertical;
-      display: -webkit-box;
-      font-weight: lighter;
+      display: -webkit-box; // 多行文字省略
+      font-weight: lighter; // 多行文字省略
       grid-column: 2/ span 2;
       grid-row: 2/span 1;
-
-      // 多行文字省略
-      height: 65px;
-      -webkit-line-clamp: 3;
-      margin-top: 0;
+      height: 4em;
+      -webkit-line-clamp: 2;
+      margin-top: 0; // 多行文字省略
       overflow: hidden;
       padding: {
         bottom: 1em;
         top: 1em;
       }
-      text-overflow: ellipsis;
-      white-space: normal;
-      word-wrap: break-word;
+      text-overflow: ellipsis; // 多行文字省略
+      white-space: normal; // 多行文字省略
+      width: 95%; // 多行文字省略
+      word-wrap: break-word; // 多行文字省略
     }
 
     .detail-link {
