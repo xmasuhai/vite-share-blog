@@ -8,6 +8,7 @@ type blogPostInfo = {
 }
 
 type blogFullInfo = {
+  atIndex?: boolean,
   id: number, // 博客 id
   title: string,
   description: string,
@@ -15,7 +16,9 @@ type blogFullInfo = {
   user: {
     id: number, // 博客所属用户 id,
     username: string, // 博客所属用户的 username
-    avatar: string
+    avatar: string,
+    updatedAt: string,
+    createdAt: string,
   },
   createdAt: string, // 创建时间
   updatedAt: string // 更新时间

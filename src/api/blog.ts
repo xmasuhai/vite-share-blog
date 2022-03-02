@@ -16,7 +16,12 @@ export function getBlogs({page, atIndex, userId}: blogInfo = {page: 1, atIndex: 
 
 // 首页 全部博客数据 已分页
 export function getIndexBlogs({page} = {page: 1}) {
-  return getBlogs({page, atIndex: true});
+  return getBlogs({page, atIndex: true,});
+}
+
+// 获取特定 userId 的博客列表
+export function getBlogByUserId(userId: number, {page} = {page: 1}) {
+  return getBlogs({page, atIndex: true, userId});
 }
 
 export function getDetail({blogId}: { blogId: number }) {
@@ -24,11 +29,11 @@ export function getDetail({blogId}: { blogId: number }) {
 }
 
 export function createBlog({
-                             title,
-                             content,
-                             description,
-                             atIndex
-                           } = {
+  title,
+  content,
+  description,
+  atIndex
+} = {
   title: '',
   content: '',
   description: '',
