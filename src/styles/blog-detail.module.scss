@@ -1,7 +1,8 @@
 @import 'src/assets/style/variables';
+@import 'src/assets/style/mixin';
 
 .user-blog {
-  @extends %use-info;
+  @extend %use-info;
 
   .title {
     grid-column: 2;

@@ -1,7 +1,8 @@
 @import 'src/assets/style/variables';
+@import 'src/assets/style/mixin';
 
 .user-info {
-  @extends %use-info;
+  @extend %use-info;
 
   // use by BlogDetail.tsx
   .title {
