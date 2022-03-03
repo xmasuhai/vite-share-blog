@@ -29,11 +29,11 @@ export function getDetail({blogId}: { blogId: number }) {
 }
 
 export function createBlog({
-  title,
-  content,
-  description,
-  atIndex
-} = {
+                             title,
+                             content,
+                             description,
+                             atIndex
+                           } = {
   title: '',
   content: '',
   description: '',

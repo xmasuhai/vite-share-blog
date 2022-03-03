@@ -12,6 +12,7 @@ import 'ant-design-vue/es/switch/style/index.css';
 import 'ant-design-vue/es/message/style/index.css';
 import 'ant-design-vue/es/input/style/index.css';
 import 'ant-design-vue/es/input-number/style/index.css';
+import 'ant-design-vue/es/pagination/style/index.css';
 
 // Cover ant-design-vue
 import '@/assets/style/cover-ant.scss';
@@ -22,7 +23,7 @@ export default defineComponent({
   // components: {BlogHeader, BlogFooter, Button}, // 无需注册组件，components是用于template模板中
   setup(/*props, ctx*/) {
     // 将 message 方法挂载到全局
-    provide('$message', message);
+    provide<typeof message>('$message', message);
   },
   render: () => {
     const renderLayout = () => { return (<Layout/>);};
