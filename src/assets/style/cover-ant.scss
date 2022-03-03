@@ -1,12 +1,14 @@
 @import 'src/assets/style/variables';
 
 body {
-  color: #333;
+  color: $text-color;
   font: 14px/1.6 Arial, "Microsoft YaHei", "??", "??", sans-serif;
   margin: 0;
 }
 
-html, body, #app {
+html,
+body,
+#app {
   height: 100%;
 }
 
@@ -21,13 +23,32 @@ button.blog-btn {
   padding: 0 8px;
 
   &:hover {
-    color: #fff;
     background-color: $theme-lighter-color;
+    color: $white;
   }
 }
 
-input.is-active .ant-input__inner,
-.ant-input__inner:focus,
-.ant-textarea__inner:focus {
+input.ant-input:focus,
+textarea.ant-input:focus,
+input.ant-input:hover,
+textarea.ant-input:hover {
   border-color: $theme-lighter-color;
+}
+
+ul.ant-pagination {
+  > li.ant-pagination-item,
+  li.ant-pagination-prev,
+  li.ant-pagination-next {
+    > a.ant-pagination-item-link {
+
+      > span.anticon {
+        transform: translateY(55%);
+      }
+    }
+
+    a:not(.ant-pagination-item-link) {
+      display: inline-block;
+      vertical-align: -.6em;
+    }
+  }
 }
