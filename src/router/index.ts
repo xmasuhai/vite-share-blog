@@ -3,64 +3,51 @@ import {storeToRefs} from 'pinia';
 import useStore from '@/store';
 import useAuthStore from '@/store/modules/auth';
 
-/* 动态加载组件出现警告 component: () => import('@/pages/blog/index/BlogIndex')  改为静态导入 */
-// components
-import BlogIndex from '@/pages/blog/index/BlogIndex';
-import Login from '@/pages/login/Login';
-import Register from '@/pages/register/Register';
-import CreateBlog from '@/pages/blog/create/CreateBlog';
-import EditBlog from '@/pages/blog/edit/EditBlog';
-import BlogDetail from '@/pages/blog/detail/BlogDetail';
-import User from '@/pages/user/User';
-import MyBlog from '@/pages/myBlog/MyBlog';
-import About from '@/pages/About';
-
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
     name: 'BlogIndex',
     // import('') 必须是静态字符串，不可动态拼接
-    // The above dynamic import cannot be analyzed by vite
-    component: BlogIndex, // 注意这里如果是.vue文件必须要带上 文件后缀.vue
+    component: () => import('@/pages/blog/index/BlogIndex'),
   },
   {
     path: '/login',
     name: 'Login',
-    component: Login,
+    component: () => import('@/pages/login/Login')
   },
   {
     path: '/register',
     name: 'Register',
-    component: Register,
+    component: () => import('@/pages/register/Register'),
   },
   {
     path: '/detail/:blogId',
     name: 'BlogDetail',
-    component: BlogDetail,
+    component: () => import('@/pages/blog/detail/BlogDetail'),
   },
   {
     path: '/create',
     name: 'CreateBlog',
-    component: CreateBlog,
+    component: () => import('@/pages/blog/create/CreateBlog'),
     // 只有经过身份验证的用户才能创建帖子
     meta: {requiresAuth: true},
   },
   {
     path: '/edit/:blogId',
     name: 'EditBlog',
-    component: EditBlog,
+    component: () => import('@/pages/blog/edit/EditBlog'),
     meta: {requiresAuth: true},
   },
   {
     path: '/user/:userId',
     name: 'User',
-    component: User,
+    component: () => import('@/pages/user/User'),
     meta: {requiresAuth: true},
   },
   {
     path: '/myblog',
     name: 'MyBlog',
-    component: MyBlog,
+    component: () => import('@/pages/myBlog/MyBlog'),
     meta: {requiresAuth: true},
   },
   {
@@ -69,7 +56,7 @@ const routes: RouteRecordRaw[] = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: About
+    component: () => import('@/pages/About')
   }
 ];
 
