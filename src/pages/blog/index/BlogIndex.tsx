@@ -1,5 +1,5 @@
 import {defineComponent, inject, ref} from 'vue';
-import {useRouter} from 'vue-router';
+import {useRouter, useRoute} from 'vue-router';
 // request API
 import {getIndexBlogs} from '@/api/blog';
 // CSS module
@@ -7,6 +7,8 @@ import blogIndex from '@/styles/blog-index.module.scss';
 // UI lib
 import {message, Pagination} from 'ant-design-vue';
 import {blogFullInfo} from '@/types/responseData';
+// utils
+import {scrollToTop} from '@/utils/scrollToTop';
 
 export default defineComponent({
   name: 'BlogIndex',
@@ -14,6 +16,7 @@ export default defineComponent({
   setup(/*props, ctx*/) {
     const popMessage = inject<typeof message>('$message');
     const router = useRouter(); // 路由实例
+    const route = useRoute();// 当前路由
     // data
     const blogDataList = ref<blogFullInfo[] | undefined>([]);
     const allPages = ref(0);
@@ -22,39 +25,24 @@ export default defineComponent({
 
     // 调用 getIndexBlogs API 获取所有博客列表
     const getBlogList = async () => {
-      // 从路由URL路径参数取出当前页码值
+      // 从路由URL路径参数取出当前页码值 route.query.page 'http://localhost:3000/#/?page=1'
+      currentPage.value = parseInt(route.query.page as string) || 1;
       const {data: BlogList, msg, total: totalData, totalPage, page} = await getIndexBlogs({page: currentPage.value});
       popMessage && popMessage.success(msg);
       BlogList && (blogDataList.value = BlogList);
       totalData && totalPage && (allPages.value = (pageSize.value * totalPage));
       page && (currentPage.value = page);
-
     };
 
+    // 博客页跳转逻辑
     const onPageChange = async (newPage: number) => {
       const res = await getIndexBlogs({page: newPage});
       blogDataList.value = res.data;
       res.total && (allPages.value = res.total);
       res.page && (currentPage.value = res.page);
+      // 使用 router.push 编程式导航至 新的页码值 显示在路由URL路径参数中 'http://localhost:3000/#/?page=2'
       await router.push({path: '/', query: {page: newPage}});
       scrollToTop();
-    };
-
-    /*
-    *
-    * window.requestAnimationFrame() 告诉浏览器希望执行一个动画，
-    * 并且要求浏览器在下次重绘之前调用指定的回调函数更新动画。
-    * 该方法需要传入一个回调函数作为参数，该回调函数会在浏览器下一次重绘之前执行
-    * requestAnimationFrame：优势：由系统决定回调函数的执行时机
-    * 60Hz的刷新频率，那么每次刷新的间隔中会执行一次回调函数，不会引起丢帧，不会卡顿
-    *
-    * */
-    const scrollToTop = () => {
-      const c = document.documentElement.scrollTop || document.body.scrollTop;
-      if (c > 0) {
-        window.requestAnimationFrame(scrollToTop);
-        window.scrollTo(0, c - c / 8);
-      }
     };
 
     getBlogList()

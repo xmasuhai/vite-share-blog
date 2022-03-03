@@ -63,6 +63,17 @@ const routes: RouteRecordRaw[] = [
 const router = createRouter({
   history: createWebHashHistory(),
   routes,
+/*  scrollBehavior(to, from, savedPosition) {
+    // 模拟 “滚动到锚点”，并开启流畅滚动
+    if (to.hash) {
+      return {
+        el: to.hash,
+        behavior: 'smooth',
+      };
+    }
+    // 始终滚动到顶部
+    // return {top: 0};
+  }*/
 });
 
 // 路由全局前置守卫
@@ -77,7 +88,6 @@ router.beforeEach((to, from, next) => {
   * if (to.path 受控页面或 未登录) return next('/login？');
   * next()
   * */
-
   const ifRequiresAuth: boolean = to.matched.some(record => { return record.meta.requiresAuth; });
 
   // URL 是否需要 身份验证
