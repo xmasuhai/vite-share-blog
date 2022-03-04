@@ -23,11 +23,11 @@ export const friendlyDate = (dataStr: string | Date): string => {
     return str;*/
 
   const dateMark = {
-    [`${space < 60000}`]: () => '刚刚',
-    [`${space < 1000 * 3600}`]: () => `${Math.floor(space / 60000)}分钟前`,
-    [`${space < 1000 * 3600 * 24}`]: () => `${Math.floor(space / (1000 * 3600))}小时前`,
-    [`${space < 1000 * 3600 * 24 * 30}`]: () => `${Math.floor(space / (1000 * 3600 * 24))}天前`,
     [`${space >= 1000 * 3600 * 24 * 30}`]: () => `${dayjs(dataStr).format('YYYY-MM-DD')}`,
+    [`${space < 1000 * 3600 * 24 * 30}`]: () => `${Math.floor(space / (1000 * 3600 * 24))}天前`,
+    [`${space < 1000 * 3600 * 24}`]: () => `${Math.floor(space / (1000 * 3600))}小时前`,
+    [`${space < 1000 * 3600}`]: () => `${Math.floor(space / 60000)}分钟前`,
+    [`${space < 60000}`]: () => '刚刚',
   };
 
   if (typeof dataStr === 'object') {
