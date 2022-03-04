@@ -60,8 +60,8 @@ export default defineComponent({
   },
   render() {
     return (
-      <section class={cssCreateEdit.create}>
-        <h1 class={cssCreateEdit.article}>
+      <section class={cssCreateEdit.createEdit}>
+        <h1 class={cssCreateEdit.mainTitle}>
           {this.mainTitle}
         </h1>
 
@@ -79,11 +79,12 @@ export default defineComponent({
                          autoSize={{minRows: 18, maxRows: 30}}
                          onInputValueChange={this.changeContent}/>
 
+        {/* 首页展示开关 */}
         <div class={cssCreateEdit.switchBox}>
           <label class={cssCreateEdit.label} for="isShowAtIndex">
-              <span class={cssCreateEdit.labelText}>
-                是否展示到首页：
-              </span>
+            <span class={cssCreateEdit.labelText}>
+              是否展示到首页：
+            </span>
             <Switch id="isShowAtIndex"
                     v-model:checked={this.atIndex}/>
           </label>

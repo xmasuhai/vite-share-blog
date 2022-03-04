@@ -11,7 +11,7 @@ export default defineComponent({
   render() {
     return (
       <>
-        <ArticleTextarea mainTitle="保存编辑"
+        <ArticleTextarea mainTitle="编辑文章"
                          btnText="保存编辑"/>
       </>
     );

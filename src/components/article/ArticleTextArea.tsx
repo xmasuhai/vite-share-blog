@@ -30,7 +30,7 @@ export default defineComponent({
   render() {
     return (
       <>
-        <h3>{this.subTitle}</h3>
+        <h3 class={cssCreateEdit.subTitle}>{`${this.subTitle}:`}</h3>
         <Textarea placeholder={`在此输入${this.subTitle}，限${this.wordCount}个字`}
                   auto-size={this.autoSize}
                   v-model:value={this.inputString}/>

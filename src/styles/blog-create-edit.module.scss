@@ -1,11 +1,17 @@
 @import 'src/assets/style/variables';
 
-.create,
-.edit {
-  padding-bottom: 30px;
+.create-edit {
+  padding: {
+    bottom: 30px;
+    top: 30px;
+  }
 
-  .description {
+  .main-title {
     text-align: center;
+  }
+
+  .sub-title {
+    padding-bottom: 5px;
   }
 
   .msg {
