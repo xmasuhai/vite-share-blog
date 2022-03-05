@@ -17,7 +17,8 @@ export default defineComponent({
   render() {
     return (
       <footer class={blogFooterClass.blogFooter}>
-        <a href="https://github.com/xmasuhai/vite-share-blog">
+        <a href="https://github.com/xmasuhai/vite-share-blog"
+           target="_blank">
           <SvgIcon name="github"
                    class={blogFooterClass.svgLogo}/>
           <span class={blogFooterClass.link}>

@@ -17,6 +17,10 @@ export default {
     return request(URL.login, 'POST', data);
   },
   logout(): Promise<responseBlogDetail> {
+    // 用户登出，删除 jwt parameters
+    window.localStorage
+      ? localStorage.removeItem('token')
+      : (localStorage.token = null);
     return request(URL.logout, 'GET');
   },
   getInfo(): Promise<responseBlogDetail> {

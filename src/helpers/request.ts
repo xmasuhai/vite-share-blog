@@ -21,7 +21,6 @@ const storeToken = (tokenStr: string) => {
     : (localStorage.token = tokenStr);
 };
 
-
 // 函数重载
 /*
 * Auth
@@ -51,9 +50,11 @@ function request(url: string, type?: 'GET'): Promise<responseBlogDetail> // GET 
 function request(url: string, type: 'POST', data: blogPostInfo): Promise<responseBlogDetail> // POST '/blog' @API createBlog()
 function request(url: string, type: 'PATCH', data: blogPostInfo): Promise<responseCreatedBlog> // PATCH '/blog/:blogId' @API updateBlog()
 function request(url: string, type: 'DELETE'): Promise<responseCreatedBlog> // DELETE '/blog/:blogId' @API deleteBlog()
-function request(url: string,
-                 type: Method = 'GET',
-                 data?: blogInfo | userAuthInfo | blogPostInfo): Promise<responsePossibleData> {
+// 函数签名 signature
+function request(
+  url: string,
+  type: Method = 'GET',
+  data?: blogInfo | userAuthInfo | blogPostInfo): Promise<responsePossibleData> {
   return new Promise((resolve, reject) => {
     // 配置axios选项参数
     const option: AxiosRequestConfig = {
@@ -64,14 +65,7 @@ function request(url: string,
     // 配置数据
     type.toUpperCase() === 'GET'
       ? option.params = data // 以查询参数方式 传递数据
-      : option.data = data; // 以json方式 传递数据
-
-    // 用户登出，删除 jwt parameters
-    if (url === '/auth/logout') {
-      window.localStorage
-        ? localStorage.removeItem('token')
-        : (localStorage.token = null);
-    }
+      : option.data = data; // 以 application/x-www-form-urlencoded 方式 传递数据
 
     // 携带JWT，设置请求头字段 axios.defaults.headers.common['Authorization']
     if (localStorage.token) {
@@ -99,6 +93,7 @@ function request(url: string,
 }
 
 export default request;
+
 // 方法使用范例
 // request('/auth/login', 'POST', {username: 'Jack', password: '123456'})
 // .then(response => { console.log(response.data)})
