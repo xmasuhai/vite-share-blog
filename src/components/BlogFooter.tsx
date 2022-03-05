@@ -1,4 +1,5 @@
-import blogClass from '@/styles/blog.module.scss';
+import SvgIcon from '@/components/SvgIcon';
+import blogFooterClass from '@/styles/blog-footer.module.scss';
 import {defineComponent,} from 'vue';
 
 const BlogFooterProps = {
@@ -15,8 +16,14 @@ export default defineComponent({
   },
   render() {
     return (
-      <footer class={blogClass.blogFooter}>
-        <p>BlogFooter</p>
+      <footer class={blogFooterClass.blogFooter}>
+        <a href="https://github.com/xmasuhai/vite-share-blog">
+          <SvgIcon name="github"
+                   class={blogFooterClass.svgLogo}/>
+          <span class={blogFooterClass.link}>
+            @github.com/xmasuhai/vite-share-blog
+          </span>
+        </a>
       </footer>
     );
   }

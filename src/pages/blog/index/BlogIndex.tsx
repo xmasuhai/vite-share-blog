@@ -28,14 +28,20 @@ export default defineComponent({
     const getBlogList = async () => {
       // 从路由URL路径参数取出当前页码值 route.query.page 'http://localhost:3000/#/?page=1'
       currentPage.value = parseInt(route.query.page as string) || 1;
-      const {data: BlogList, msg, total: totalData, totalPage, page} = await getIndexBlogs({page: currentPage.value});
-      popMessage && popMessage.success(msg);
+      const {
+        data: BlogList,
+        /*msg,*/
+        total: totalData,
+        totalPage,
+        page
+      } = await getIndexBlogs({page: currentPage.value}); // 默认为 第一页
+      // popMessage && popMessage.success(msg);
       BlogList && (blogDataList.value = BlogList);
       totalData && totalPage && (allPages.value = (pageSize.value * totalPage));
       page && (currentPage.value = page);
     };
 
-    // 博客页跳转逻辑
+    // 博客页跳转逻辑 跳转页码 重新获取对应页码的数据 显示在首页
     const onPageChange = async (newPage: number) => {
       const res = await getIndexBlogs({page: newPage});
       blogDataList.value = res.data;
@@ -46,8 +52,10 @@ export default defineComponent({
       scrollToTop();
     };
 
-    getBlogList()
-      .then(() => {});
+    // 挂载时 获取并显示博客列表，（也可直接放在setup中，除非 配置SSR）
+    onMounted(async () => {
+      await getBlogList();
+    });
 
     return {
       popMessage,
@@ -62,16 +70,16 @@ export default defineComponent({
   render() {
     return (
       <>
-        {/* 首页内容 */}
+        {/* 首页博客列表 */}
         <section class="article-list">
           {this.blogDataList && this.blogDataList.map((blogData) => {
-            const {/*atIndex, */updatedAt, createdAt, description, id, title, user} = blogData;
+            const {/*atIndex, */updatedAt, createdAt, description, id: blogId, title, user} = blogData;
             const {avatar, id: userId, username, updatedAt: updateUserAt, createdAt: createUserAt} = user;
 
             return (
               /* 文章条目 */
               <article class={blogIndex.item}
-                       key={`${id}${userId}${updatedAt}${createdAt}${updateUserAt}${createUserAt}`}>
+                       key={`${blogId}${userId}${updatedAt}${createdAt}${updateUserAt}${createUserAt}`}>
 
                 {/* 作者信息 */}
                 <figure class={blogIndex.avatar}>
@@ -96,7 +104,7 @@ export default defineComponent({
 
                 {/* 跳转到博客详细 */}
                 <p class={blogIndex.detailLink}>
-                  <router-link to={`/detail/${id}`}>
+                  <router-link to={`/detail/${blogId}`}>
                     详细 &gt;&gt;&gt;
                   </router-link>
                 </p>
@@ -106,7 +114,7 @@ export default defineComponent({
           })}
         </section>
 
-        {/* 分页组件 */}
+        {/* 分页 */}
         <section class={blogIndex.pagination} id="pagination">
           <Pagination total={this.allPages}
                       pageSize={this.pageSize}

@@ -1,0 +1,27 @@
+@import 'src/assets/style/variables';
+
+.blog-footer {
+  background-color: $bg-color-footer;
+  color: $font-color-footer;
+  font-size: 13px;
+  padding: 10px;
+  text-align: center;
+
+  a {
+    .svg-logo {
+      > svg {
+        transform: scale(1.5);
+      }
+    }
+
+    .link {
+      cursor: pointer;
+      padding-left: 8px;
+
+      &:hover {
+        color: $text-lighter-color;
+      }
+    }
+  }
+
+}
