@@ -24,16 +24,16 @@ export function getBlogByUserId(userId: number, {page} = {page: 1}) {
   return getBlogs({page, atIndex: true, userId});
 }
 
-export function getDetail({blogId}: { blogId: number }) {
+export function getDetail({blogId}: { blogId: number }): Promise<responseBlogDetail> {
   return request(URL.get_detail.replace(':blogId', `${blogId}`));
 }
 
 export function createBlog({
-                             title,
-                             content,
-                             description,
-                             atIndex
-                           } = {
+  title,
+  content,
+  description,
+  atIndex
+} = {
   title: '',
   content: '',
   description: '',

@@ -1,62 +1,89 @@
-import {defineComponent,} from 'vue';
+import {getDetail} from '@/api/blog';
+import {blogUser} from '@/types/responseData';
+import markdown from '@/utils/markdown';
+import {defineComponent, onMounted,} from 'vue';
 import cssDetail from '@/styles/blog-detail.module.scss';
 import classNames from 'classnames';
-// import useBlogStore from '@/store/modules/blog';
+import {useRoute} from 'vue-router';
+import {beautifyDate} from '@/utils/beautifyDate';
 
 export default defineComponent({
   name: 'BlogDetail',
   props: {},
   components: {},
   setup(/*props, ctx*/) {
+    const route = useRoute();
+    const blogId = ref('');
+    const title = ref('');
+    // const description = ref('');
+    const createdAt = ref('');
+    const rawContent = ref('');
+    const user = ref<blogUser | null>(null);
 
+    blogId.value = route.params.blogId as string;
+
+    const getBlogDetail = async () => {
+      blogId.value = route.params.blogId as string;
+      const {data} = await getDetail({blogId: parseInt(blogId.value)});
+      const {
+        title: blogTitle,
+        content: blogContent,
+        createdAt: blogCreatedAt,
+        user: blogUser
+      } = data;
+      title.value = blogTitle;
+      createdAt.value = beautifyDate(blogCreatedAt);
+      user.value = blogUser;
+      rawContent.value = blogContent;
+    };
+
+    onMounted(async () => {
+      await getBlogDetail();
+    });
+
+    // 生成 网页内容 HTML
     /*
-        const BlogStore = useBlogStore();
-        const blogId = ref('')
-        const title = ref('');
-        const description = ref('');
-        const rawContent = ref('');
-        const user = ref({});
-
-        this.blogId = this.$route.params.blogId
-
-        const getBlogDetail = async() => {
-          const res = await blog.getDetail({ blogId: this.blogId})
-          this.title = res.data.title
-          this.rawContent = res.data.content
-          this.createdAt = res.data.createdAt
-          this.user = res.data.user
-        }
-
-        // 生成 网页内容 HTML
-        renderArticleDom = computed(() => {
-          return marked(this.rawContent)
-        });
+    renderArticleDom = computed(() => {
+      return marked(this.rawContent);
+    });
     */
 
-    return {};
+    return {
+      user,
+      title,
+      createdAt,
+      rawContent,
+    };
   },
   render() {
     return (
       <>
         <section class={cssDetail.userBlog}>
-          <img src="https://cn.gravatar.com/avatar/1?s=128&d=identicon"
-               alt="user.name"
-               title="user.username"
+          <img src={this.user?.avatar || ''}
+               alt={this.user?.username || ''}
+               title={this.user?.username || ''}
                class={cssDetail.avatar}/>
-          <h3 class={cssDetail.title}>前端异步大揭秘</h3>
+          <h3 class={cssDetail.title}>
+            {this.title || ''}
+          </h3>
           <p class={cssDetail.user}>
-            <router-link to="/user/${user.id}"
+            <router-link to={`/user/${this.user?.id || 1}`}
                          class={cssDetail.userPage}>
-              若愚
+              {this.user?.username || ''}
             </router-link>
-            发布于 3天前
+            <span class={cssDetail.createdAt}>
+              发布于
+            </span>
+            <span class={cssDetail.date}>
+              {`${this.createdAt || ''}`}
+            </span>
           </p>
         </section>
 
-        <section class={classNames([cssDetail.article, 'article'])}>
+        {/*正文内容*/}
+        <section class={classNames([cssDetail.article, 'article'])}
+                 v-html={markdown(this.rawContent)}>
           {/* renderArticleDom() */}
-          <h1 id="css-网格布局学习指南">CSS 网格布局学习指南</h1>
-          <p>文章正文,省略一万字...</p>
         </section>
       </>
     );

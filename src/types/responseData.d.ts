@@ -7,25 +7,27 @@ type blogPostInfo = {
   atIndex: boolean
 }
 
+type blogUser = {
+  id: number, // 博客所属用户 id,
+  username: string, // 博客所属用户的 username
+  avatar: string,
+  updatedAt: string,
+  createdAt: string,
+}
+
 type blogFullInfo = {
   atIndex?: boolean,
   id: number, // 博客 id
   title: string,
   description: string,
   content: string,
-  user: {
-    id: number, // 博客所属用户 id,
-    username: string, // 博客所属用户的 username
-    avatar: string,
-    updatedAt: string,
-    createdAt: string,
-  },
+  user: blogUser,
   createdAt: string, // 创建时间
   updatedAt: string // 更新时间
 }
 
 export interface responseBlogDetail extends responseData {
-  data?: blogFullInfo;
+  data: blogFullInfo;
 }
 
 export interface responseCreatedBlog extends responseData {

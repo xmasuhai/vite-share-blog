@@ -1,10 +1,11 @@
 import dayjs from 'dayjs';
 
-export const friendlyDate = (dataStr: string | Date): string => {
+export const beautifyDate = (dataStr: string | Date): string => {
   let dateObj = (typeof dataStr === 'object') ? dataStr : new Date(dataStr);
   let time = dateObj.getTime();
   let now = Date.now();
   let space = now - time;
+
   /*
   let str = '';
     switch (true) {

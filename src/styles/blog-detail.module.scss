@@ -21,6 +21,17 @@
       color: $theme-color;
       text-decoration: none;
     }
+
+    .created-at {
+      padding: {
+        left: .5em;
+        right: .5em;
+      }
+    }
+
+    .date {
+      color: $font-color-veg;
+    }
   }
 }
 

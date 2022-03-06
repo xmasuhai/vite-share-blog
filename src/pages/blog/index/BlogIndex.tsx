@@ -9,7 +9,7 @@ import {message, Pagination} from 'ant-design-vue';
 import {blogFullInfo} from '@/types/responseData';
 // utils
 import {scrollToTop} from '@/utils/scrollToTop';
-import {friendlyDate} from '@/utils/beautifyDate';
+import {beautifyDate} from '@/utils/beautifyDate';
 
 export default defineComponent({
   name: 'BlogIndex',
@@ -95,7 +95,7 @@ export default defineComponent({
                 <h3 class={blogIndex.title}>
                   <span class={blogIndex.text}>{title}</span>
                   <span class={blogIndex.date}>
-                    {`${friendlyDate(createdAt)}`} {/* 美化时间显示 */}
+                    {`${beautifyDate(createdAt)}`} {/* 美化时间显示 */}
                   </span>
                 </h3>
                 <p class={blogIndex.description}>
