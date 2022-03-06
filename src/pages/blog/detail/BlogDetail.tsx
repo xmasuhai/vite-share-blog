@@ -61,7 +61,6 @@ export default defineComponent({
         <section class={cssDetail.userBlog}>
           <img src={this.user?.avatar || ''}
                alt={this.user?.username || ''}
-               title={this.user?.username || ''}
                class={cssDetail.avatar}/>
           <h3 class={cssDetail.title}>
             {this.title || ''}
@@ -81,9 +80,11 @@ export default defineComponent({
         </section>
 
         {/*正文内容*/}
-        <section class={classNames([cssDetail.article, 'article'])}
-                 v-html={markdown(this.rawContent)}>
-          {/* renderArticleDom() */}
+        <section class={classNames(['article'])}>
+          <article class={classNames(['blog-article'])}
+                   v-html={markdown(this.rawContent)}>
+            {/* renderArticleDom() */}
+          </article>
         </section>
       </>
     );

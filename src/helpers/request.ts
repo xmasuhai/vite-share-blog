@@ -45,7 +45,7 @@ function request(url: '/auth/register', type: 'POST', data: { username: string, 
 function request(url: string, type: 'POST', data: { username: string, password: string }): Promise<responseAuthData> // POST '/auth/login' @API login()
 // '/blog'
 function request(url: string, type: 'GET', data: { page: number, atIndex: boolean, }): Promise<responseCreatedBlog> // GET '/blog' without userId @API getIndexBlogs()
-function request(url: string, type: 'GET', data: { page: number, atIndex: boolean, userId?: number }): Promise<responseGetBlogsData> // '/blog' with userId @API getBlogs()
+function request(url: string, type: 'GET', data: { page: number, atIndex?: boolean, userId?: number }): Promise<responseGetBlogsData> // '/blog' with userId @API getBlogs()
 function request(url: string, type?: 'GET'): Promise<responseBlogDetail> // GET '/blog/:blogId' @API getBlogs()
 function request(url: string, type: 'POST', data: blogPostInfo): Promise<responseBlogDetail> // POST '/blog' @API createBlog()
 function request(url: string, type: 'PATCH', data: blogPostInfo): Promise<responseCreatedBlog> // PATCH '/blog/:blogId' @API updateBlog()

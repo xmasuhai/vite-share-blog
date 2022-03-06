@@ -18,7 +18,7 @@
   }
 }
 
-section .item {
+article .item {
   display: grid;
   grid: auto  auto auto / 80px 1fr;
   margin: 20px 0;
@@ -43,6 +43,7 @@ section .item {
     font-weight: bold;
     grid-column: 2;
     grid-row: 1;
+    margin: auto 0;
   }
 
   .description {
@@ -52,6 +53,7 @@ section .item {
   }
 
   .actions {
+    align-self: end;
     font-size: 12px;
     grid-column: 2;
     grid-row: 3;
@@ -63,4 +65,8 @@ section .item {
 
   }
 
+}
+
+section article:last-child hr {
+  display: none;
 }

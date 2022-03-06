@@ -1,11 +1,11 @@
-import {defineComponent, inject, ref} from 'vue';
+import {defineComponent,/* inject, */ref} from 'vue';
 import {useRouter, useRoute} from 'vue-router';
 // request API
 import {getIndexBlogs} from '@/api/blog';
 // CSS module
 import blogIndex from '@/styles/blog-index.module.scss';
 // UI lib
-import {message, Pagination} from 'ant-design-vue';
+import {Pagination} from 'ant-design-vue';
 import {blogFullInfo} from '@/types/responseData';
 // utils
 import {scrollToTop} from '@/utils/scrollToTop';
@@ -15,7 +15,7 @@ export default defineComponent({
   name: 'BlogIndex',
   props: {},
   setup(/*props, ctx*/) {
-    const popMessage = inject<typeof message>('$message');
+    // const popMessage = inject<typeof message>('$message');
     const router = useRouter(); // 路由实例
     const route = useRoute();// 当前路由
     // data
@@ -29,15 +29,15 @@ export default defineComponent({
       // 从路由URL路径参数取出当前页码值 route.query.page 'http://localhost:3000/#/?page=1'
       currentPage.value = parseInt(route.query.page as string) || 1;
       const {
-        data: BlogList,
+        data: blogList,
         /*msg,*/
-        total: totalData,
+        total: totalDataCount,
         totalPage,
         page
       } = await getIndexBlogs({page: currentPage.value}); // 默认为 第一页
       // popMessage && popMessage.success(msg);
-      BlogList && (blogDataList.value = BlogList);
-      totalData && totalPage && (allPages.value = (pageSize.value * totalPage));
+      blogList && (blogDataList.value = blogList);
+      totalDataCount && totalPage && (allPages.value = (pageSize.value * totalPage));
       page && (currentPage.value = page);
     };
 
@@ -58,7 +58,6 @@ export default defineComponent({
     });
 
     return {
-      popMessage,
       blogDataList,
       currentPage,
       allPages,

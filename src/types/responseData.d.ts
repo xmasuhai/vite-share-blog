@@ -39,9 +39,9 @@ export interface responseCreatedBlog extends responseData {
 }
 
 export interface responseGetBlogsData extends responseData {
-  total?: number, // 全部博客的总数
-  page?: number, // 当前页数
-  totalPage?: number, // 总页数
+  total: number, // 全部博客的总数
+  page: number, // 当前页数
+  totalPage: number, // 总页数
   isLogin?: boolean;
   data?: blogFullInfo[]
 }
@@ -69,7 +69,7 @@ export type userAuthInfo = {
 
 export type blogInfo = {
   page: number,
-  atIndex: boolean,
+  atIndex?: boolean,
   userId?: number
 }
 

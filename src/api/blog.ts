@@ -21,7 +21,7 @@ export function getIndexBlogs({page} = {page: 1}) {
 
 // 获取特定 userId 的博客列表
 export function getBlogByUserId(userId: number, {page} = {page: 1}) {
-  return getBlogs({page, atIndex: true, userId});
+  return getBlogs({page, userId});
 }
 
 export function getDetail({blogId}: { blogId: number }): Promise<responseBlogDetail> {
