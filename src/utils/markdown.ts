@@ -1,11 +1,12 @@
 import {marked} from 'marked';
+import DOMPurify from 'dompurify';
 import hljs from 'highlight.js/lib/core';
 import javascript from 'highlight.js/lib/languages/javascript';
 import typescript from 'highlight.js/lib/languages/typescript';
 import css from 'highlight.js/lib/languages/css';
 import scss from 'highlight.js/lib/languages/scss';
 import 'highlight.js';
-import "highlight.js/styles/atom-one-dark.css";
+import 'highlight.js/styles/docco.css';
 
 hljs.registerLanguage('javascript', javascript);
 hljs.registerLanguage('typescript', typescript);
@@ -18,14 +19,14 @@ export default function markdown(rawContent: string) {
     gfm: true,
     breaks: true,
     pedantic: false,
-    sanitize: false,
+    sanitize: true,
     smartLists: true,
-    smartypants: false,
+    smartypants: true,
     langPrefix: 'hljs language-',
     highlight(code) {
       return hljs.highlightAuto(code).value;
     }
   });
 
-  return marked.parse(rawContent);
+  return DOMPurify.sanitize(marked.parse(rawContent));
 }

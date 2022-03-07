@@ -1,4 +1,5 @@
 @import '../src/assets/style/variables';
+@import 'github-markdown-css/github-markdown-light.css';
 
 .article {
   margin-top: 30px;
@@ -38,6 +39,24 @@
   a {
     color: $bg-color-leaf;
     font-weight: 600;
+  }
+
+  pre {
+    overflow: auto;
+    width: 80%;
+
+    code {
+      overflow: auto;
+      width: 80%;
+    }
+  }
+
+  hr {
+    margin: {
+      bottom: .3em;
+      top: .3em;
+    }
+    width: 95vw;
   }
 
   blockquote {

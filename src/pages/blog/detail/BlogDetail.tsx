@@ -81,7 +81,7 @@ export default defineComponent({
 
         {/*正文内容*/}
         <section class={classNames(['article'])}>
-          <article class={classNames(['blog-article'])}
+          <article class={classNames(['blog-article', 'markdown-body'])}
                    v-html={markdown(this.rawContent)}>
             {/* renderArticleDom() */}
           </article>
