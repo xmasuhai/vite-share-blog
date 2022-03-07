@@ -1,4 +1,5 @@
 import {blogFullInfo, blogUser} from '@/types/responseData';
+import splitDate from '@/utils/splitDate';
 import {defineComponent, ref,} from 'vue';
 import {getBlogByUserId} from '@/api/blog';
 import cssUser from '@/styles/blog-user.module.scss';
@@ -88,19 +89,19 @@ export default defineComponent({
           {this.blogDataList && this.blogDataList.map((blogData) => {
             const {/*atIndex, */updatedAt, createdAt, description, id: blogId, title, user} = blogData;
             const {/*avatar, username, */id: userId, updatedAt: updateUserAt, createdAt: createUserAt} = user;
-
+            const {date, month, year} = splitDate(createdAt);
             return (
               <article key={`${blogId}${userId}${updatedAt}${createdAt}${updateUserAt}${createUserAt}`}>
                 <div class={cssUser.item}>
                   <div class={cssUser.date}>
                     <span class={classNames([cssUser.day, cssUser.dateItem])}>
-                      20
+                      {date}
                     </span>
                     <span class={cssUser.dateItem}>
-                      5月
+                      {month}
                     </span>
                     <span class={cssUser.dateItem}>
-                      2021
+                      {year}
                     </span>
                   </div>
 
