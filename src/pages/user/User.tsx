@@ -11,8 +11,8 @@ export default defineComponent({
   props: {},
   components: {},
   setup(/*props, ctx*/) {
-    const route = useRoute();// 当前路由
-    // data
+    const route = useRoute();// 获取当前路由
+    // response data
     const blogDataList = ref<blogFullInfo[] | undefined>([]);
     const allPages = ref(0);
     const currentPage = ref(1);
@@ -57,8 +57,6 @@ export default defineComponent({
     };
   },
   render() {
-    const emptyPage = () => {return (<composition is={EmptyPage}/>);};
-
     const renderUserInfo = () => {
       const blogData = this.blogDataList && this.blogDataList[0];
 
@@ -78,46 +76,50 @@ export default defineComponent({
       }
     };
 
+    const emptyPage = () => {
+      return (
+        <EmptyPage/>
+      );
+    };
+
     const renderArticle = () => {
       return (
         <section>
-          {renderUserInfo()}
-
           {this.blogDataList && this.blogDataList.map((blogData) => {
             const {/*atIndex, */updatedAt, createdAt, description, id: blogId, title, user} = blogData;
-            const {/*avatar, username, */id: userId,  updatedAt: updateUserAt, createdAt: createUserAt} = user;
+            const {/*avatar, username, */id: userId, updatedAt: updateUserAt, createdAt: createUserAt} = user;
 
             return (
               <article key={`${blogId}${userId}${updatedAt}${createdAt}${updateUserAt}${createUserAt}`}>
                 <div class={cssUser.item}>
-                    <div class={cssUser.date}>
-                      <span class={classNames([cssUser.day, cssUser.dateItem])}>
-                        20
-                      </span>
-                      <span class={cssUser.dateItem}>
-                        5月
-                      </span>
-                      <span class={cssUser.dateItem}>
-                        2021
-                      </span>
-                    </div>
-
-                    <h3 class={cssUser.title}>
-                      {title}
-                    </h3>
-                    <p class={cssUser.description}>
-                      {description}
-                    </p>
-                    <div class={cssUser.actions}>
-                      <span>
-                        阅读量
-                      </span>
-                      <router-link to={`/detail/${blogId}`}
-                                   class={cssUser.delete}>
-                        博客详情&gt;&gt;&gt;
-                      </router-link>
-                    </div>
+                  <div class={cssUser.date}>
+                    <span class={classNames([cssUser.day, cssUser.dateItem])}>
+                      20
+                    </span>
+                    <span class={cssUser.dateItem}>
+                      5月
+                    </span>
+                    <span class={cssUser.dateItem}>
+                      2021
+                    </span>
                   </div>
+
+                  <h3 class={cssUser.title}>
+                    {title}
+                  </h3>
+                  <p class={cssUser.description}>
+                    {description}
+                  </p>
+                  <div class={cssUser.actions}>
+                    <span>
+                      阅读量
+                    </span>
+                    <router-link to={`/detail/${blogId}`}
+                                 class={cssUser.delete}>
+                      博客详情&gt;&gt;&gt;
+                    </router-link>
+                  </div>
+                </div>
                 <hr/>
               </article>
             );
@@ -128,6 +130,8 @@ export default defineComponent({
 
     return (
       <>
+        {renderUserInfo()}
+
         {this.showEmptyPage
           ? emptyPage()
           : renderArticle()

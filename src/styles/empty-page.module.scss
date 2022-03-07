@@ -1,0 +1,25 @@
+@import 'src/assets/style/variables';
+
+.center {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 80vh;
+  justify-content: center;
+  width: 100%;
+
+  .text {
+    color: $text-lighter-color;
+    display: block;
+    transform: translateY(2vh);
+  }
+
+  .svg-logo {
+    display: block;
+
+    > svg {
+      transform: scale(5);
+    }
+  }
+
+}
