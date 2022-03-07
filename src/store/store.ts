@@ -11,5 +11,4 @@ export const useStore = defineStore('Store', {
   getters: {
     getRouterCompName: (state: StoreTypes) => {return state.routerCompName;}
   },
-  actions: {},
 });

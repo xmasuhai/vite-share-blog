@@ -16,7 +16,9 @@ export default defineComponent({
   props: LoginProps,
   components: {},
   setup(/*props, ctx*/) {
+    // 拿到当前组件 type 名称，作为判断是否为登录或注册组件的依据
     useIdentifyCompName();
+
     const authStore = useAuthStore();
     const router = useRouter();
     const username = ref('');
@@ -32,7 +34,7 @@ export default defineComponent({
       };
     });
 
-    // resolve => router.push
+    // 发起登录请求 路由增加一条记录 resolve => router.push
     const onLogin = (logString: logString) => {
       authStore.login(logString)
         .then(() => {
@@ -41,11 +43,12 @@ export default defineComponent({
         }, /* reject */);
     };
 
-    // watch keyup Enter
+    // 侦听键盘事件 watch keyup Enter 发起登录请求
     const keyUpHandler = (e: KeyboardEvent) => {
       ;['Enter'].includes(e.key) && onLogin(userLoginInfo.value);
     };
 
+    // 点击登录
     const clickHandler = (logString: logString) => {
       onLogin(logString);
     };
