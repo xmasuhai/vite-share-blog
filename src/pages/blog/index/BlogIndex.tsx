@@ -1,4 +1,5 @@
 import UserLink from '@/components/user-authentication/UserLink';
+import classNames from 'classnames';
 import {defineComponent,/* inject, */ref} from 'vue';
 import {useRouter, useRoute} from 'vue-router';
 // request API
@@ -102,7 +103,7 @@ export default defineComponent({
                     {`${beautifyDate(createdAt)}`} {/* 美化时间显示 */}
                   </span>
                 </h3>
-                <p class={blogIndex.description}>
+                <p class={classNames([blogIndex.description, blogIndex.omitText])}>
                   {description}
                 </p>
 

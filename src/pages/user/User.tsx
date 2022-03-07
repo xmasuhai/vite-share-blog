@@ -1,10 +1,12 @@
+import blogIndex from '@/styles/blog-index.module.scss';
 import {blogFullInfo, blogUser} from '@/types/responseData';
 import splitDate from '@/utils/splitDate';
+import {Pagination} from 'ant-design-vue';
 import {defineComponent, ref,} from 'vue';
 import {getBlogByUserId} from '@/api/blog';
 import cssUser from '@/styles/blog-user.module.scss';
 import classNames from 'classnames';
-import {useRoute,} from 'vue-router';
+import {useRoute, useRouter} from 'vue-router';
 import EmptyPage from '@/components/EmptyPage';
 
 export default defineComponent({
@@ -13,6 +15,7 @@ export default defineComponent({
   components: {},
   setup(/*props, ctx*/) {
     const route = useRoute();// 获取当前路由
+    const router = useRouter();// 获取当前路由
     // response data
     const blogDataList = ref<blogFullInfo[] | undefined>([]);
     const allPages = ref(0);
@@ -23,25 +26,42 @@ export default defineComponent({
     const showEmptyPage = ref(false);
 
     // 调用 getBlogByUserId API 获取所有博客列表
-    const getBlogList = async () => {
-      userId.value = parseInt(route.params.userId as string) || 1;
-
+    const invokeBlogByUserIdAPI = async (pageNum: number) => {
       const {
         data: blogList,
-        /*total: totalDataCount,*/
+        total: totalDataCount,
         totalPage,
         page
-      } = await getBlogByUserId(userId.value, {page: currentPage.value});
+      } = await getBlogByUserId(userId.value, {page: pageNum});
       blogList && (blogDataList.value = blogList);
-      allPages.value = totalPage;
-      currentPage.value = page;
-      (blogList && blogList.length > 0) && (user.value = blogList[0].user);
+      totalDataCount && totalPage && (allPages.value = (pageSize.value * totalPage));
+      page && (currentPage.value = page);
+
+      return {
+        blogList,
+        totalPage,
+        page
+      };
+    };
+
+    const getBlogList = async () => {
+      userId.value = parseInt(route.params.userId as string) || 1;
+      currentPage.value = parseInt(route.query.page as string) || 1;
+
+      const {blogList,} = await invokeBlogByUserIdAPI(currentPage.value);
+      ;(blogList && blogList.length > 0) && (user.value = blogList[0].user);
 
       // data为空数组，展示空页面
       if (blogList?.length === 0) {
         showEmptyPage.value = true;
       }
 
+    };
+
+    const onPageChange = async (newPage: number) => {
+      const {blogList} = await invokeBlogByUserIdAPI(newPage);
+      const {user} = blogList ? blogList?.[0] : {user: {id: 0}};
+      await router.push({path: `${user.id}`, query: {page: newPage}, replace: true});
     };
 
     onMounted(async () => {
@@ -54,7 +74,8 @@ export default defineComponent({
       allPages,
       pageSize,
       user,
-      showEmptyPage
+      showEmptyPage,
+      onPageChange
     };
   },
   render() {
@@ -83,32 +104,37 @@ export default defineComponent({
       );
     };
 
-    const renderArticle = () => {
+    const renderArticleList = () => {
       return (
         <section>
           {this.blogDataList && this.blogDataList.map((blogData) => {
             const {/*atIndex, */updatedAt, createdAt, description, id: blogId, title, user} = blogData;
             const {/*avatar, username, */id: userId, updatedAt: updateUserAt, createdAt: createUserAt} = user;
             const {date, month, year} = splitDate(createdAt);
-            return (
-              <article key={`${blogId}${userId}${updatedAt}${createdAt}${updateUserAt}${createUserAt}`}>
-                <div class={cssUser.item}>
-                  <div class={cssUser.date}>
+
+            const renderDate = () => {
+              return (
+                <div class={cssUser.date}>
                     <span class={classNames([cssUser.day, cssUser.dateItem])}>
                       {date}
                     </span>
-                    <span class={cssUser.dateItem}>
+                  <span class={cssUser.dateItem}>
                       {month}
                     </span>
-                    <span class={cssUser.dateItem}>
+                  <span class={cssUser.dateItem}>
                       {year}
                     </span>
-                  </div>
+                </div>
+              );
+            };
 
+            const renderArticleDescription = () => {
+              return (
+                <>
                   <h3 class={cssUser.title}>
                     {title}
                   </h3>
-                  <p class={cssUser.description}>
+                  <p class={classNames([cssUser.description, blogIndex.omitText])}>
                     {description}
                   </p>
                   <div class={cssUser.actions}>
@@ -116,10 +142,19 @@ export default defineComponent({
                       阅读量
                     </span>
                     <router-link to={`/detail/${blogId}`}
-                                 class={cssUser.delete}>
+                                 className={cssUser.delete}>
                       博客详情&gt;&gt;&gt;
                     </router-link>
                   </div>
+                </>
+              );
+            };
+
+            return (
+              <article key={`${blogId}${userId}${updatedAt}${createdAt}${updateUserAt}${createUserAt}`}>
+                <div class={cssUser.item}>
+                  {renderDate()}
+                  {renderArticleDescription()}
                 </div>
                 <hr/>
               </article>
@@ -129,13 +164,34 @@ export default defineComponent({
       );
     };
 
+    const renderPagination = () => {
+      return (
+        <section class={blogIndex.pagination}
+                 id="pagination">
+          <Pagination total={this.allPages}
+                      pageSize={this.pageSize}
+                      v-model:current={this.currentPage}
+                      onChange={this.onPageChange}/>
+        </section>
+      );
+    };
+
+    const renderFullPage = () => {
+      return (
+        <>
+          {renderArticleList()}
+          {renderPagination()}
+        </>
+      );
+    };
+
     return (
       <>
         {renderUserInfo()}
 
         {this.showEmptyPage
           ? emptyPage()
-          : renderArticle()
+          : renderFullPage()
         }
       </>
     );

@@ -62,24 +62,27 @@
     }
   }
 
-  .description {
+  .omit-text {
     -webkit-box-orient: vertical;
     display: -webkit-box; // 多行文字省略
     font-weight: lighter; // 多行文字省略
+    margin-top: 0; // 多行文字省略
+    text-overflow: ellipsis; // 多行文字省略
+    white-space: normal; // 多行文字省略
+    width: 95%; // 多行文字省略
+    word-wrap: break-word; // 多行文字省略
+  }
+
+  .description {
     grid-column: 2/ span 2;
     grid-row: 2/span 1;
     height: 4em;
     -webkit-line-clamp: 2;
-    margin-top: 0; // 多行文字省略
     overflow: hidden;
     padding: {
       bottom: 1em;
       top: 1em;
     }
-    text-overflow: ellipsis; // 多行文字省略
-    white-space: normal; // 多行文字省略
-    width: 95%; // 多行文字省略
-    word-wrap: break-word; // 多行文字省略
   }
 
   .detail-link {

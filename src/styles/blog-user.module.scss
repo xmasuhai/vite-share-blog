@@ -44,6 +44,10 @@ article .item {
     grid-column: 2;
     grid-row: 1;
     margin: auto 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 95%;
   }
 
   .description {
