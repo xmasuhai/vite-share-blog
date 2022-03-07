@@ -1,4 +1,5 @@
 import {getDetail} from '@/api/blog';
+import UserLink from '@/components/user-authentication/UserLink';
 import {blogUser} from '@/types/responseData';
 import markdown from '@/utils/markdown';
 import {defineComponent, onMounted,} from 'vue';
@@ -41,13 +42,6 @@ export default defineComponent({
       await getBlogDetail();
     });
 
-    // 生成 网页内容 HTML
-    /*
-    renderArticleDom = computed(() => {
-      return marked(this.rawContent);
-    });
-    */
-
     return {
       user,
       title,
@@ -56,38 +50,43 @@ export default defineComponent({
     };
   },
   render() {
-    return (
-      <>
-        <section class={cssDetail.userBlog}>
-          <img src={this.user?.avatar || ''}
-               alt={this.user?.username || ''}
-               class={cssDetail.avatar}/>
-          <h3 class={cssDetail.title}>
-            {this.title || ''}
-          </h3>
-          <p class={cssDetail.user}>
-            <router-link to={`/user/${this.user?.id || 1}`}
-                         class={cssDetail.userPage}>
-              {this.user?.username || ''}
-            </router-link>
-            <span class={cssDetail.createdAt}>
+    if (this.user) {
+      const {avatar, id: userId, username, /*updatedAt: updateUserAt, createdAt: createUserAt*/} = this.user;
+
+      return (
+        <>
+          <section class={cssDetail.userBlog}>
+            <UserLink userId={userId}>
+              <img src={avatar}
+                   alt={username}
+                   class={cssDetail.avatar}/>
+            </UserLink>
+            <h3 class={cssDetail.title}>
+              {this.title || ''}
+            </h3>
+            <p class={cssDetail.user}>
+              <UserLink userId={userId}>
+                {username}
+              </UserLink>
+              <span class={cssDetail.createdAt}>
               发布于
             </span>
-            <span class={cssDetail.date}>
+              <span class={cssDetail.date}>
               {`${this.createdAt || ''}`}
             </span>
-          </p>
-        </section>
+            </p>
+          </section>
 
-        {/*正文内容*/}
-        <section class={classNames(['article'])}>
-          <article class={classNames(['blog-article', 'markdown-body'])}
-                   v-html={markdown(this.rawContent)}>
-            {/* renderArticleDom() */}
-          </article>
-        </section>
-      </>
-    );
+          {/*正文内容*/}
+          <section class={classNames(['article'])}>
+            <article class={classNames(['blog-article', 'markdown-body'])}
+                     v-html={markdown(this.rawContent)}>
+              {/* renderArticleDom() */}
+            </article>
+          </section>
+        </>
+      );
+    }
   }
 
 });

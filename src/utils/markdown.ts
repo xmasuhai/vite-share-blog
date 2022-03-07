@@ -19,7 +19,7 @@ export default function markdown(rawContent: string) {
     gfm: true,
     breaks: true,
     pedantic: false,
-    sanitize: true,
+    /* sanitize: true, // deprecated since version 0.7.0 */
     smartLists: true,
     smartypants: true,
     langPrefix: 'hljs language-',

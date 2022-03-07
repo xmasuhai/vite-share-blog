@@ -1,3 +1,4 @@
+import UserLink from '@/components/user-authentication/UserLink';
 import {defineComponent,/* inject, */ref} from 'vue';
 import {useRouter, useRoute} from 'vue-router';
 // request API
@@ -82,11 +83,15 @@ export default defineComponent({
 
                 {/* 作者信息 */}
                 <figure class={blogIndex.avatar}>
-                  <img class={blogIndex.img}
-                       src={avatar}
-                       alt={username}/>
+                  <UserLink userId={userId}>
+                    <img class={blogIndex.img}
+                         src={avatar}
+                         alt={username}/>
+                  </UserLink>
                   <figcaption class={blogIndex.info}>
-                    {username}
+                    <UserLink userId={userId}>
+                      {username}
+                    </UserLink>
                   </figcaption>
                 </figure>
 
