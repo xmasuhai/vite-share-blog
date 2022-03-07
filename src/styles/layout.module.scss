@@ -11,17 +11,20 @@
 
   .blog-header {
     grid-area: header;
+    max-width: 100vw;
     padding-left: 12%;
     padding-right: 12%;
   }
 
   .blog-main {
     grid-area: main;
+    max-width: 100vw;
   }
 
   .blog-footer {
     align-self: end;
     grid-area: footer;
+    max-width: 100vw;
     padding-left: 12%;
     padding-right: 12%;
   }

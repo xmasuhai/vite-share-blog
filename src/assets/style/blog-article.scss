@@ -2,7 +2,10 @@
 @import 'github-markdown-css/github-markdown-light.css';
 
 .article {
-  margin-top: 30px;
+  margin: {
+    top: 30px;
+    bottom: 30px;
+  }
 
   h1 {
     margin: 0 0 1em;
