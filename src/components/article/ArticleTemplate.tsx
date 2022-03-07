@@ -74,7 +74,7 @@ export default defineComponent({
                          autoSize={{minRows: 2, maxRows: 3}}
                          onInputValueChange={this.changeDescription}/>
 
-        <ArticleTextArea subTitle="文章内容"
+        <ArticleTextArea subTitle="文章内容(仅限Markdown格式)"
                          wordCount={30000}
                          autoSize={{minRows: 18, maxRows: 30}}
                          onInputValueChange={this.changeContent}/>

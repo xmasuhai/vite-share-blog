@@ -8,6 +8,7 @@ import blogHeaderClass from '@/styles/blog-header.module.scss';
 import basic from '@/styles/basic.module.scss';
 // Comps
 import SvgIcon from '@/components/SvgIcon';
+import router from '@/router';
 
 // props
 const BlogHeaderProps = {
@@ -36,6 +37,11 @@ export default defineComponent({
     };
     /* Data from store End */
 
+    const routerToIndex = async () => {
+      await router.push({path: '/'});
+      window.location.reload();
+    };
+
     // Comp Local Data
     // CSS modules
     const isLoginClass = computed(() => {
@@ -44,6 +50,7 @@ export default defineComponent({
           ? [blogHeaderClass.login]
           : [blogHeaderClass.blogHeader]);
     });
+
     const getLogoClass = computed(() => {
       return (
         getIsLogin.value
@@ -59,6 +66,7 @@ export default defineComponent({
       getIsLogin,
       checkLogin,
       logout,
+      routerToIndex,
       isLoginClass,
       getLogoClass
     };
@@ -127,9 +135,10 @@ export default defineComponent({
     return (
       <header class={classNames(...this.isLoginClass)}>
         <h1 class={blogHeaderClass.slogan}>
-          <router-link to={'/'}>
+          <router-link to={'/'}
+                       onClick={this.routerToIndex}>
             <span>
-             Tree Hole
+              Tree Hole
             </span>
             <SvgIcon name="boke-logo"
                      color="yellowgreen"
