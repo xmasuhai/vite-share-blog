@@ -115,15 +115,15 @@ export default defineComponent({
             const renderDate = () => {
               return (
                 <div class={cssUser.date}>
-                    <span class={classNames([cssUser.day, cssUser.dateItem])}>
-                      {date}
-                    </span>
+                  <span class={classNames([cssUser.day, cssUser.dateItem])}>
+                    {date}
+                  </span>
                   <span class={cssUser.dateItem}>
-                      {month}
-                    </span>
+                    {month}
+                  </span>
                   <span class={cssUser.dateItem}>
-                      {year}
-                    </span>
+                    {year}
+                  </span>
                 </div>
               );
             };

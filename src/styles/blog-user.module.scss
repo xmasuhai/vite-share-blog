@@ -22,6 +22,8 @@ article .item {
   display: grid;
   grid: auto  auto auto / 80px 1fr;
   margin: 20px 0;
+  max-width: 80vw;
+  overflow: hidden;
 
   .date {
     grid-column: 1;
@@ -47,13 +49,14 @@ article .item {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    width: 95%;
+    width: 50%;
   }
 
   .description {
     grid-column: 2;
     grid-row: 2;
-    margin-top: 0;
+    height: 3em;
+    margin-top: .5em;
   }
 
   .actions {
