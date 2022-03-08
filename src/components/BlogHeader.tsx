@@ -1,4 +1,5 @@
-import {computed, defineComponent,} from 'vue';
+import {computed, defineComponent, onMounted,} from 'vue';
+import router from '@/router';
 import useAuthStore from '@/store/modules/auth';
 // UI lib
 import {Button,} from 'ant-design-vue';
@@ -8,7 +9,6 @@ import blogHeaderClass from '@/styles/blog-header.module.scss';
 import basic from '@/styles/basic.module.scss';
 // Comps
 import SvgIcon from '@/components/SvgIcon';
-import router from '@/router';
 
 // props
 const BlogHeaderProps = {
@@ -47,7 +47,7 @@ export default defineComponent({
     const isLoginClass = computed(() => {
       return (
         getIsLogin.value
-          ? [blogHeaderClass.login]
+          ? [blogHeaderClass.logged]
           : [blogHeaderClass.blogHeader]);
     });
 
@@ -58,8 +58,10 @@ export default defineComponent({
           : [blogHeaderClass.logo, blogHeaderClass.defaultLogo]);
     });
 
-    // 创建时 向服务器验证以下身份 登录状态
-    checkLogin();
+    onMounted(() => {
+      // 创建时 向服务器验证以下身份 登录状态
+      checkLogin();
+    });
 
     return {
       getUser,
@@ -132,8 +134,8 @@ export default defineComponent({
       );
     };
 
-    return (
-      <header class={classNames(...this.isLoginClass)}>
+    const renderBlogTitleLogo = () => {
+      return (
         <h1 class={blogHeaderClass.slogan}>
           <router-link to={'/'}
                        onClick={this.routerToIndex}>
@@ -146,6 +148,12 @@ export default defineComponent({
             <em class={blogHeaderClass.em}> Let's share</em>
           </router-link>
         </h1>
+      );
+    };
+
+    return (
+      <header class={classNames(...this.isLoginClass)}>
+        {renderBlogTitleLogo()}
         {this.getIsLogin
           ? renderLogin()
           : renderUnLogin()

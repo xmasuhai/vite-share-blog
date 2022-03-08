@@ -47,7 +47,7 @@
 }
 
 // 切换为登录状态 覆盖未登录状态样式
-.login {
+.logged {
   align-items: center;
   background: $bg-color-veg;
   display: flex;
@@ -67,6 +67,7 @@
       font-size: 18px;
       padding-left: 10px;
     }
+
   }
 
   .user {
@@ -123,4 +124,5 @@
     }
 
   }
+
 }
