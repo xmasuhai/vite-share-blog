@@ -27,30 +27,39 @@ export default defineComponent({
     const pageSize = ref(20);
 
     // 调用 getIndexBlogs API 获取所有博客列表
-    const getBlogList = async () => {
-      // 从路由URL路径参数取出当前页码值 route.query.page 'http://localhost:3000/#/?page=1'
-      currentPage.value = parseInt(route.query.page as string) || 1;
+    const invokeBlogByUserIdAPI = async (pageNum: number) => {
       const {
         data: blogList,
         /*msg,*/
         total: totalDataCount,
         totalPage,
         page
-      } = await getIndexBlogs({page: currentPage.value}); // 默认为 第一页
+      } = await getIndexBlogs({page: pageNum}); // 默认为 第一页
       // popMessage && popMessage.success(msg);
       blogList && (blogDataList.value = blogList);
       totalDataCount && totalPage && (allPages.value = (pageSize.value * totalPage));
       page && (currentPage.value = page);
+
+      return {
+        blogList,
+        totalPage,
+        page
+      };
+    };
+
+    const getBlogList = async () => {
+      // 从路由URL路径参数取出当前页码值 route.query.page 'http://localhost:3000/#/?page=1'
+      currentPage.value = parseInt(route.query.page as string) || 1;
+      await invokeBlogByUserIdAPI(currentPage.value);
     };
 
     // 博客页跳转逻辑 跳转页码 重新获取对应页码的数据 显示在首页
     const onPageChange = async (newPage: number) => {
-      const res = await getIndexBlogs({page: newPage});
-      blogDataList.value = res.data;
-      res.total && (allPages.value = res.total);
-      res.page && (currentPage.value = res.page);
-      // 使用 router.push 编程式导航至 新的页码值 显示在路由URL路径参数中 'http://localhost:3000/#/?page=2'
+      await invokeBlogByUserIdAPI(newPage);
+      // 使用 router.push 编程式导航至 新的页码值
+      // 显示在路由URL路径参数中 例如：'http://localhost:3000/#/?page=2'
       await router.push({path: '/', query: {page: newPage}});
+      // 回城
       scrollToTop();
     };
 

@@ -8,6 +8,7 @@ import cssUser from '@/styles/blog-user.module.scss';
 import classNames from 'classnames';
 import {useRoute, useRouter} from 'vue-router';
 import EmptyPage from '@/components/EmptyPage';
+import {scrollToTop} from '@/utils/scrollToTop';
 
 export default defineComponent({
   name: 'User',
@@ -62,6 +63,7 @@ export default defineComponent({
       const {blogList} = await invokeBlogByUserIdAPI(newPage);
       const {user} = blogList ? blogList?.[0] : {user: {id: 0}};
       await router.push({path: `${user.id}`, query: {page: newPage}, replace: true});
+      scrollToTop();
     };
 
     onMounted(async () => {
