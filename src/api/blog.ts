@@ -10,6 +10,7 @@ const URL = {
   delete: '/blog/:blogId',
 };
 
+// 原始 获取博客列表数据
 export function getBlogs({page, atIndex, userId}: blogInfo = {page: 1, atIndex: true,}) {
   return request(URL.get_list, 'GET', {page, atIndex, userId});
 }
@@ -20,7 +21,7 @@ export function getIndexBlogs({page} = {page: 1}) {
 }
 
 // 获取特定 userId 的博客列表
-export function getBlogByUserId(userId: number, {page} = {page: 1}) {
+export function getBlogByUserId({page} = {page: 1}, userId: number,) {
   return getBlogs({page, userId});
 }
 

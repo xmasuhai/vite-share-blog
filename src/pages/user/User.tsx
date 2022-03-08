@@ -33,7 +33,8 @@ export default defineComponent({
         total: totalDataCount,
         totalPage,
         page
-      } = await getBlogByUserId(userId.value, {page: pageNum});
+      } = await getBlogByUserId({page: pageNum}, userId.value,);
+
       blogList && (blogDataList.value = blogList);
       totalDataCount && totalPage && (allPages.value = (pageSize.value * totalPage));
       page && (currentPage.value = page);

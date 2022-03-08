@@ -29,8 +29,8 @@ export default defineComponent({
     // 调用 getIndexBlogs API 获取所有博客列表
     const invokeBlogByUserIdAPI = async (pageNum: number) => {
       const {
-        data: blogList,
         /*msg,*/
+        data: blogList,
         total: totalDataCount,
         totalPage,
         page
