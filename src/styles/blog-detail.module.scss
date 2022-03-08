@@ -1,6 +1,8 @@
 @import 'src/assets/style/variables';
 @import 'src/assets/style/mixin';
 
+
+
 .user-blog {
   @extend %use-info;
 
@@ -33,7 +35,6 @@
     }
   }
 }
-
 
 .description {
   padding: 10px 0;

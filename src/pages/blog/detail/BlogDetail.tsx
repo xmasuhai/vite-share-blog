@@ -69,11 +69,11 @@ export default defineComponent({
                 {username}
               </UserLink>
               <span class={cssDetail.createdAt}>
-              发布于
-            </span>
+                发布于
+              </span>
               <span class={cssDetail.date}>
-              {`${this.createdAt || ''}`}
-            </span>
+                {`${this.createdAt || ''}`}
+              </span>
             </p>
           </section>
 
