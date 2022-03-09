@@ -1,8 +1,16 @@
 // 接口文档见 http://dw-z.ink/2j4pC
 import request from '@/helpers/request';
-import {blogInfo, blogPostInfo, responseBlogDetail,} from '@/types/responseData';
+import {blogInfo, blogPostInfo, blogString, responseBlogDetail,} from '@/types/responseData';
 // RESTful API URL
-const URL = {
+export type BlogURLType = {
+  get_list: '/blog',
+  get_detail: '/blog/:blogId' | `/blog/${number}`,
+  create: '/blog',
+  update: '/blog/:blogId' | `/blog/${number}`,
+  delete: '/blog/:blogId' | `/blog/${number}`,
+}
+
+export const BlogURL: BlogURLType = {
   get_list: '/blog',
   get_detail: '/blog/:blogId',
   create: '/blog',
@@ -12,7 +20,7 @@ const URL = {
 
 // 原始 获取博客列表数据
 export function getBlogs({page, atIndex, userId}: blogInfo = {page: 1, atIndex: true,}) {
-  return request(URL.get_list, 'GET', {page, atIndex, userId});
+  return request(BlogURL.get_list, 'GET', {page, atIndex, userId});
 }
 
 // 首页 全部博客数据 已分页
@@ -26,7 +34,8 @@ export function getBlogByUserId({page} = {page: 1}, userId: number,) {
 }
 
 export function getDetail({blogId}: { blogId: number }): Promise<responseBlogDetail> {
-  return request(URL.get_detail.replace(':blogId', `${blogId}`));
+  return request((BlogURL.get_detail.replace(':blogId', `${blogId}`) as Exclude<blogString, '/blog'>),
+    'GET');
 }
 
 export function createBlog({
@@ -40,17 +49,18 @@ export function createBlog({
   description: '',
   atIndex: false
 }): Promise<responseBlogDetail> {
-  return request(URL.create, 'POST', {title, content, description, atIndex});
+  return request(BlogURL.create, 'POST', {title, content, description, atIndex});
 }
 
 export function updateBlog({blogId}: { blogId: number }, {title, content, description, atIndex}: blogPostInfo) {
-  return request(URL.update.replace(':blogId', `${blogId}`),
+  return request(((BlogURL.update as blogString).replace(':blogId', `${blogId}`) as Exclude<blogString, '/blog'>),
     'PATCH',
     {title, content, description, atIndex});
 }
 
 export function deleteBlog({blogId}: { blogId: number }) {
-  return request(URL.delete.replace(':blogId', `${blogId}`), 'DELETE');
+  return request((BlogURL.delete.replace(':blogId', `${blogId}`) as Exclude<blogString, '/blog'>),
+    'DELETE');
 }
 
 // 使用示例

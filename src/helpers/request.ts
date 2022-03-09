@@ -1,8 +1,9 @@
 import {
-  blogInfo, blogPostInfo,
+  authString,
+  blogInfo, blogPostInfo, blogString,
   responseAuthData,
   responseBlogDetail,
-  responseCreatedBlog,
+  responseCreatedBlog, responseData,
   responseGetBlogsData, responsePossibleData, userAuthInfo,/*, userAuthInfo*/
 } from '@/types/responseData';
 import axios, {AxiosRequestConfig, Method,} from 'axios';
@@ -39,20 +40,20 @@ const storeToken = (tokenStr: string) => {
 * */
 
 // '/auth'
-function request(url: '/auth', type: 'GET'): Promise<responseAuthData> // GET '/auth' @API getInfo()
-function request(url: '/auth/logout', type: 'GET'): Promise<responseAuthData> // '/auth/logout' @API logout()
+function request(url: '/auth', type?: 'GET'): Promise<responseAuthData> // GET '/auth' @API getUserInfo()
+function request(url: '/auth/logout', type: 'GET'): Promise<responseData> // '/auth/logout' @API logout()
 function request(url: '/auth/register', type: 'POST', data: { username: string, password: string }): Promise<responseAuthData> // POST '/auth/register' @API register()
-function request(url: string, type: 'POST', data: { username: string, password: string }): Promise<responseAuthData> // POST '/auth/login' @API login()
+function request(url: '/auth/login', type: 'POST', data: { username: string, password: string }): Promise<responseAuthData> // POST '/auth/login' @API login()
 // '/blog'
-function request(url: string, type: 'GET', data: { page: number, atIndex: boolean, }): Promise<responseCreatedBlog> // GET '/blog' without userId @API getIndexBlogs()
-function request(url: string, type: 'GET', data: { page: number, atIndex?: boolean, userId?: number }): Promise<responseGetBlogsData> // '/blog' with userId @API getBlogs()
-function request(url: string, type?: 'GET'): Promise<responseBlogDetail> // GET '/blog/:blogId' @API getBlogs()
-function request(url: string, type: 'POST', data: blogPostInfo): Promise<responseBlogDetail> // POST '/blog' @API createBlog()
-function request(url: string, type: 'PATCH', data: blogPostInfo): Promise<responseCreatedBlog> // PATCH '/blog/:blogId' @API updateBlog()
-function request(url: string, type: 'DELETE'): Promise<responseCreatedBlog> // DELETE '/blog/:blogId' @API deleteBlog()
+function request(url: '/blog', type: 'GET', data: { page: number, atIndex: boolean, }): Promise<responseCreatedBlog> // GET '/blog' without userId @API getIndexBlogs()
+function request(url: '/blog', type: 'GET', data: { page: number, atIndex?: boolean, userId?: number }): Promise<responseGetBlogsData> // '/blog' with userId @API getBlogs()
+function request(url: Exclude<blogString, '/blog'>, type: 'GET'): Promise<responseBlogDetail> // GET '/blog/:blogId' @API getBlogs()
+function request(url: '/blog', type: 'POST', data: blogPostInfo): Promise<responseBlogDetail> // POST '/blog' @API createBlog()
+function request(url: Exclude<blogString, '/blog'>, type: 'PATCH', data: blogPostInfo): Promise<responseCreatedBlog> // PATCH '/blog/:blogId' @API updateBlog()
+function request(url: Exclude<blogString, '/blog'>, type: 'DELETE'): Promise<responseCreatedBlog> // DELETE '/blog/:blogId' @API deleteBlog()
 // 函数签名 signature
 function request(
-  url: string,
+  url: authString | blogString,
   type: Method = 'GET',
   data?: blogInfo | userAuthInfo | blogPostInfo): Promise<responsePossibleData> {
   return new Promise((resolve, reject) => {

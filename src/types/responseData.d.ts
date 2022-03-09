@@ -1,13 +1,16 @@
 // import {AxiosPromise} from 'axios';
 
-type blogPostInfo = {
+export type authString = '/auth' | '/auth/logout' | '/auth/login' | '/auth/register';
+export type blogString = '/blog' | `/blog/${number}` | '/blog/:blogId'
+
+export type blogPostInfo = {
   title: string,
   description?: string,
   content: string,
   atIndex: boolean
 }
 
-type blogUser = {
+export type blogUser = {
   id: number, // 博客所属用户 id,
   username: string, // 博客所属用户的 username
   avatar: string,
@@ -15,7 +18,7 @@ type blogUser = {
   createdAt: string,
 }
 
-type blogFullInfo = {
+export type blogFullInfo = {
   atIndex?: boolean,
   id: number, // 博客 id
   title: string,
@@ -47,14 +50,8 @@ export interface responseGetBlogsData extends responseData {
 }
 
 export interface responseAuthData extends responseData {
-  isLogin?: boolean;
-  data?: {
-    id: number;
-    username: string;
-    avatar: string;
-    createdAt: string;
-    updatedAt: string;
-  };
+  isLogin: boolean;
+  data?: blogUser;
 }
 
 export interface responseData {

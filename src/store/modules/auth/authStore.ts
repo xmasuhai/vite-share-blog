@@ -1,6 +1,6 @@
 import {defineStore} from 'pinia';
 import auth from '@/api/auth';
-import {responseAuthData, responseData} from '@/types/responseData';
+import {responseAuthData,} from '@/types/responseData';
 import AuthModuleTypes, {logString} from '@/store/modules/auth/interface';
 import {message} from 'ant-design-vue';
 
@@ -54,7 +54,7 @@ export const useAuthStore = defineStore('authStore', {
 
       // 处于非登录状态
       // 向服务器发出 auth.getInfo() 请求，验证用户是否处于登录状态
-      const res = await auth.getInfo();
+      const res = await auth.getUserInfo();
 
       // 将返回结果的 isLogin 设置到 本地状态
       this.setLogin({isLogin: res.isLogin});
