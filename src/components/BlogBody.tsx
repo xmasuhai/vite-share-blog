@@ -1,4 +1,4 @@
-import {defineComponent, onMounted,} from 'vue';
+import {defineComponent, onMounted, onUnmounted,} from 'vue';
 
 // props
 const BlogBodyProps = {
@@ -37,9 +37,12 @@ export default defineComponent({
       window.document.addEventListener('scroll', scrollingCB);
     });
 
+    onUnmounted(() => {
+      window.document.removeEventListener('scroll', scrollingCB);
+    });
+
     return {
       main,
-      scrolling: scrollingCB
     };
   },
   render() {

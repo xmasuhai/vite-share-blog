@@ -10,7 +10,15 @@
   grid-template-columns: 12% auto 12%;
   grid-template-rows: auto 1fr auto;
   height: 100vh;
-  //overflow-x: hidden; // 会导致 window.scrollTo() 方法失效
+  justify-content: center;
+  //overflow-x: hidden; // 会导致 document.documentElement.scrollTop 始终为 0 的 bug
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  scroll-behavior: smooth;
+  width: 100vw;
 
   .blog-header {
     box-shadow: 0 3px 7px 0 $box-shadow-color;
@@ -21,9 +29,9 @@
 
     position: fixed;
     top: 0;
-    transition: all .3s;
+    transition: all .3s; // 添加过渡，优化体验，平滑隐藏
     width: 100vw;
-    z-index: 999; // 添加过渡，优化体验，具体可以根据需求扩展
+    z-index: 999;
 
     &.is-hide-header { // 这个类名用来动态改变显示藏（关键）
       transform: translateY(-100%);
@@ -32,6 +40,7 @@
   }
 
   .blog-main {
+    align-self: center;
     grid-area: main;
     max-width: 90vw;
     padding-top: 65px;
