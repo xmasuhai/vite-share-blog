@@ -129,7 +129,8 @@ export default defineComponent({
         </section>
 
         {/* 分页 */}
-        <section class={blogIndex.pagination} id="pagination">
+        <section class={blogIndex.pagination}
+                 id="pagination">
           <Pagination total={this.allPages}
                       pageSize={this.pageSize}
                       v-model:current={this.currentPage}

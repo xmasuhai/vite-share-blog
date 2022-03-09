@@ -23,23 +23,26 @@ export default defineComponent({
 
     const isShowHeaderFooter = ref(true);
 
+    // 判断子节点是否为 登录注册 组件
     const ifLoginComp = computed(() => {
       return (['Login', 'Register'].includes(store.getRouterCompName));
     });
 
-    const isHideHeader = computed(() => {
-      return (isShowHeaderFooter.value
-          ? [layoutClass.blogHeader]
-          : [layoutClass.blogHeader, layoutClass.isHideHeader]
-      );
-    });
+    // CSS module computed with classNames
+    const showHeaderFooter = (HeaderFooter: 'Header' | 'Footer') => {
+      return {
+        [HeaderFooter]: computed(() => {
+          return (isShowHeaderFooter.value
+              ? [layoutClass[`blog${HeaderFooter}`]]
+              : [layoutClass[`blog${HeaderFooter}`], layoutClass[`isHide${HeaderFooter}`]]
+          );
+        }),
+      };
+    };
 
-    const isHideFooter = computed(() => {
-      return (isShowHeaderFooter.value
-          ? [layoutClass.blogFooter]
-          : [layoutClass.blogFooter, layoutClass.isHideFooter]
-      );
-    });
+    const isShowHeader = showHeaderFooter('Header')['Header'];
+
+    const isShowFooter = showHeaderFooter('Footer')['Footer'];
 
     const cssBlogMain = computed(() => {
       return authStore.getIsLogin
@@ -60,8 +63,8 @@ export default defineComponent({
       cssBlogBody,
       cssBlogMain,
       isShowHeaderFooter,
-      isHideHeader,
-      isHideFooter
+      isShowHeader,
+      isShowFooter,
     };
   },
   render() {
@@ -78,9 +81,9 @@ export default defineComponent({
 
     return (
       <div class={classNames(...this.cssBlogBody)}>
-        {renderBlogHeader(classNames(this.isHideHeader))}
+        {renderBlogHeader(classNames(this.isShowHeader))}
         {renderBlogBody(classNames(this.cssBlogMain))}
-        {renderBlogFooter(classNames(this.isHideFooter))}
+        {renderBlogFooter(classNames(this.isShowFooter))}
       </div>
     );
   }
