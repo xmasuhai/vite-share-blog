@@ -5,6 +5,10 @@ export default defineComponent({
   name: 'EditBlog',
   props: {},
   components: {},
+  beforeRouteLeave(/*to, from*/) {
+    const answer = window.confirm('Do you really want to leave? you have unsaved changes!');
+    if (!answer) return false;
+  },
   setup(/*props, ctx*/) {
     return {};
   },

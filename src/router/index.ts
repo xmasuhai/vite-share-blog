@@ -13,12 +13,14 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/login',
     name: 'Login',
-    component: () => import('@/pages/login/Login')
+    component: () => import('@/pages/login/Login'),
+    meta: {requiresAuth: false},
   },
   {
     path: '/register',
     name: 'Register',
     component: () => import('@/pages/register/Register'),
+    meta: {requiresAuth: false},
   },
   {
     path: '/detail/:blogId',
@@ -63,17 +65,17 @@ const routes: RouteRecordRaw[] = [
 const router = createRouter({
   history: createWebHashHistory(),
   routes,
-/*  scrollBehavior(to, from, savedPosition) {
-    // 模拟 “滚动到锚点”，并开启流畅滚动
-    if (to.hash) {
-      return {
-        el: to.hash,
-        behavior: 'smooth',
-      };
-    }
-    // 始终滚动到顶部
-    // return {top: 0};
-  }*/
+  /*  scrollBehavior(to, from, savedPosition) {
+      // 模拟 “滚动到锚点”，并开启流畅滚动
+      if (to.hash) {
+        return {
+          el: to.hash,
+          behavior: 'smooth',
+        };
+      }
+      // 始终滚动到顶部
+      // return {top: 0};
+    }*/
 });
 
 // 路由全局前置守卫
@@ -92,14 +94,24 @@ router.beforeEach((to, from, next) => {
 
   // URL 是否需要 身份验证
   ifRequiresAuth
-    ? (// 需要身份验证的 URL
+    ? (// 需要身份验证的 URL // 创建、编辑博客页面、我的博客页面
       store.checkLogin() // 向服务器请求，获取当前登录状态
         .then((isLogin) => {
-          !isLogin
-            ? next({path: '/login', query: {redirect: to.fullPath}})
-            : next(); // 服务器响应验证已登录
+          isLogin
+            ? next() // 服务器响应验证已登录，放行跳转;
+            : next({path: '/login', query: {redirect: to.fullPath}});
         }))
-    : next(); // 不需要身份验证的 URL;
+    : (// 不需要身份验证的 URL; // 博客首页、用户页面、博客详情页、登录、注册
+      next()
+      /*
+        store.checkLogin()
+          .then((isLogin) => {
+            isLogin
+              ? (console.log(['/login', '/register'].includes(to.path)), next()) // 服务器响应验证已登录，
+              : (console.log(to.path), next());
+          })
+      */
+    );
   /* 确保最后执行且只一次 next() */
 
   // 判断是否进入 注册 或 登录 的路由，先检查是否已登录

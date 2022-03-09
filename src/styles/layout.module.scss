@@ -1,6 +1,5 @@
 @import '../src/assets/style/variables';
 
-// layout 布局
 .layout {
   align-items: center;
   display: grid;
@@ -17,6 +16,7 @@
     display: none;
   }
 
+  -webkit-overflow-scrolling: touch; // 处理ios设备上利用overflow来模拟滚动出现卡顿
   scroll-behavior: smooth;
   width: 100vw;
 
@@ -40,13 +40,19 @@
   }
 
   .blog-main {
-    align-self: center;
+    align-self: start;
     grid-area: main;
-    max-width: 90vw;
+    max-width: 95vw;
+    min-width: 90vw;
     padding-top: 65px;
 
     &.logout {
+      align-self: center;
       padding-top: 280px;
+    }
+
+    &.is-blog-detail {
+      align-items: start;
     }
   }
 
@@ -71,9 +77,6 @@
 
 }
 
-.is-blog-detail {
-  align-items: start;
-}
 
 @media (max-width: 768px) {
   .layout {

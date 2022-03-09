@@ -59,7 +59,6 @@ export default defineComponent({
     });
 
     return {
-      ifLoginComp,
       cssBlogBody,
       cssBlogMain,
       isShowHeaderFooter,

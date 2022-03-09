@@ -9,6 +9,10 @@ export default defineComponent({
   name: 'CreateBlog',
   props: {},
   components: {},
+  beforeRouteLeave(/*to, from*/) {
+    const answer = window.confirm('Do you really want to leave? you have unsaved changes!');
+    if (!answer) return false;
+  },
   setup(/*props, ctx*/) {
     const BlogStore = useBlogStore();
     const popMessage = inject<typeof message>('$message');

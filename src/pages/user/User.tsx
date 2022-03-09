@@ -89,14 +89,14 @@ export default defineComponent({
       if (user) {
         const {avatar, username, /*id: userId, updatedAt: updateUserAt, createdAt: createUserAt*/} = user;
         return (
-          <div class={cssUser.userInfo}>
+          <section class={cssUser.userInfo}>
             <img src={avatar}
                  alt={username}
                  class={cssUser.avatar}/>
             <h3 class={cssUser.name}>
               {username}
             </h3>
-          </div>
+          </section>
         );
       }
     };
@@ -191,7 +191,6 @@ export default defineComponent({
     return (
       <>
         {renderUserInfo()}
-
         {this.showEmptyPage
           ? emptyPage()
           : renderFullPage()
