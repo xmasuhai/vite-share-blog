@@ -22,8 +22,9 @@ export default defineComponent({
           <SvgIcon name="github"
                    class={blogFooterClass.svgLogo}/>
           <span class={blogFooterClass.link}>
-            @github.com/xmasuhai/vite-share-blog
+            &copy;
           </span>
+          <em>xmasuhai@github.com</em>
         </a>
       </footer>
     );

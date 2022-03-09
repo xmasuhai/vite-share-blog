@@ -16,9 +16,15 @@
 
     .link {
       cursor: pointer;
-      padding-left: 8px;
+      font-size: 18px;
+      padding: {
+        left: .5em;
+        right: .3em;
+      }
+      vertical-align: middle;
 
-      &:hover {
+      &:hover,
+      & + em:hover {
         color: $text-lighter-color;
       }
     }
