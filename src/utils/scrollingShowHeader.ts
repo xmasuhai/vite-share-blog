@@ -17,7 +17,7 @@
   // 头部导航做鼠标滚动优化
   scrolling() {
     // 滚动条距文档顶部的距离（做兼容处理）===》不懂的可以结合画图理清逻辑
-    const scrollTop = (this.contentEle as HTMLElement).scrollTop;
+    const scrollTop = (this.content as HTMLElement).scrollTop;
     // 滚动条滚动的距离
     const scrollStep = scrollTop - this.oldScrollTop;
     // 更新——滚动前，滚动条距文档顶部的距离

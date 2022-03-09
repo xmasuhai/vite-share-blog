@@ -6,9 +6,11 @@ export const useStore = defineStore('Store', {
     return {
       // 自动推导属性类型
       routerCompName: '',
+      isShowHeaderFooter: true,
     };
   },
   getters: {
-    getRouterCompName: (state: StoreTypes) => {return state.routerCompName;}
+    getRouterCompName: (state: StoreTypes) => {return state.routerCompName;},
+    getShowHeaderFooter: (state: StoreTypes) => {return state.isShowHeaderFooter;},
   },
 });

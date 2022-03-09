@@ -1,3 +1,5 @@
+@import '../src/assets/style/variables';
+
 // layout 布局
 .layout {
   align-items: center;
@@ -11,26 +13,51 @@
   //overflow-x: hidden; // 会导致 window.scrollTo() 方法失效
 
   .blog-header {
+    box-shadow: 0 3px 7px 0 $box-shadow-color;
     grid-area: header;
+    left: 0;
     padding-left: 12%;
     padding-right: 12%;
+
     position: fixed;
+    top: 0;
+    transition: all .3s;
     width: 100vw;
+    z-index: 999; // 添加过渡，优化体验，具体可以根据需求扩展
+
+    &.is-hide-header { // 这个类名用来动态改变显示藏（关键）
+      transform: translateY(-100%);
+    }
+
   }
 
   .blog-main {
     grid-area: main;
     max-width: 90vw;
     padding-top: 65px;
+
+    &.logout {
+      padding-top: 280px;
+    }
   }
 
   .blog-footer {
     align-self: end;
+    bottom: 0;
+    box-shadow: 0 -3px 7px 0 $box-shadow-color;
     grid-area: footer;
     padding-left: 12%;
     padding-right: 12%;
+
     position: fixed;
+    right: 0;
+    transition: all .3s;
     width: 100vw;
+    z-index: 999; // 添加过渡，优化体验，具体可以根据需求扩展
+
+    &.is-hide-footer { // 这个类名用来动态改变显示藏（关键）
+      transform: translateY(100%);
+    }
   }
 
 }
