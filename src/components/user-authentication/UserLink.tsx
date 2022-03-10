@@ -1,5 +1,7 @@
 import cssDetail from '@/styles/blog-detail.module.scss';
 import {defineComponent, ref} from 'vue';
+import {useAuthStore} from '../../store/modules/auth/authStore';
+import {blogUser} from '@/types/responseData';
 
 const UserLinkProps = {
   userId: Number
@@ -12,15 +14,25 @@ export default defineComponent({
   setup(props, {slots}) {
     const {default: defaultSlot,} = slots;
     const id = ref(props.userId);
+    const authStore = useAuthStore();
+    const {id: currentUserId} = authStore.getUser as blogUser;
+
     return {
       defaultSlot,
-      id
+      id,
+      currentUserId
     };
   },
   render() {
+    const currentUser = (
+      this.id === this.currentUserId
+        ? {path: '/myblog'}
+        : `/user/${this.id}`
+    );
+
     const slots = {
       default: () => (
-        <router-link to={`/user/${this.id}`}
+        <router-link to={currentUser}
                      class={cssDetail.userPage}
                      v-slots={this.defaultSlot}>
         </router-link>),

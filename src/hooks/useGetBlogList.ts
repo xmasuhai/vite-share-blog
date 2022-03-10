@@ -15,7 +15,6 @@ export default function useGetBlogList(blogUser: 'self' | 'others') {
   const userData = authStore.getUser;
   const {id} = userData as blogUser;
 
-
   // response data
   const blogDataList = ref<blogFullInfo[] | undefined>([]);
   const currentPage = ref(1);
@@ -85,7 +84,7 @@ export default function useGetBlogList(blogUser: 'self' | 'others') {
       blogUser === 'self'
         ? '/myblog'
         : user.id
-    )
+    );
     await router.push({path: `${pathStr}`, query: {page: newPage}, replace: true});
     scrollToTop();
   };
@@ -101,7 +100,7 @@ export default function useGetBlogList(blogUser: 'self' | 'others') {
     pageSize,
     user,
     showEmptyPage,
-    onPageChange
+    onPageChange,
   };
 }
 
