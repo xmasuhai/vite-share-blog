@@ -65,7 +65,7 @@ export default function useGetBlogList(blogUser: 'self' | 'others') {
     const {blogList,} = await invokeBlogByUserIdAPI(currentPage.value);
     ;(blogList && blogList.length > 0) && (user.value = blogList[0].user);
 
-    // data为空数组，展示空页面
+    // blogList为空数组，展示空页面
     if (blogList?.length === 0) {
       showEmptyPage.value = true;
     }
@@ -118,4 +118,3 @@ const {
 } = useGetBlogList()
 *
 * */
-

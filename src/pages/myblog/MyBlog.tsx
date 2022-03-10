@@ -1,3 +1,4 @@
+import useAuthStore from '@/store/modules/auth';
 import {defineComponent,} from 'vue';
 import cssUser from '@/styles/blog-user.module.scss';
 import classNames from 'classnames';
@@ -22,10 +23,13 @@ export default defineComponent({
       currentPage,
       allPages,
       pageSize,
-      user,
       showEmptyPage,
       onPageChange
     } = useGetBlogList('self');
+
+    const authStore = useAuthStore();
+
+    const user = ref(authStore.getUser);
 
     return {
       blogDataList,

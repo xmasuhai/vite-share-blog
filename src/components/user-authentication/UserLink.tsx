@@ -40,7 +40,7 @@ export default defineComponent({
 
     return (
       <>
-        {slots.default ? slots.default() : ('用户主页链接')}
+        {slots.default ? slots.default() : (<></>)}
       </>
     );
   }

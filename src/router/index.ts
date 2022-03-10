@@ -9,19 +9,16 @@ const routes: RouteRecordRaw[] = [
     name: 'BlogIndex',
     // import('') 必须是静态字符串，不可动态拼接
     component: () => import('@/pages/blog/index/BlogIndex'),
-    meta: {requiresAuth: false},
   },
   {
     path: '/login',
     name: 'Login',
     component: () => import('@/pages/login/Login'),
-    meta: {requiresAuth: false},
   },
   {
     path: '/register',
     name: 'Register',
     component: () => import('@/pages/register/Register'),
-    meta: {requiresAuth: false},
   },
   {
     path: '/detail/:blogId',
