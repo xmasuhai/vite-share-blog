@@ -8,18 +8,22 @@
   justify-content: center;
   width: 100%;
 
-  .text {
-    color: $text-lighter-color;
-    display: block;
-    transform: translateY(2vh);
-  }
-
   .svg-logo {
     display: block;
 
     > svg {
       transform: scale(5);
     }
+  }
+
+  .text {
+    color: $text-lighter-color;
+    display: block;
+    transform: translateY(2vh);
+  }
+
+  .create-1st-blog {
+    transform: translateY(100%);
   }
 
 }

@@ -71,12 +71,12 @@ export default defineComponent({
 
         <ArticleTextArea subTitle="内容简介"
                          wordCount={30}
-                         autoSize={{minRows: 2, maxRows: 3}}
+                         autoSize={{minRows: 2, maxRows: 2}}
                          onInputValueChange={this.changeDescription}/>
 
         <ArticleTextArea subTitle="文章内容(仅限Markdown格式)"
                          wordCount={30000}
-                         autoSize={{minRows: 18, maxRows: 30}}
+                         autoSize={{minRows: 18, maxRows: 18}}
                          onInputValueChange={this.changeContent}/>
 
         {/* 首页展示开关 */}

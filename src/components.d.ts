@@ -13,6 +13,7 @@ declare module 'vue' {
     EmptyPage: typeof import('./components/EmptyPage.tsx')['default']
     Layout: typeof import('./components/Layout.tsx')['default']
     SvgIcon: typeof import('./components/SvgIcon.tsx')['default']
+    UserInfo: typeof import('./components/user-authentication/UserInfo.tsx')['default']
     UserInput: typeof import('./components/user-authentication/UserInput.tsx')['default']
     UserLink: typeof import('./components/user-authentication/UserLink.tsx')['default']
     UserSubmitBtnTip: typeof import('./components/user-authentication/UserSubmitBtnTip.tsx')['default']

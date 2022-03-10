@@ -65,7 +65,23 @@ article .item {
     grid-column: 2;
     grid-row: 3;
 
+    .edit {
+
+      &:hover {
+        color: $theme-lighter-color;
+      }
+    }
+
     .delete {
+      color: $text-color;
+      margin-left: 1em;
+
+      &:hover {
+        color: $color-warn;
+      }
+    }
+
+    .detail-link {
       color: $theme-lighter-color;
       margin-left: 1em;
     }

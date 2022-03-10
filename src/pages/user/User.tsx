@@ -1,75 +1,27 @@
 import blogIndex from '@/styles/blog-index.module.scss';
-import {blogFullInfo, blogUser} from '@/types/responseData';
 import splitDate from '@/utils/splitDate';
 import {Pagination} from 'ant-design-vue';
-import {defineComponent, ref,} from 'vue';
-import {getBlogByUserId} from '@/api/blog';
+import {defineComponent,} from 'vue';
 import cssUser from '@/styles/blog-user.module.scss';
 import classNames from 'classnames';
-import {useRoute, useRouter} from 'vue-router';
 import EmptyPage from '@/components/EmptyPage';
-import {scrollToTop} from '@/utils/scrollToTop';
+import UserInfo from '@/components/user-authentication/UserInfo';
+import useGetBlogList from '@/hooks/useGetBlogList';
 
 export default defineComponent({
   name: 'User',
   props: {},
   components: {},
   setup(/*props, ctx*/) {
-    const route = useRoute();// 获取当前路由
-    const router = useRouter();// 获取当前路由
-    // response data
-    const blogDataList = ref<blogFullInfo[] | undefined>([]);
-    const allPages = ref(0);
-    const currentPage = ref(1);
-    const pageSize = ref(20);
-    const user = ref<blogUser | null>(null);
-    const userId = ref(0);
-    const showEmptyPage = ref(false);
-
-    // 调用 getBlogByUserId API 获取所有博客列表
-    const invokeBlogByUserIdAPI = async (pageNum: number) => {
-      const {
-        data: blogList,
-        total: totalDataCount,
-        totalPage,
-        page
-      } = await getBlogByUserId({page: pageNum}, userId.value,);
-
-      blogList && (blogDataList.value = blogList);
-      totalDataCount && totalPage && (allPages.value = (pageSize.value * totalPage));
-      page && (currentPage.value = page);
-
-      return {
-        blogList,
-        totalPage,
-        page
-      };
-    };
-
-    const getBlogList = async () => {
-      userId.value = parseInt(route.params.userId as string) || 1;
-      currentPage.value = parseInt(route.query.page as string) || 1;
-
-      const {blogList,} = await invokeBlogByUserIdAPI(currentPage.value);
-      ;(blogList && blogList.length > 0) && (user.value = blogList[0].user);
-
-      // data为空数组，展示空页面
-      if (blogList?.length === 0) {
-        showEmptyPage.value = true;
-      }
-
-    };
-
-    const onPageChange = async (newPage: number) => {
-      const {blogList} = await invokeBlogByUserIdAPI(newPage);
-      const {user} = blogList ? blogList?.[0] : {user: {id: 0}};
-      await router.push({path: `${user.id}`, query: {page: newPage}, replace: true});
-      scrollToTop();
-    };
-
-    onMounted(async () => {
-      await getBlogList();
-    });
+    const {
+      blogDataList,
+      currentPage,
+      allPages,
+      pageSize,
+      user,
+      showEmptyPage,
+      onPageChange
+    } = useGetBlogList('others');
 
     return {
       blogDataList,
@@ -82,21 +34,16 @@ export default defineComponent({
     };
   },
   render() {
+    // 从 getBlogByUserId 得到的 blogDataList[0] 中取出用户数据
     const renderUserInfo = () => {
       const blogData = this.blogDataList && this.blogDataList[0];
-
       const {user} = blogData ?? {};
       if (user) {
-        const {avatar, username, /*id: userId, updatedAt: updateUserAt, createdAt: createUserAt*/} = user;
+        const {avatar, username,} = user;
+
         return (
-          <section class={cssUser.userInfo}>
-            <img src={avatar}
-                 alt={username}
-                 class={cssUser.avatar}/>
-            <h3 class={cssUser.name}>
-              {username}
-            </h3>
-          </section>
+          <UserInfo username={username}
+                    avatar={avatar}/>
         );
       }
     };
@@ -145,7 +92,7 @@ export default defineComponent({
                       阅读量
                     </span>
                     <router-link to={`/detail/${blogId}`}
-                                 className={cssUser.delete}>
+                                 className={cssUser.detailLink}>
                       博客详情&gt;&gt;&gt;
                     </router-link>
                   </div>
