@@ -12,19 +12,32 @@ export default defineComponent({
   props: EmptyPageProps,
   components: {},
   setup(/*props, ctx*/) {
-
-    const mouseOverColor = ref('#333');
-
-    const changeColor = () => {
-      mouseOverColor.value = '#40a9ff';
-    };
+    const isMyBlogPage = ref(false);
+    const route = useRoute();
+    watchEffect(() => {
+      isMyBlogPage.value = !route.fullPath.includes('user');
+    });
 
     return {
-      mouseOverColor,
-      changeColor
+      isMyBlogPage
     };
   },
   render() {
+    const renderCreateBlog = () => {
+      return (
+        <router-link to={'/create'}>
+          <Button class={emptyPageClass.createBlog}>
+            <span class={emptyPageClass.btnText}>
+              点击创建第一篇博客
+            </span>
+          </Button>
+        </router-link>);
+    };
+
+    const emptyTips = this.isMyBlogPage
+      ? '还没有创建过博客'
+      : '此用户比较懒，还没有发布博客';
+
     return (
       <section class={emptyPageClass.center}>
         <SvgIcon name="empty"
@@ -32,16 +45,9 @@ export default defineComponent({
                  class={emptyPageClass.svgLogo}/>
 
         <span class={emptyPageClass.text}>
-          还没有创建过博客
+          {emptyTips}
         </span>
-        <router-link to={'/create'}>
-          <Button class={emptyPageClass.create1stBlog}>
-            <span class={emptyPageClass.btnText}>
-              点击创建第一篇博客
-            </span>
-          </Button>
-
-        </router-link>
+        {this.isMyBlogPage && renderCreateBlog()}
       </section>
     );
   }
