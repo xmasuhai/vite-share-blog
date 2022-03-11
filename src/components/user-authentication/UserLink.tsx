@@ -15,24 +15,28 @@ export default defineComponent({
     const {default: defaultSlot,} = slots;
     const id = ref(props.userId);
     const authStore = useAuthStore();
-    const {id: currentUserId} = authStore.getUser as blogUser;
+    const {id: currentUserId} = authStore.getUser as blogUser || 1;
+
+    //
+    // 判断是否为用户页面 或 我的博客页面
+    const currentUserStr = (
+      id.value === currentUserId
+        ? {path: '/myblog'}
+        : `/user/${id.value}`
+    );
 
     return {
       defaultSlot,
       id,
-      currentUserId
+      currentUserId,
+      currentUserStr
     };
   },
   render() {
-    const currentUser = (
-      this.id === this.currentUserId
-        ? {path: '/myblog'}
-        : `/user/${this.id}`
-    );
 
     const slots = {
       default: () => (
-        <router-link to={currentUser}
+        <router-link to={this.currentUserStr}
                      class={cssDetail.userPage}
                      v-slots={this.defaultSlot}>
         </router-link>),

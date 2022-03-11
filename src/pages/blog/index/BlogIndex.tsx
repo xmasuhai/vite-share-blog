@@ -64,7 +64,7 @@ export default defineComponent({
     };
 
     // 挂载时 获取并显示博客列表，（也可直接放在setup中，除非 配置SSR）
-    onMounted(async () => {
+    onBeforeMount(async () => {
       await getBlogList();
     });
 
