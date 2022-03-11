@@ -4,12 +4,12 @@
 
 declare module 'vue' {
   export interface GlobalComponents {
-    About: typeof import('./components/About.tsx')['default']
     ArticleTemplate: typeof import('./components/article/ArticleTemplate.tsx')['default']
     ArticleTextArea: typeof import('./components/article/ArticleTextArea.tsx')['default']
     BlogBody: typeof import('./components/BlogBody.tsx')['default']
     BlogFooter: typeof import('./components/BlogFooter.tsx')['default']
     BlogHeader: typeof import('./components/BlogHeader.tsx')['default']
+    BlogListOfSelfOrOthers: typeof import('./components/BlogListOfSelfOrOthers.tsx')['default']
     EmptyPage: typeof import('./components/EmptyPage.tsx')['default']
     Layout: typeof import('./components/Layout.tsx')['default']
     SvgIcon: typeof import('./components/SvgIcon.tsx')['default']
