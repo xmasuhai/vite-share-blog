@@ -24,23 +24,17 @@ export default defineComponent({
       onPageChange
     } = useGetBlogList('others');
 
-    return {
-      blogDataList,
-      currentPage,
-      allPages,
-      pageSize,
-      user,
-      showEmptyPage,
-      onPageChange
+    // 渲染空白页占位
+    const renderEmptyPage = () => {
+      return (
+        <EmptyPage/>
+      );
     };
-  },
-  render() {
-    // 从 getBlogByUserId 得到的 blogDataList[0] 中取出用户数据
+
+    // 从 getBlogByUserId 得到的 blogDataList[0] 中取出用户数据，据此来渲染用户信息
     const renderUserInfo = () => {
-      const blogData = this.blogDataList && this.blogDataList[0];
-      const {user} = blogData ?? {};
-      if (user) {
-        const {avatar, username,} = user;
+      if (user.value) {
+        const {avatar, username,} = user.value;
 
         return (
           <UserInfo username={username}
@@ -49,16 +43,24 @@ export default defineComponent({
       }
     };
 
-    const emptyPage = () => {
+    // 渲染分页
+    const renderPagination = () => {
       return (
-        <EmptyPage/>
+        <section class={blogIndex.pagination}
+                 id="pagination">
+          <Pagination total={allPages.value}
+                      pageSize={pageSize.value}
+                      v-model:current={currentPage.value}
+                      onChange={onPageChange}/>
+        </section>
       );
     };
 
+    // 渲染文章列表
     const renderArticleList = () => {
       return (
         <section>
-          {this.blogDataList && this.blogDataList.map((blogData) => {
+          {blogDataList.value && blogDataList.value.map((blogData) => {
             const {/*atIndex, */updatedAt, createdAt, description, id: blogId, title, user} = blogData;
             const {/*avatar, username, */id: userId, updatedAt: updateUserAt, createdAt: createUserAt} = user;
             const {date, month, year} = splitDate(createdAt);
@@ -93,7 +95,7 @@ export default defineComponent({
                       阅读量
                     </span>
                     <router-link to={`/detail/${blogId}`}
-                                 className={cssUser.detailLink}>
+                                 class={cssUser.detailLink}>
                       博客详情&gt;&gt;&gt;
                     </router-link>
                   </div>
@@ -115,18 +117,7 @@ export default defineComponent({
       );
     };
 
-    const renderPagination = () => {
-      return (
-        <section class={blogIndex.pagination}
-                 id="pagination">
-          <Pagination total={this.allPages}
-                      pageSize={this.pageSize}
-                      v-model:current={this.currentPage}
-                      onChange={this.onPageChange}/>
-        </section>
-      );
-    };
-
+    // 渲染该组件所有页面
     const renderFullPage = () => {
       return (
         <>
@@ -136,12 +127,21 @@ export default defineComponent({
       );
     };
 
+    return {
+      showEmptyPage,
+      onPageChange,
+      renderUserInfo,
+      renderEmptyPage,
+      renderFullPage,
+    };
+  },
+  render() {
     return (
       <>
-        {renderUserInfo()}
+        {this.renderUserInfo()}
         {this.showEmptyPage
-          ? emptyPage()
-          : renderFullPage()
+          ? this.renderEmptyPage()
+          : this.renderFullPage()
         }
       </>
     );

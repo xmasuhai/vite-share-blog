@@ -31,14 +31,14 @@ export default defineComponent({
       onPageChange
     } = useGetBlogList('self');
 
-    // 空白页占位
+    // 渲染空白页占位
     const renderEmptyPage = () => {
       return (
         <EmptyPage/>
       );
     };
 
-    // 从 Store 中取出当前已登录用户数据
+    // 从 Store 中取出当前已登录用户数据，据此来渲染用户信息
     const renderUserInfo = () => {
       if (user.value) {
         const {username, avatar} = user.value;
@@ -50,6 +50,7 @@ export default defineComponent({
       }
     };
 
+    // 渲染分页
     const renderPagination = () => {
       return (
         <section class={blogIndex.pagination}
@@ -62,6 +63,7 @@ export default defineComponent({
       );
     };
 
+    // 渲染文章列表
     const renderArticleList = () => {
       return (
         <section>
@@ -128,6 +130,7 @@ export default defineComponent({
       );
     };
 
+    // 渲染该组件所有页面
     const renderFullPage = () => {
       return (
         <>
@@ -138,11 +141,6 @@ export default defineComponent({
     };
 
     return {
-      blogDataList,
-      currentPage,
-      allPages,
-      pageSize,
-      user,
       showEmptyPage,
       onPageChange,
       renderUserInfo,
