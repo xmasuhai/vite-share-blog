@@ -8,6 +8,7 @@ import useGetBlogList from '@/hooks/useGetBlogList';
 import splitDate from '@/utils/splitDate';
 import blogIndex from '@/styles/blog-index.module.scss';
 import {Pagination} from 'ant-design-vue';
+import {blogFullInfo} from '@/types/responseData';
 
 const MyBlogProps = {
   isShow: Boolean,
@@ -18,6 +19,9 @@ export default defineComponent({
   props: MyBlogProps,
   components: {},
   setup(/*props, ctx*/) {
+    const authStore = useAuthStore();
+    const user = ref(authStore.getUser);
+    // response data
     const {
       blogDataList,
       currentPage,
@@ -27,25 +31,17 @@ export default defineComponent({
       onPageChange
     } = useGetBlogList('self');
 
-    const authStore = useAuthStore();
-
-    const user = ref(authStore.getUser);
-
-    return {
-      blogDataList,
-      currentPage,
-      allPages,
-      pageSize,
-      user,
-      showEmptyPage,
-      onPageChange
+    // 空白页占位
+    const renderEmptyPage = () => {
+      return (
+        <EmptyPage/>
+      );
     };
-  },
-  render() {
+
     // 从 Store 中取出当前已登录用户数据
     const renderUserInfo = () => {
-      if (this.user) {
-        const {username, avatar} = this.user;
+      if (user.value) {
+        const {username, avatar} = user.value;
 
         return (
           <UserInfo username={username}
@@ -54,16 +50,22 @@ export default defineComponent({
       }
     };
 
-    const emptyPage = () => {
+    const renderPagination = () => {
       return (
-        <EmptyPage/>
+        <section class={blogIndex.pagination}
+                 id="pagination">
+          <Pagination total={allPages.value}
+                      pageSize={pageSize.value}
+                      v-model:current={currentPage.value}
+                      onChange={onPageChange}/>
+        </section>
       );
     };
 
     const renderArticleList = () => {
       return (
         <section>
-          {this.blogDataList && this.blogDataList.map((blogData) => {
+          {blogDataList && (blogDataList.value as blogFullInfo[]).map((blogData: blogFullInfo) => {
             const {/*atIndex, */updatedAt, createdAt, description, id: blogId, title, user} = blogData;
             const {/*avatar, username, */id: userId, updatedAt: updateUserAt, createdAt: createUserAt} = user;
             const {date, month, year} = splitDate(createdAt);
@@ -126,18 +128,6 @@ export default defineComponent({
       );
     };
 
-    const renderPagination = () => {
-      return (
-        <section class={blogIndex.pagination}
-                 id="pagination">
-          <Pagination total={this.allPages}
-                      pageSize={this.pageSize}
-                      v-model:current={this.currentPage}
-                      onChange={this.onPageChange}/>
-        </section>
-      );
-    };
-
     const renderFullPage = () => {
       return (
         <>
@@ -147,12 +137,26 @@ export default defineComponent({
       );
     };
 
+    return {
+      blogDataList,
+      currentPage,
+      allPages,
+      pageSize,
+      user,
+      showEmptyPage,
+      onPageChange,
+      renderUserInfo,
+      renderEmptyPage,
+      renderFullPage,
+    };
+  },
+  render() {
     return (
       <>
-        {renderUserInfo()}
+        {this.renderUserInfo()}
         {this.showEmptyPage
-          ? emptyPage()
-          : renderFullPage()
+          ? this.renderEmptyPage()
+          : this.renderFullPage()
         }
       </>
     );

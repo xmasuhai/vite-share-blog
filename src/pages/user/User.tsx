@@ -13,6 +13,7 @@ export default defineComponent({
   props: {},
   components: {},
   setup(/*props, ctx*/) {
+    // response data
     const {
       blogDataList,
       currentPage,
