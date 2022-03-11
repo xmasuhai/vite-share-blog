@@ -24,6 +24,7 @@ const routes: RouteRecordRaw[] = [
     path: '/detail/:blogId',
     name: 'BlogDetail',
     component: () => import('@/pages/blog/detail/BlogDetail'),
+    meta: {requiresAuth: true},
   },
   {
     path: '/create',

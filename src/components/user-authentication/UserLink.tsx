@@ -44,7 +44,7 @@ export default defineComponent({
 
     return (
       <>
-        {slots.default ? slots.default() : (<></>)}
+        {slots.default ? slots.default?.() : (<></>)}
       </>
     );
   }
