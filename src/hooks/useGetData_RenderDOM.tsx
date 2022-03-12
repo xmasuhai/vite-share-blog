@@ -86,6 +86,29 @@ export default function useGetData_RenderDOM(blogUser: 'self' | 'others') {
             );
           };
 
+          const renderMyBlogLink = () => {
+            return (
+              <>
+                <router-link to={`/edit/${1}`}
+                             class={cssUser.edit}>
+                  编辑
+                </router-link>
+                <a href="#"
+                   class={cssUser.delete}>
+                  删除
+                </a>
+              </>
+            );
+          };
+
+          const renderUserBlogLink = () => {
+            return (
+              <span>
+                阅读量
+              </span>
+            );
+          };
+
           const renderArticleDescription = () => {
             return (
               <>
@@ -95,10 +118,13 @@ export default function useGetData_RenderDOM(blogUser: 'self' | 'others') {
                 <p class={classNames([cssUser.description, blogIndex.omitText])}>
                   {description}
                 </p>
+
                 <div class={cssUser.actions}>
-                <span>
-                  阅读量
-                </span>
+                  {
+                    blogUser === 'self'
+                      ? renderMyBlogLink()
+                      : renderUserBlogLink()
+                  }
                   <router-link to={`/detail/${blogId}`}
                                class={cssUser.detailLink}>
                     博客详情&gt;&gt;&gt;
