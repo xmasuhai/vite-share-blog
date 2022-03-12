@@ -4,13 +4,13 @@ import {blogFullInfo, blogUser} from '@/types/responseData';
 import useAuthStore from '@/store/modules/auth';
 import {deleteBlog, getBlogByUserId} from '@/api/blog';
 import {scrollToTop} from '@/utils/scrollToTop';
-import {Modal} from 'ant-design-vue';
+import {message, Modal} from 'ant-design-vue';
 import SvgIcon from '@/components/SvgIcon';
 import blogIcon from '@/styles/blog-icon.module.scss';
 import {createVNode,} from 'vue';
 
-
 export default function useGetBlogList(blogUser: 'self' | 'others') {
+  const popMessage = inject<typeof message>('$message');
   // Router Data
   const route = useRoute(); // 获取当前路由
   const router = useRouter(); // 获取当前路由
@@ -108,10 +108,11 @@ export default function useGetBlogList(blogUser: 'self' | 'others') {
         additionalClassList: [blogIcon.iconLeft]
       }),
       // content: '是否确认删除？',
-      onOk() {
+      async onOk() {
         try {
           // request API
-          // await deleteBlog({blogId});
+          await deleteBlog({blogId});
+          popMessage && popMessage.info('删除成功！');
         } catch (e) {
           console.log('Oops errors!');
         }
