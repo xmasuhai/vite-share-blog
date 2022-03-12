@@ -1,6 +1,14 @@
 .ruby {
+  display: inline;
   position: relative;
   ruby-position: under;
+
+  &.icon-left {
+    float: left;
+    font-size: 22px;
+    margin-right: .3em;
+    transform: translateY(-6px);
+  }
 
   .icon {
     fill: currentColor;

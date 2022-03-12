@@ -1,7 +1,8 @@
-import {defineComponent,} from 'vue';
+import classNames, {Argument} from 'classnames';
+import {defineComponent, PropType,} from 'vue';
 import blogIcon from '@/styles/blog-icon.module.scss';
 
-const props = {
+const SvgIconProps = {
   prefix: {
     type: String,
     default: 'icon',
@@ -17,12 +18,20 @@ const props = {
   tipText: {
     type: String,
     default: '',
+  },
+  scaleSize: {
+    type: Number,
+    default: 1,
+  },
+  additionalClassList: {
+    type: Array as PropType<Argument[]>,
+    default: []
   }
 };
 
 export default defineComponent({
   name: 'SvgIcon',
-  props: props,
+  props: SvgIconProps,
   components: {},
   setup(props/*, ctx*/) {
     const symbolId = computed(() => `#${props.prefix}-${props.name}`);
@@ -32,8 +41,8 @@ export default defineComponent({
   },
   render() {
     return (
-      <ruby class={blogIcon.ruby}>
-        <svg class={blogIcon.icon}
+      <ruby class={classNames(blogIcon.ruby, ...this.additionalClassList)}>
+        <svg class={classNames(blogIcon.icon,)}
              aria-hidden="true">
           <use href={this.symbolId}
                fill={this.color}/>

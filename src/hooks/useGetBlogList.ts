@@ -6,6 +6,7 @@ import {deleteBlog, getBlogByUserId} from '@/api/blog';
 import {scrollToTop} from '@/utils/scrollToTop';
 import {Modal} from 'ant-design-vue';
 import SvgIcon from '@/components/SvgIcon';
+import blogIcon from '@/styles/blog-icon.module.scss';
 import {createVNode,} from 'vue';
 
 
@@ -99,19 +100,24 @@ export default function useGetBlogList(blogUser: 'self' | 'others') {
   const onDelete = withModifiers(async (e: MouseEvent, blogId: number) => {
     console.log('blogId', blogId);
     Modal.confirm({
-      title: 'Do you want to delete these items?',
-      icon: createVNode(SvgIcon),
-      content: 'When clicked the OK button, this dialog will be closed after 1 second',
+      title: '是否确认删除',
+      icon: createVNode(SvgIcon, {
+        name: 'info',
+        color: 'red',
+        tipText: '是否确认删除?',
+        additionalClassList: [blogIcon.iconLeft]
+      }),
+      // content: '是否确认删除？',
       onOk() {
-        return new Promise((resolve, reject) => {
-          setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
-        }).catch(() => console.log('Oops errors!'));
+        try {
+          // request API
+          // await deleteBlog({blogId});
+        } catch (e) {
+          console.log('Oops errors!');
+        }
       },
-      // eslint-disable-next-line @typescript-eslint/no-empty-function
       onCancel() {},
     });
-    // request API
-    // await deleteBlog({blogId});
   }, ['prevent']);
 
   onMounted(async () => {
