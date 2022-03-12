@@ -13,6 +13,7 @@ import 'ant-design-vue/es/message/style/index.css';
 import 'ant-design-vue/es/input/style/index.css';
 import 'ant-design-vue/es/input-number/style/index.css';
 import 'ant-design-vue/es/pagination/style/index.css';
+import 'ant-design-vue/es/modal/style/index.css';
 
 // Cover ant-design-vue
 import '@/assets/style/cover-ant.scss';

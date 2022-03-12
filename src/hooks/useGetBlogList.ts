@@ -1,9 +1,13 @@
 import {useRoute, useRouter} from 'vue-router';
-import {ref} from 'vue';
+import {ref, withModifiers} from 'vue';
 import {blogFullInfo, blogUser} from '@/types/responseData';
 import useAuthStore from '@/store/modules/auth';
-import {getBlogByUserId} from '@/api/blog';
+import {deleteBlog, getBlogByUserId} from '@/api/blog';
 import {scrollToTop} from '@/utils/scrollToTop';
+import {Modal} from 'ant-design-vue';
+import SvgIcon from '@/components/SvgIcon';
+import {createVNode,} from 'vue';
+
 
 export default function useGetBlogList(blogUser: 'self' | 'others') {
   // Router Data
@@ -35,7 +39,8 @@ export default function useGetBlogList(blogUser: 'self' | 'others') {
   };
 
   // 调用 getBlogByUserId API 获取所有博客列表
-  // 需要 userId
+  // 需要判断 userId 为登录用户 或者 其他用户
+  // 通过 userId 调用 getBlogByUserId({page: pageNum}, uid,)
   const invokeBlogByUserIdAPI = async (pageNum: number) => {
     const uid = (
       blogUser === 'self'
@@ -72,6 +77,7 @@ export default function useGetBlogList(blogUser: 'self' | 'others') {
 
   };
 
+  // 分页跳转执行逻辑
   const onPageChange = async (newPage: number) => {
     const {blogList} = await invokeBlogByUserIdAPI(newPage);
     const {user} = (
@@ -89,6 +95,25 @@ export default function useGetBlogList(blogUser: 'self' | 'others') {
     scrollToTop();
   };
 
+  // 博客删除逻辑 使用修饰符 prevent 禁止a标签原生跳转行为
+  const onDelete = withModifiers(async (e: MouseEvent, blogId: number) => {
+    console.log('blogId', blogId);
+    Modal.confirm({
+      title: 'Do you want to delete these items?',
+      icon: createVNode(SvgIcon),
+      content: 'When clicked the OK button, this dialog will be closed after 1 second',
+      onOk() {
+        return new Promise((resolve, reject) => {
+          setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
+        }).catch(() => console.log('Oops errors!'));
+      },
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
+      onCancel() {},
+    });
+    // request API
+    // await deleteBlog({blogId});
+  }, ['prevent']);
+
   onMounted(async () => {
     await getBlogList();
   });
@@ -101,6 +126,7 @@ export default function useGetBlogList(blogUser: 'self' | 'others') {
     user,
     showEmptyPage,
     onPageChange,
+    onDelete,
   };
 }
 

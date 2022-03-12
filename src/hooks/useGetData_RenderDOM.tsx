@@ -22,7 +22,8 @@ export default function useGetData_RenderDOM(blogUser: 'self' | 'others') {
     pageSize,
     user: getOthers,
     showEmptyPage,
-    onPageChange
+    onPageChange,
+    onDelete
   } = useGetBlogList(blogUser);
 
   const user = blogUser === 'self'
@@ -89,12 +90,13 @@ export default function useGetData_RenderDOM(blogUser: 'self' | 'others') {
           const renderMyBlogLink = () => {
             return (
               <>
-                <router-link to={`/edit/${1}`}
+                <router-link to={`/edit/${blogId}`}
                              class={cssUser.edit}>
                   编辑
                 </router-link>
                 <a href="#"
-                   class={cssUser.delete}>
+                   class={cssUser.delete}
+                   onClick={(e) => {onDelete(e, blogId);}}>
                   删除
                 </a>
               </>
