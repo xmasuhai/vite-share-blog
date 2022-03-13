@@ -95,9 +95,9 @@ export default function useGetBlogList(blogUser: 'self' | 'others') {
     scrollToTop();
   };
 
-  // 博客删除逻辑 使用修饰符 prevent 禁止a标签原生跳转行为
+  // 博客删除逻辑 使用修饰符 prevent 禁止 a 标签原生默认跳转行为
   const onDelete = withModifiers((e: MouseEvent, blogId: number) => {
-    console.log('blogId', blogId);
+    // console.log('blogId', blogId);
     Modal.confirm({
       title: '是否确认删除',
       icon: createVNode(SvgIcon, {
@@ -113,7 +113,7 @@ export default function useGetBlogList(blogUser: 'self' | 'others') {
           await deleteBlog({blogId});
           popMessage && popMessage.info('删除成功！');
         } catch (e) {
-          console.log('Oops errors!');
+          popMessage && popMessage.error('Oops errors!');
         }
       },
       onCancel() {},

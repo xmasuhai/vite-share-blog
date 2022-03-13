@@ -83,7 +83,7 @@ router.beforeEach((to, from, next) => {
   // 判断是需要登录
   // const {getIsLogin,} = storeToRefs(useAuthStore()); // 使用 store.checkLogin() 服务器验证 的登录状态 代替
 
-  const store = useAuthStore();
+  const authStore = useAuthStore();
   /*
   * if(to.path === 'login') return next();
   * if (to.path 受控页面或 未登录) return next('/login？');
@@ -94,7 +94,7 @@ router.beforeEach((to, from, next) => {
   // URL 是否需要 身份验证
   ifRequiresAuth
     ? (// 需要身份验证的 URL // 创建、编辑博客页面、我的博客页面
-      store.checkLogin() // 向服务器请求，获取当前登录状态
+      authStore.checkLogin() // 向服务器请求，获取当前登录状态
         .then((isLogin) => {
           isLogin
             ? next() // 服务器响应验证已登录，放行跳转;
@@ -132,7 +132,7 @@ router.afterEach((/* to, from, failure */) => {
   // 清除 记录的 router-view 中的 组件名
   routerCompName.value = '';
 
-  // 对 pageInit 的值进行更新，也就是设置为刚打开页面的状态
+  // 对 pageInit 的值进行更新，设置为刚打开页面的状态
   store.updatePageInit({pageInit: true});
 });
 

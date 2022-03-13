@@ -16,30 +16,39 @@ import axios, {AxiosRequestConfig, Method,} from 'axios';
 import {message} from 'ant-design-vue';
 import useStore from '@/store';
 
-const store = useStore();
-
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 axios.defaults.baseURL = 'https://blog-server.hunger-valley.com';
 
 /* 请求开始，则对 ajaxCount 加 1，请求成功 或是 失败 对 ajaxCount 减 1 */
 // 添加请求拦截器
 axios.interceptors.request.use(config => {
+  const store = useStore();
   // config 请求配置
   console.log('请求拦截器config', config);
   store.updateAjaxCount({ajaxCount: 1});
+  console.log('store', store.ajaxCount);
+
   return config;
 }, err => {
+  const store = useStore();
   store.updateAjaxCount({ajaxCount: -1});
   return Promise.reject(err);
 });
 
 // 添加响应拦截器
 axios.interceptors.response.use(res => {
+  const store = useStore();
+
   // res 响应结果
   console.log('响应拦截器res', res);
+
+  // 请求成功 或是 失败 对 ajaxCount 减 1
   store.updateAjaxCount({ajaxCount: -1});
+  console.log('store', store.ajaxCount);
   return res;
 }, err => {
+  const store = useStore();
+
   store.updateAjaxCount({ajaxCount: -1});
   return Promise.reject(err);
 });

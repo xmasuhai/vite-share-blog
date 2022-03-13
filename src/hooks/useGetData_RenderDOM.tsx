@@ -4,8 +4,9 @@ import useGetBlogList from '@/hooks/useGetBlogList';
 import useAuthStore from '@/store/modules/auth';
 import blogIndex from '@/styles/blog-index.module.scss';
 import cssUser from '@/styles/blog-user.module.scss';
+import {blogFullInfo,} from '@/types/responseData';
 import splitDate from '@/utils/splitDate';
-import {Pagination} from 'ant-design-vue';
+import {Pagination, Skeleton} from 'ant-design-vue';
 import classNames from 'classnames';
 
 export default function useGetData_RenderDOM(blogUser: 'self' | 'others') {
@@ -13,6 +14,8 @@ export default function useGetData_RenderDOM(blogUser: 'self' | 'others') {
     const authStore = useAuthStore();
     return ref(authStore.getUser);
   };
+
+  const loading = ref<boolean>(true);
 
   // response data
   const {
@@ -138,23 +141,86 @@ export default function useGetData_RenderDOM(blogUser: 'self' | 'others') {
     );
   };
 
+  // 渲染骨架屏
+  const renderSkeleton = (isLoading: boolean,) => {
+    const randomPoNe = () => (Math.round(Math.random()) * 2 - 1);
+    const randomDate = () => (new Date(Date.now() + Math.random() * 10000 * 10000 * randomPoNe()));
+    const randomId = () => (Math.trunc(Math.random() * 100) + 1);
+    const blankBlogData: () => blogFullInfo = () => ({
+      atIndex: true,
+      id: randomId(),
+      title: '',
+      description: '',
+      content: '',
+      user: {
+        id: randomId(),
+        username: '',
+        avatar: '',
+        updatedAt: `${randomDate()}`,
+        createdAt: `${randomDate()}`,
+      },
+      createdAt: `${randomDate()}`,
+      updatedAt: `${randomDate()}`
+    });
+    const fakeBlogList = new Array(20).fill(0).map(() => blankBlogData());
+    const renderFakeArticleNode = () => {
+      return (<Skeleton loading={isLoading} active/>);
+    };
+
+    return (
+      <>{renderArticleList(fakeBlogList, renderFakeArticleNode)}</>
+    );
+  };
+
+  // 渲染文章节点
+  const renderArticleNode = (
+    blogId: number,
+    userId: number,
+    updatedAt: string,
+    createdAt: string,
+    updateUserAt: string,
+    createUserAt: string,
+    date: number,
+    month: number,
+    year: number,
+    title: string,
+    description: string,
+  ) => {
+    return (
+      <>
+        <article key={`${blogId}${userId}${updatedAt}${createdAt}${updateUserAt}${createUserAt}`}
+                 v-show={!loading.value}>
+          <div class={cssUser.item}>
+            {renderDate(date, month, year)}
+            {renderArticleDescription(title, description, blogId)}
+          </div>
+          <hr/>
+        </article>
+      </>);
+  };
+
   // 渲染文章列表
-  const renderArticleList = () => {
+  const renderArticleList = (blogDataList: blogFullInfo[], renderFn: typeof renderArticleNode) => {
     return (
       <section>
-        {blogDataList.value && blogDataList.value.map((blogData) => {
+        {blogDataList && blogDataList.map((blogData) => {
           const {/*atIndex, */updatedAt, createdAt, description, id: blogId, title, user} = blogData;
           const {/*avatar, username, */id: userId, updatedAt: updateUserAt, createdAt: createUserAt} = user;
           const {date, month, year} = splitDate(createdAt);
 
           return (
-            <article key={`${blogId}${userId}${updatedAt}${createdAt}${updateUserAt}${createUserAt}`}>
-              <div class={cssUser.item}>
-                {renderDate(date, month, year)}
-                {renderArticleDescription(title, description, blogId)}
-              </div>
-              <hr/>
-            </article>
+            <>{renderFn(
+              blogId,
+              userId,
+              updatedAt,
+              createdAt,
+              updateUserAt,
+              createUserAt,
+              date,
+              month,
+              year,
+              title,
+              description,)}</>
           );
         })}
       </section>
@@ -166,7 +232,8 @@ export default function useGetData_RenderDOM(blogUser: 'self' | 'others') {
   const renderFullPage = () => {
     return (
       <>
-        {renderArticleList()}
+        {renderSkeleton(true)}
+        {blogDataList.value && renderArticleList(blogDataList.value, renderArticleNode)}
         {renderPagination()}
       </>
     );
