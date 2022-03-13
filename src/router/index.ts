@@ -126,9 +126,14 @@ router.beforeEach((to, from, next) => {
 router.afterEach((/* to, from, failure */) => {
   // console.log('路由全局后置守卫', to, from);
 
-  // 清除 记录的 router-view 中的 组件名
   const {routerCompName,} = storeToRefs(useStore());
+  const store = useStore();
+
+  // 清除 记录的 router-view 中的 组件名
   routerCompName.value = '';
+
+  // 对 pageInit 的值进行更新，也就是设置为刚打开页面的状态
+  store.updatePageInit({pageInit: true});
 });
 
 export default router;
