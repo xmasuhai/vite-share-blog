@@ -1,4 +1,5 @@
-import useGetData_RenderDOM from '@/hooks/useGetData_RenderDOM';
+import useRenderEmptyPage from '@/hooks/renderFn/useRenderEmptyPage';
+import useGetData_RenderDOM from '@/hooks/renderFn/useGetData_RenderDOM';
 import {defineComponent, PropType} from 'vue';
 
 const BlogListOfSelfOrOthersProps = {
@@ -17,14 +18,12 @@ export default defineComponent({
     const {
       showEmptyPage,
       renderUserInfo,
-      renderEmptyPage,
       renderFullPage,
     } = useGetData_RenderDOM(user.value as ('self' | 'others'));
 
     return {
       showEmptyPage,
       renderUserInfo,
-      renderEmptyPage,
       renderFullPage,
     };
   },
@@ -32,9 +31,10 @@ export default defineComponent({
     return (
       <>
         {this.renderUserInfo()}
-        {this.showEmptyPage
-          ? this.renderEmptyPage()
-          : this.renderFullPage()
+        {
+          this.showEmptyPage
+            ? useRenderEmptyPage()
+            : this.renderFullPage()
         }
       </>
     );

@@ -8,7 +8,7 @@ import SvgIcon from '@/components/SvgIcon';
 import blogIconCSS from '@/styles/blog-icon.module.scss';
 import {scrollToTop} from '@/utils/scrollToTop';
 
-export default function useGetBlogList(blogUser: 'self' | 'others') {
+export default function useGetBlogList(blogUserStr: 'self' | 'others') {
   const popMessage = inject<typeof message>('$message');
   // Router Data
   const route = useRoute(); // 获取当前路由
@@ -43,7 +43,7 @@ export default function useGetBlogList(blogUser: 'self' | 'others') {
   // 通过 userId 调用 getBlogByUserId({page: pageNum}, uid,)
   const invokeBlogByUserIdAPI = async (pageNum: number) => {
     const uid = (
-      blogUser === 'self'
+      blogUserStr === 'self'
         ? id
         : userId.value
     );
@@ -87,7 +87,7 @@ export default function useGetBlogList(blogUser: 'self' | 'others') {
     );
 
     const pathStr = (
-      blogUser === 'self'
+      blogUserStr === 'self'
         ? '/myblog'
         : user.id
     );
@@ -113,7 +113,7 @@ export default function useGetBlogList(blogUser: 'self' | 'others') {
           await deleteBlog({blogId});
           popMessage && popMessage.info('删除成功！');
 
-          // 同时将数据中的此 blogId 的博客条目删除
+          // 同时将数据中的此 blogId 的博客条目删除 使用过滤方法
           blogDataList.value = blogDataList.value?.filter((blogData) => (blogData.id !== blogId));
         } catch (e) {
           popMessage && popMessage.error('Oops errors!');
@@ -149,7 +149,8 @@ const {
   pageSize,
   user,
   showEmptyPage,
-  onPageChange
+  onPageChange,
+  onDelete,
 } = useGetBlogList()
 *
 * */
