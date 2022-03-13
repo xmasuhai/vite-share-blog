@@ -1,14 +1,15 @@
 import UserLink from '@/components/user-authentication/UserLink';
+import {useRenderPagination} from '@/hooks/renderFn/useRenderPagination';
+import {useRenderSkeleton} from '@/hooks/renderFn/useRenderSkeleton';
+import {useIfLoading} from '@/hooks/useIfLoading';
 import classNames from 'classnames';
 import {defineComponent,/* inject, */ref} from 'vue';
 import {useRouter, useRoute} from 'vue-router';
 // request API
 import {getIndexBlogs} from '@/api/blog';
+import {blogFullInfo} from '@/types/responseData';
 // CSS module
 import blogIndex from '@/styles/blog-index.module.scss';
-// UI lib
-import {Pagination} from 'ant-design-vue';
-import {blogFullInfo} from '@/types/responseData';
 // utils
 import {scrollToTop} from '@/utils/scrollToTop';
 import {beautifyDate} from '@/utils/beautifyDate';
@@ -17,9 +18,13 @@ export default defineComponent({
   name: 'BlogIndex',
   props: {},
   setup(/*props, ctx*/) {
-    // const popMessage = inject<typeof message>('$message');
-    const router = useRouter(); // 路由实例
-    const route = useRoute();// 当前路由
+    // 是否处于读取中状态，用来判断是否展示骨架屏
+    const {loading} = useIfLoading();
+
+    // 路由实例
+    const router = useRouter();
+    // 当前路由url
+    const route = useRoute();
 
     // data
     const blogDataList = ref<blogFullInfo[] | undefined>([]);
@@ -75,7 +80,8 @@ export default defineComponent({
       allPages,
       pageSize,
       getBlogList,
-      onPageChange
+      onPageChange,
+      loading
     };
   },
   render() {
@@ -139,7 +145,8 @@ export default defineComponent({
 
       return (
         <article class={blogIndex.item}
-                 key={`${blogId}${userId}${updatedAt}${createdAt}${updateUserAt}${createUserAt}`}>
+                 key={`${blogId}${userId}${updatedAt}${createdAt}${updateUserAt}${createUserAt}`}
+                 v-show={!this.loading}>
           {renderAuthor(blogData)}
           {renderBlogDescription(blogData)}
           {renderBlogDetailLink(blogData)}
@@ -150,7 +157,8 @@ export default defineComponent({
     /* 首页博客列表 */
     const renderBlogIndexList = (blogDataList: blogFullInfo[]) => {
       return (
-        <section class="article-list">
+        <section class="article-list"
+                 v-show={!this.loading}>
           {blogDataList.map((blogData) => {
             return (<>{renderArticle(blogData)}</>);
           })}
@@ -159,23 +167,13 @@ export default defineComponent({
       );
     };
 
-    /* 渲染分页 */
-    const renderPagination = () => {
-      return (
-        <section class={blogIndex.pagination}
-                 id="pagination">
-          <Pagination total={this.allPages}
-                      pageSize={this.pageSize}
-                      v-model:current={this.currentPage}
-                      onChange={this.onPageChange}/>
-        </section>
-      );
-    };
-
     return (
       <>
+        {/* 渲染骨架屏 */}
+        {this.loading && useRenderSkeleton(this.loading, 'others', () => {})}
         {this.blogDataList && renderBlogIndexList(this.blogDataList)}
-        {renderPagination()}
+        {/* 渲染分页 */}
+        {useRenderPagination(this.allPages, this.pageSize, this.currentPage, this.onPageChange,)}
       </>
     );
   }
