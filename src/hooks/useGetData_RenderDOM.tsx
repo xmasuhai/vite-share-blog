@@ -62,6 +62,82 @@ export default function useGetData_RenderDOM(blogUser: 'self' | 'others') {
     );
   };
 
+  /* 渲染文章列表 开始 ↓ */
+  // 渲染文章 - 日期
+  const renderDate = (date: number, month: number, year: number) => {
+    return (
+      <div class={cssUser.date}>
+                <span class={classNames([cssUser.day, cssUser.dateItem])}>
+                  {date}
+                  </span>
+        <span class={cssUser.dateItem}>
+                {month}
+                </span>
+        <span class={cssUser.dateItem}>
+                {year}
+                </span>
+      </div>
+    );
+  };
+
+  // 渲染文章 - 链接 renderBlogLink <My/User Blog>
+  const renderBlogLink = (blogId: number, blogUser: string) => {
+    const renderMyBlogLink = () => {
+      return (
+        <>
+          <router-link to={`/edit/${blogId}`}
+                       class={cssUser.edit}>
+            编辑
+          </router-link>
+          <a href="#"
+             class={cssUser.delete}
+             onClick={(e) => {onDelete(e, blogId);}}>
+            删除
+          </a>
+        </>
+      );
+    };
+    const renderUserBlogLink = () => {
+      return (
+        <span>
+                阅读量
+              </span>
+      );
+    };
+
+    return (
+      <>
+        {
+          blogUser === 'self'
+            ? renderMyBlogLink()
+            : renderUserBlogLink()
+        }
+      </>
+    );
+  };
+
+  // 渲染文章 - 描述 renderArticleDescription
+  const renderArticleDescription = (title: string, description: string, blogId: number,) => {
+    return (
+      <>
+        <h3 class={cssUser.title}>
+          {title}
+        </h3>
+        <p class={classNames([cssUser.description, blogIndex.omitText])}>
+          {description}
+        </p>
+
+        <div class={cssUser.actions}>
+          {renderBlogLink(blogId, blogUser)}
+          <router-link to={`/detail/${blogId}`}
+                       class={cssUser.detailLink}>
+            博客详情&gt;&gt;&gt;
+          </router-link>
+        </div>
+      </>
+    );
+  };
+
   // 渲染文章列表
   const renderArticleList = () => {
     return (
@@ -71,76 +147,11 @@ export default function useGetData_RenderDOM(blogUser: 'self' | 'others') {
           const {/*avatar, username, */id: userId, updatedAt: updateUserAt, createdAt: createUserAt} = user;
           const {date, month, year} = splitDate(createdAt);
 
-          const renderDate = () => {
-            return (
-              <div class={cssUser.date}>
-                <span class={classNames([cssUser.day, cssUser.dateItem])}>
-                  {date}
-                  </span>
-                <span class={cssUser.dateItem}>
-                {month}
-                </span>
-                <span class={cssUser.dateItem}>
-                {year}
-                </span>
-              </div>
-            );
-          };
-
-          const renderMyBlogLink = () => {
-            return (
-              <>
-                <router-link to={`/edit/${blogId}`}
-                             class={cssUser.edit}>
-                  编辑
-                </router-link>
-                <a href="#"
-                   class={cssUser.delete}
-                   onClick={(e) => {onDelete(e, blogId);}}>
-                  删除
-                </a>
-              </>
-            );
-          };
-
-          const renderUserBlogLink = () => {
-            return (
-              <span>
-                阅读量
-              </span>
-            );
-          };
-
-          const renderArticleDescription = () => {
-            return (
-              <>
-                <h3 class={cssUser.title}>
-                  {title}
-                </h3>
-                <p class={classNames([cssUser.description, blogIndex.omitText])}>
-                  {description}
-                </p>
-
-                <div class={cssUser.actions}>
-                  {
-                    blogUser === 'self'
-                      ? renderMyBlogLink()
-                      : renderUserBlogLink()
-                  }
-                  <router-link to={`/detail/${blogId}`}
-                               class={cssUser.detailLink}>
-                    博客详情&gt;&gt;&gt;
-                  </router-link>
-                </div>
-              </>
-            );
-          };
-
           return (
             <article key={`${blogId}${userId}${updatedAt}${createdAt}${updateUserAt}${createUserAt}`}>
               <div class={cssUser.item}>
-                {renderDate()}
-                {renderArticleDescription()}
+                {renderDate(date, month, year)}
+                {renderArticleDescription(title, description, blogId)}
               </div>
               <hr/>
             </article>
@@ -149,6 +160,7 @@ export default function useGetData_RenderDOM(blogUser: 'self' | 'others') {
       </section>
     );
   };
+  /* 渲染文章列表 结束 ↑ */
 
   // 渲染该组件所有页面
   const renderFullPage = () => {

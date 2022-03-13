@@ -1,13 +1,12 @@
+import {ref, withModifiers, createVNode} from 'vue';
 import {useRoute, useRouter} from 'vue-router';
-import {ref, withModifiers} from 'vue';
 import {blogFullInfo, blogUser} from '@/types/responseData';
 import useAuthStore from '@/store/modules/auth';
 import {deleteBlog, getBlogByUserId} from '@/api/blog';
-import {scrollToTop} from '@/utils/scrollToTop';
 import {message, Modal} from 'ant-design-vue';
 import SvgIcon from '@/components/SvgIcon';
-import blogIcon from '@/styles/blog-icon.module.scss';
-import {createVNode,} from 'vue';
+import blogIconCSS from '@/styles/blog-icon.module.scss';
+import {scrollToTop} from '@/utils/scrollToTop';
 
 export default function useGetBlogList(blogUser: 'self' | 'others') {
   const popMessage = inject<typeof message>('$message');
@@ -97,7 +96,7 @@ export default function useGetBlogList(blogUser: 'self' | 'others') {
   };
 
   // 博客删除逻辑 使用修饰符 prevent 禁止a标签原生跳转行为
-  const onDelete = withModifiers(async (e: MouseEvent, blogId: number) => {
+  const onDelete = withModifiers((e: MouseEvent, blogId: number) => {
     console.log('blogId', blogId);
     Modal.confirm({
       title: '是否确认删除',
@@ -105,7 +104,7 @@ export default function useGetBlogList(blogUser: 'self' | 'others') {
         name: 'info',
         color: 'red',
         tipText: '是否确认删除?',
-        additionalClassList: [blogIcon.iconLeft]
+        additionalClassList: [blogIconCSS.iconLeft]
       }),
       // content: '是否确认删除？',
       async onOk() {

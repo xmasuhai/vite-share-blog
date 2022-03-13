@@ -12,6 +12,24 @@ import {message} from 'ant-design-vue';
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 axios.defaults.baseURL = 'https://blog-server.hunger-valley.com';
 
+// 添加请求拦截器
+axios.interceptors.request.use(config => {
+  // config 请求配置
+  console.log('请求拦截器config', config);
+  return config;
+}, err => {
+  return Promise.reject(err);
+});
+
+// 添加响应拦截器
+axios.interceptors.response.use(res => {
+  // res 响应结果
+  console.log('响应拦截器res', res);
+  return res;
+}, err => {
+  return Promise.reject(err);
+});
+
 const errorMsg = (msg: string) => {
   message.error(msg);
 };
