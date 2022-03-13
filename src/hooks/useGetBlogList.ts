@@ -112,6 +112,9 @@ export default function useGetBlogList(blogUser: 'self' | 'others') {
           // request API
           await deleteBlog({blogId});
           popMessage && popMessage.info('删除成功！');
+
+          // 同时将数据中的此 blogId 的博客条目删除
+          blogDataList.value = blogDataList.value?.filter((blogData) => (blogData.id !== blogId));
         } catch (e) {
           popMessage && popMessage.error('Oops errors!');
         }

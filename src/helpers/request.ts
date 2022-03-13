@@ -40,11 +40,12 @@ axios.interceptors.response.use(res => {
   const store = useStore();
 
   // res 响应结果
-  console.log('响应拦截器res', res);
+  // console.log('响应拦截器res', res);
 
   // 请求成功 或是 失败 对 ajaxCount 减 1
   store.updateAjaxCount({ajaxCount: -1});
-  console.log('store', store.ajaxCount);
+  // console.log('store', store.ajaxCount);
+
   return res;
 }, err => {
   const store = useStore();

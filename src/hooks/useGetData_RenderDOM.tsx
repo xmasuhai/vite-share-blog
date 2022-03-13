@@ -254,7 +254,7 @@ export default function useGetData_RenderDOM(blogUser: 'self' | 'others') {
   const renderFullPage = () => {
     return (
       <>
-        {renderSkeleton(loading.value)}
+        {loading.value && renderSkeleton(loading.value)}
         {blogDataList.value && renderArticleList(blogDataList.value, renderArticleNode)}
         {renderPagination()}
       </>

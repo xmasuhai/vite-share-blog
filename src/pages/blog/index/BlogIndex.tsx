@@ -20,6 +20,7 @@ export default defineComponent({
     // const popMessage = inject<typeof message>('$message');
     const router = useRouter(); // 路由实例
     const route = useRoute();// 当前路由
+
     // data
     const blogDataList = ref<blogFullInfo[] | undefined>([]);
     const allPages = ref(0);
