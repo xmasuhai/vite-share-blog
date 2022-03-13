@@ -1,6 +1,7 @@
 import EmptyPage from '@/components/EmptyPage';
 import UserInfo from '@/components/user-authentication/UserInfo';
 import useGetBlogList from '@/hooks/useGetBlogList';
+import useStore from '@/store';
 import useAuthStore from '@/store/modules/auth';
 import blogIndex from '@/styles/blog-index.module.scss';
 import cssUser from '@/styles/blog-user.module.scss';
@@ -8,14 +9,35 @@ import {blogFullInfo,} from '@/types/responseData';
 import splitDate from '@/utils/splitDate';
 import {Pagination, Skeleton} from 'ant-design-vue';
 import classNames from 'classnames';
+import {computed} from 'vue';
 
 export default function useGetData_RenderDOM(blogUser: 'self' | 'others') {
-  const getUser = () => {
-    const authStore = useAuthStore();
-    return ref(authStore.getUser);
-  };
+  const store = useStore();
+  const authStore = useAuthStore();
+  const getUser = computed(() => {
+    return authStore.getUser;
+  });
 
   const loading = ref<boolean>(true);
+  // 监控 ajaxCount 等于 0 时，即 ajax 请求全部结束时
+  // 设置 loading 为 false，关闭加载中状态，设置 pageInit 为 false，显示数据
+  const getAjaxCount = computed(() => {
+    return store.getAjaxCount;
+  });
+  const getPageInit = computed(() => {
+    return store.getPageInit;
+  });
+
+  watch(getAjaxCount, (getAjaxCount, /*getPrevAjaxCount*/) => {
+    // getAjaxCount > 0 表示有 ajax 请求正在执行中， pageInit表示刚进入新页面， loading表示菊花转的状态
+    if ((getAjaxCount > 0) && getPageInit && (loading.value === false)) {
+      loading.value = true;
+    }
+    if (getAjaxCount === 0) {
+      loading.value = false;
+      store.updatePageInit({pageInit: false});
+    }
+  });
 
   // response data
   const {
@@ -30,7 +52,7 @@ export default function useGetData_RenderDOM(blogUser: 'self' | 'others') {
   } = useGetBlogList(blogUser);
 
   const user = blogUser === 'self'
-    ? getUser()  // 从 Store 中取出当前已登录用户数据，据此来渲染用户信息
+    ? getUser  // 从 Store 中取出当前已登录用户数据，据此来渲染用户信息
     : getOthers; // 从 getBlogByUserId 得到的 blogDataList[0] 中取出用户数据，据此来渲染用户信息
 
   // 渲染空白页占位
@@ -232,7 +254,7 @@ export default function useGetData_RenderDOM(blogUser: 'self' | 'others') {
   const renderFullPage = () => {
     return (
       <>
-        {renderSkeleton(true)}
+        {renderSkeleton(loading.value)}
         {blogDataList.value && renderArticleList(blogDataList.value, renderArticleNode)}
         {renderPagination()}
       </>
