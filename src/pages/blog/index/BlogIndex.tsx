@@ -79,57 +79,89 @@ export default defineComponent({
     };
   },
   render() {
-    return (
-      <>
-        {/* 首页博客列表 */}
-        <section class="article-list">
-          {this.blogDataList && this.blogDataList.map((blogData) => {
-            const {/*atIndex, */updatedAt, createdAt, description, id: blogId, title, user} = blogData;
-            const {avatar, id: userId, username, updatedAt: updateUserAt, createdAt: createUserAt} = user;
+    /* 渲染作者信息 */
+    const renderAuthor = (blogData: blogFullInfo) => {
+      const {user} = blogData;
+      const {avatar, id: userId, username,} = user;
+      return (
+        <>
+          <figure class={blogIndex.avatar}>
+            <UserLink userId={userId}>
+              <img class={blogIndex.img}
+                   src={avatar}
+                   alt={username}/>
+            </UserLink>
+            <figcaption class={blogIndex.info}>
+              <UserLink userId={userId}>
+                {username}
+              </UserLink>
+            </figcaption>
+          </figure>
+        </>
+      );
+    };
 
-            return (
-              /* 文章条目 */
-              <article class={blogIndex.item}
-                       key={`${blogId}${userId}${updatedAt}${createdAt}${updateUserAt}${createUserAt}`}>
+    /* 渲染博客概览条目 */
+    const renderBlogDescription = (blogData: blogFullInfo) => {
+      const {createdAt, description, title} = blogData;
 
-                {/* 作者信息 */}
-                <figure class={blogIndex.avatar}>
-                  <UserLink userId={userId}>
-                    <img class={blogIndex.img}
-                         src={avatar}
-                         alt={username}/>
-                  </UserLink>
-                  <figcaption class={blogIndex.info}>
-                    <UserLink userId={userId}>
-                      {username}
-                    </UserLink>
-                  </figcaption>
-                </figure>
-
-                {/* 博客概览 */}
-                <h3 class={blogIndex.title}>
-                  <span class={blogIndex.text}>{title}</span>
-                  <span class={blogIndex.date}>
+      return (
+        <>
+          <h3 class={blogIndex.title}>
+            <span class={blogIndex.text}>{title}</span>
+            <span class={blogIndex.date}>
                     {`${beautifyDate(createdAt)}`} {/* 美化时间显示 */}
                   </span>
-                </h3>
-                <p class={classNames([blogIndex.description, blogIndex.omitText])}>
-                  {description}
-                </p>
+          </h3>
+          <p class={classNames([blogIndex.description, blogIndex.omitText])}>
+            {description}
+          </p>
+        </>
+      );
+    };
 
-                {/* 跳转到博客详细 */}
-                <p class={blogIndex.detailLink}>
-                  <router-link to={`/detail/${blogId}`}>
-                    详细 &gt;&gt;&gt;
-                  </router-link>
-                </p>
+    /* 渲染博客详细链接 */
+    const renderBlogDetailLink = (blogData: blogFullInfo) => {
+      const {id: blogId,} = blogData;
+      return (
+        <p class={blogIndex.detailLink}>
+          <router-link to={`/detail/${blogId}`}>
+            详细 &gt;&gt;&gt;
+          </router-link>
+        </p>
+      );
+    };
 
-              </article>
-            );
+    /* 渲染单个文章条目 */
+    const renderArticle = (blogData: blogFullInfo) => {
+      const {updatedAt, createdAt, id: blogId, user} = blogData;
+      const {id: userId, updatedAt: updateUserAt, createdAt: createUserAt} = user;
+
+      return (
+        <article class={blogIndex.item}
+                 key={`${blogId}${userId}${updatedAt}${createdAt}${updateUserAt}${createUserAt}`}>
+          {renderAuthor(blogData)}
+          {renderBlogDescription(blogData)}
+          {renderBlogDetailLink(blogData)}
+        </article>
+      );
+    };
+
+    /* 首页博客列表 */
+    const renderBlogIndexList = (blogDataList: blogFullInfo[]) => {
+      return (
+        <section class="article-list">
+          {blogDataList.map((blogData) => {
+            return (<>{renderArticle(blogData)}</>);
           })}
         </section>
 
-        {/* 分页 */}
+      );
+    };
+
+    /* 渲染分页 */
+    const renderPagination = () => {
+      return (
         <section class={blogIndex.pagination}
                  id="pagination">
           <Pagination total={this.allPages}
@@ -137,6 +169,13 @@ export default defineComponent({
                       v-model:current={this.currentPage}
                       onChange={this.onPageChange}/>
         </section>
+      );
+    };
+
+    return (
+      <>
+        {this.blogDataList && renderBlogIndexList(this.blogDataList)}
+        {renderPagination()}
       </>
     );
   }
