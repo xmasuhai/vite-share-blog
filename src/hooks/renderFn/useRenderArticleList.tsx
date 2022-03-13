@@ -19,7 +19,8 @@ export const useRenderArticleList = (
         const {date, month, year} = splitDate(createdAt);
 
         return (
-          <>{renderFn(
+          <>{
+            renderFn(
             blogId,
             userId,
             updatedAt,

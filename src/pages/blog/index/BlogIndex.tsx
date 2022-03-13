@@ -1,6 +1,6 @@
 import UserLink from '@/components/user-authentication/UserLink';
 import {useRenderPagination} from '@/hooks/renderFn/useRenderPagination';
-import {useRenderSkeleton} from '@/hooks/renderFn/useRenderSkeleton';
+import {useRenderMultiSkeleton} from '@/hooks/renderFn/useRenderMultiSkeleton';
 import {useIfLoading} from '@/hooks/useIfLoading';
 import classNames from 'classnames';
 import {defineComponent,/* inject, */ref} from 'vue';
@@ -170,7 +170,13 @@ export default defineComponent({
     return (
       <>
         {/* 渲染骨架屏 */}
-        {this.loading && useRenderSkeleton(this.loading, 'others', () => {})}
+        {this.loading && useRenderMultiSkeleton(this.loading,
+          'others',
+          () => {},
+          true,
+          true,
+          true,
+        )}
         {this.blogDataList && renderBlogIndexList(this.blogDataList)}
         {/* 渲染分页 */}
         {useRenderPagination(this.allPages, this.pageSize, this.currentPage, this.onPageChange,)}

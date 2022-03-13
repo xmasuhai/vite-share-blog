@@ -12,6 +12,7 @@ declare module 'vue' {
     BlogListOfSelfOrOthers: typeof import('./components/BlogListOfSelfOrOthers.tsx')['default']
     EmptyPage: typeof import('./components/EmptyPage.tsx')['default']
     Layout: typeof import('./components/Layout.tsx')['default']
+    MultiSkeleton: typeof import('./components/user-authentication/MultiSkeleton.tsx')['default']
     SvgIcon: typeof import('./components/SvgIcon.tsx')['default']
     UserInfo: typeof import('./components/user-authentication/UserInfo.tsx')['default']
     UserInput: typeof import('./components/user-authentication/UserInput.tsx')['default']

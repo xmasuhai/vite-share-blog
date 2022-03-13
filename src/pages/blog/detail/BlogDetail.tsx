@@ -1,11 +1,11 @@
-import {getDetail} from '@/api/blog';
-import UserLink from '@/components/user-authentication/UserLink';
-import {blogUser} from '@/types/responseData';
-import markdown from '@/utils/markdown';
 import {defineComponent, onMounted,} from 'vue';
+import {useRoute} from 'vue-router';
+import {getDetail} from '@/api/blog';
+import {blogUser} from '@/types/responseData';
+import UserLink from '@/components/user-authentication/UserLink';
+import markdown from '@/utils/markdown';
 import cssDetail from '@/styles/blog-detail.module.scss';
 import classNames from 'classnames';
-import {useRoute} from 'vue-router';
 import {beautifyDate} from '@/utils/beautifyDate';
 
 export default defineComponent({
@@ -16,16 +16,16 @@ export default defineComponent({
     const route = useRoute();
     const blogId = ref('');
     const title = ref('');
-    // const description = ref('');
     const createdAt = ref('');
     const rawContent = ref('');
     const user = ref<blogUser | null>(null);
 
-    blogId.value = route.params.blogId as string;
-
     const getBlogDetail = async () => {
+      // 从路由url中获取参数 blogId
       blogId.value = route.params.blogId as string;
+      // 传参 blogId 获取博客详情数据 data
       const {data} = await getDetail({blogId: parseInt(blogId.value)});
+      // 从博客详情数据 data 获取作者信息
       const {
         title: blogTitle,
         content: blogContent,
@@ -55,6 +55,7 @@ export default defineComponent({
 
       return (
         <>
+          {/* 作者信息 与发布时间 */}
           <section class={cssDetail.userBlog}>
             <UserLink userId={userId}>
               <img src={avatar}
@@ -77,7 +78,7 @@ export default defineComponent({
             </p>
           </section>
 
-          {/*正文内容*/}
+          {/* 正文内容 */}
           <section class={classNames(['article'])}>
             <article class={classNames(['blog-article', 'markdown-body'])}
                      v-html={markdown(this.rawContent)}>

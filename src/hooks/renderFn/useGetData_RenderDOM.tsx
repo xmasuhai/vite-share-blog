@@ -11,7 +11,7 @@ import {useRenderArticleList} from '@/hooks/renderFn/useRenderArticleList';
 // 渲染分页
 import {useRenderPagination} from '@/hooks/renderFn/useRenderPagination';
 // 渲染骨架屏
-import {useRenderSkeleton} from '@/hooks/renderFn/useRenderSkeleton';
+import {useRenderMultiSkeleton} from '@/hooks/renderFn/useRenderMultiSkeleton';
 // 渲染用户信息
 import {useRenderUserInfo} from '@/hooks/renderFn/useRenderUserInfo';
 
@@ -54,7 +54,14 @@ export default function useGetData_RenderDOM(blogUserStr: blogUserType) {
     return (
       <>
         {/* 渲染骨架屏 */}
-        {loading.value && useRenderSkeleton(loading.value, blogUserStr, onDelete)}
+        {loading.value && useRenderMultiSkeleton(
+          loading.value,
+          blogUserStr,
+          onDelete,
+          false,
+          true,
+          true,
+        )}
         {/* 渲染文章列表 */}
         {blogDataList.value && useRenderArticleList(blogDataList.value, useRenderArticleNode, loading.value, blogUserStr, onDelete)}
         {/* 渲染分页 */}
