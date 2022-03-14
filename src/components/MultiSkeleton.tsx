@@ -12,9 +12,10 @@ const MultiSkeletonProps = {
   isLoading: {type: Boolean, required: true},
   blogUser: {type: String as PropType<blogUserType>, defaults: 'self'},
   onDelete: {type: Function as PropType<onDeleteFnType>, default: () => {}},
-  hasAvatar: {type:  [Boolean, Object], default: false},
-  hasParagraph: {type:  [Boolean, Object], default: true},
-  hasTitle: {type:  [Boolean, Object], default: true}
+  hasAvatar: {type: [Boolean, Object], default: false},
+  hasParagraph: {type: [Boolean, Object], default: true},
+  hasTitle: {type: [Boolean, Object], default: true},
+  showHr: {type: Boolean, default: true},
 };
 
 export default defineComponent({
@@ -23,25 +24,28 @@ export default defineComponent({
   components: {},
   setup(props, /*ctx*/) {
     const user = props.blogUser;
-    const randomPoNe = () => (Math.round(Math.random()) * 2 - 1);
-    const randomDate = () => (new Date(Date.now() + Math.random() * 10000 * 10000 * randomPoNe()));
-    const randomId = () => (Math.trunc(Math.random() * 100) + 1);
-    const blankBlogData: () => blogFullInfo = () => ({
-      atIndex: true,
-      id: randomId(),
-      title: '',
-      description: '',
-      content: '',
-      user: {
+    const isShowHr = props.showHr;
+    const randomPoNe = () => { return Math.round(Math.random()) * 2 - 1; };
+    const randomDate = () => { return new Date(Date.now() + Math.random() * 10000 * 10000 * randomPoNe()); };
+    const randomId = () => { return Math.trunc(Math.random() * 100) + 1; };
+    const blankBlogData: () => blogFullInfo = () => {
+      return {
+        atIndex: true,
         id: randomId(),
-        username: '',
-        avatar: '',
-        updatedAt: `${randomDate()}`,
+        title: '',
+        description: '',
+        content: '',
+        user: {
+          id: randomId(),
+          username: '',
+          avatar: '',
+          updatedAt: `${randomDate()}`,
+          createdAt: `${randomDate()}`,
+        },
         createdAt: `${randomDate()}`,
-      },
-      createdAt: `${randomDate()}`,
-      updatedAt: `${randomDate()}`
-    });
+        updatedAt: `${randomDate()}`
+      };
+    };
     const fakeBlogList = new Array(20).fill(0).map(() => blankBlogData());
 
     const renderFakeArticleNode = () => {
@@ -53,12 +57,13 @@ export default defineComponent({
                     title={props.hasTitle || true}
                     class={skeleton.space}
                     active/>
-          <hr/>
+          <hr v-show={isShowHr}/>
         </>
       );
     };
     return {
       user,
+      isShowHr,
       blankBlogData,
       fakeBlogList,
       renderFakeArticleNode,

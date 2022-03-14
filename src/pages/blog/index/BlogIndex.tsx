@@ -61,16 +61,17 @@ export default defineComponent({
 
     // 博客页跳转逻辑 跳转页码 重新获取对应页码的数据 显示在首页
     const onPageChange = async (newPage: number) => {
+      // 回城
+      scrollToTop();
       await invokeBlogByUserIdAPI(newPage);
       // 使用 router.push 编程式导航至 新的页码值
       // 显示在路由URL路径参数中 例如：'http://localhost:3000/#/?page=2'
       await router.push({path: '/', query: {page: newPage}});
-      // 回城
-      scrollToTop();
     };
 
     // 挂载时 获取并显示博客列表，（也可直接放在setup中，除非 配置SSR）
     onBeforeMount(async () => {
+      scrollToTop();
       await getBlogList();
     });
 
@@ -116,8 +117,8 @@ export default defineComponent({
           <h3 class={blogIndex.title}>
             <span class={blogIndex.text}>{title}</span>
             <span class={blogIndex.date}>
-                    {`${beautifyDate(createdAt)}`} {/* 美化时间显示 */}
-                  </span>
+              {`${beautifyDate(createdAt)}`} {/* 美化时间显示 */}
+            </span>
           </h3>
           <p class={classNames([blogIndex.description, blogIndex.omitText])}>
             {description}
@@ -170,12 +171,14 @@ export default defineComponent({
     return (
       <>
         {/* 渲染骨架屏 */}
-        {this.loading && useRenderMultiSkeleton(this.loading,
+        {this.loading && useRenderMultiSkeleton(
+          this.loading,
           'others',
           () => {},
           true,
           true,
           true,
+          false
         )}
         {this.blogDataList && renderBlogIndexList(this.blogDataList)}
         {/* 渲染分页 */}

@@ -7,6 +7,10 @@ import markdown from '@/utils/markdown';
 import cssDetail from '@/styles/blog-detail.module.scss';
 import classNames from 'classnames';
 import {beautifyDate} from '@/utils/beautifyDate';
+import {useIfLoading} from '@/hooks/useIfLoading';
+import {Skeleton} from 'ant-design-vue';
+import skeleton from '@/styles/skeleton.module.scss';
+import {scrollToTop} from '@/utils/scrollToTop';
 
 export default defineComponent({
   name: 'BlogDetail',
@@ -20,6 +24,10 @@ export default defineComponent({
     const rawContent = ref('');
     const user = ref<blogUser | null>(null);
 
+    // 是否处于读取中状态，用来判断是否展示骨架屏
+    const {loading} = useIfLoading();
+
+    // response data
     const getBlogDetail = async () => {
       // 从路由url中获取参数 blogId
       blogId.value = route.params.blogId as string;
@@ -39,6 +47,7 @@ export default defineComponent({
     };
 
     onMounted(async () => {
+      scrollToTop();
       await getBlogDetail();
     });
 
@@ -47,11 +56,12 @@ export default defineComponent({
       title,
       createdAt,
       rawContent,
+      loading
     };
   },
   render() {
     if (this.user) {
-      const {avatar, id: userId, username, /*updatedAt: updateUserAt, createdAt: createUserAt*/} = this.user;
+      const {avatar, id: userId, username,} = this.user;
 
       return (
         <>
@@ -78,8 +88,18 @@ export default defineComponent({
             </p>
           </section>
 
+          {/* 骨架屏内容 */}
+          <section class={skeleton.space}>
+            <Skeleton loading={this.loading}
+                      avatar={false}
+                      paragraph={{rows: 8}}
+                      title={true}
+                      active/>
+          </section>
+
           {/* 正文内容 */}
-          <section class={classNames(['article'])}>
+          <section class={classNames(['article'])}
+                   v-show={!this.loading}>
             <article class={classNames(['blog-article', 'markdown-body'])}
                      v-html={markdown(this.rawContent)}>
               {/* renderArticleDom() */}

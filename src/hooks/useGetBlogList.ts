@@ -79,6 +79,7 @@ export default function useGetBlogList(blogUserStr: 'self' | 'others') {
 
   // 分页跳转执行逻辑
   const onPageChange = async (newPage: number) => {
+    scrollToTop();
     const {blogList} = await invokeBlogByUserIdAPI(newPage);
     const {user} = (
       blogList
@@ -92,11 +93,11 @@ export default function useGetBlogList(blogUserStr: 'self' | 'others') {
         : user.id
     );
     await router.push({path: `${pathStr}`, query: {page: newPage}, replace: true});
-    scrollToTop();
   };
 
   // 博客删除逻辑 使用修饰符 prevent 禁止 a 标签原生默认跳转行为
   const onDelete = withModifiers((e: MouseEvent, blogId: number) => {
+    scrollToTop();
     // console.log('blogId', blogId);
     Modal.confirm({
       title: '是否确认删除',
@@ -124,6 +125,7 @@ export default function useGetBlogList(blogUserStr: 'self' | 'others') {
   }, ['prevent']);
 
   onMounted(async () => {
+    scrollToTop();
     await getBlogList();
   });
 

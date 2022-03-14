@@ -26,6 +26,7 @@ export const useIfLoading = () => {
       loading.value = false;
       store.updatePageInit({pageInit: false});
     }
+
   });
 
   return {

@@ -1,4 +1,4 @@
-import MultiSkeleton from '@/components/user-authentication/MultiSkeleton';
+import MultiSkeleton from '@/components/MultiSkeleton';
 import {blogUserType, onDeleteFnType} from '@/hooks/renderFn/render';
 import SkeletonAvatarProps from 'ant-design-vue';
 import SkeletonParagraphProps from 'ant-design-vue';
@@ -12,6 +12,7 @@ export const useRenderMultiSkeleton = (
   hasAvatar?: boolean | typeof SkeletonAvatarProps,
   hasParagraph?: boolean | typeof SkeletonParagraphProps,
   hasTitle?: boolean | typeof SkeletonTitleProps,
+  showHr?: boolean,
 ) => {
   return (
     <MultiSkeleton isLoading={isLoading}
@@ -19,6 +20,7 @@ export const useRenderMultiSkeleton = (
                    onDelete={onDelete}
                    hasAvatar={hasAvatar || false}
                    hasParagraph={hasParagraph || true}
-                   hasTitle={hasTitle || true}/>
+                   hasTitle={hasTitle || true}
+                   showHr={showHr}/>
   );
 };
