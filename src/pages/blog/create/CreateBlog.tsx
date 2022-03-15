@@ -34,7 +34,8 @@ export default defineComponent({
     return (
       <ArticleTextarea mainTitle="创建文章"
                        btnText="发布文章"
-                       onHandleClick={this.postBlog}/>
+                       onHandleClick={this.postBlog}
+                       mode="create"/>
     );
   }
 
