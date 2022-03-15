@@ -1,5 +1,5 @@
 import {getDetail} from '@/api/blog';
-import {defineComponent, PropType, ref,} from 'vue';
+import {defineComponent, PropType, ref, watch,} from 'vue';
 import useBlogStore from '@/store/modules/blog';
 import cssCreateEdit from '@/styles/blog-create-edit.module.scss';
 import {Button, Switch} from 'ant-design-vue';
@@ -24,19 +24,6 @@ export default defineComponent({
     const content = ref('');
     const atIndex = ref<boolean>(false);
 
-    const titleStore = computed(() => {
-      return title.value;
-    });
-    const descriptionStore = computed(() => {
-      return description.value;
-    });
-    const contentStore = computed(() => {
-      return content.value;
-    });
-    const atIndexStore = computed(() => {
-      return atIndex.value;
-    });
-
     const route = useRoute();
     const blogId = ref(0);
 
@@ -55,6 +42,13 @@ export default defineComponent({
       description.value = descriptionData;
       content.value = contentData;
       atIndex.value = atIndexData as boolean;
+
+      return {
+        title: title.value,
+        description: description.value,
+        content: content.value,
+        atIndex: atIndex.value
+      };
     };
 
     // 将变更 patch 到 BlogStore 中
@@ -69,8 +63,14 @@ export default defineComponent({
       }/*, {immediate: true}*/);
 
     const handleClick = () => {
-      ctx.emit('handleClick');
+      ctx.emit('handleClick', {
+        title: title.value,
+        description: description.value,
+        content: content.value,
+        atIndex: atIndex.value,
+      });
     };
+
     const changeTitle = (payload: string) => {
       title.value = payload;
       BlogStore.setTitle(payload);
@@ -95,14 +95,11 @@ export default defineComponent({
       description,
       content,
       atIndex,
-      titleStore,
-      descriptionStore,
-      contentStore,
-      atIndexStore,
       handleClick,
       changeTitle,
       changeDescription,
       changeContent,
+
     };
   },
   render() {
@@ -114,20 +111,20 @@ export default defineComponent({
 
         <ArticleTextArea subTitle="文章标题"
                          wordCount={30}
-                         onInputValueChange={this.changeTitle}
-                         inputValue={this.title}/>
+                         v-model:inputValue={this.title}
+                         onInputValueChange={(payload) => {this.changeTitle(payload);}}/>
 
         <ArticleTextArea subTitle="内容简介"
                          wordCount={30}
                          autoSize={{minRows: 2, maxRows: 2}}
-                         onInputValueChange={this.changeDescription}
-                         inputValue={this.description}/>
+                         v-model:inputValue={this.description}
+                         onInputValueChange={(payload) => {this.changeDescription(payload);}}/>
 
         <ArticleTextArea subTitle="文章内容(仅限Markdown格式)"
                          wordCount={30000}
                          autoSize={{minRows: 18, maxRows: 18}}
-                         onInputValueChange={this.changeContent}
-                         inputValue={this.content}/>
+                         v-model:inputValue={this.content}
+                         onInputValueChange={(payload) => {this.changeContent(payload);}}/>
 
         {/* 首页展示开关 */}
         <div class={cssCreateEdit.switchBox}>

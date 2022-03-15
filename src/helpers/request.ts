@@ -26,7 +26,7 @@ axios.interceptors.request.use(config => {
   // config 请求配置
   // console.log('请求拦截器config', config);
   store.updateAjaxCount({ajaxCount: 1});
-  console.log('store', store.ajaxCount);
+  // console.log('store', store.ajaxCount);
 
   return config;
 }, err => {
@@ -45,7 +45,7 @@ axios.interceptors.response.use(res => {
 
   // 请求成功 或是 失败 对 ajaxCount 减 1
   store.updateAjaxCount({ajaxCount: -1});
-  console.log('store', store.ajaxCount);
+  // console.log('store', store.ajaxCount);
 
   return res;
 }, err => {

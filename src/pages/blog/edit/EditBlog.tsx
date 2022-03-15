@@ -1,9 +1,9 @@
 import {updateBlog} from '@/api/blog';
 import useBlogStore from '@/store/modules/blog';
 import {message} from 'ant-design-vue';
-import {defineComponent,} from 'vue';
+import {defineComponent, ref} from 'vue';
 import ArticleTextarea from '@/components/article/ArticleTemplate';
-import {useRouter,} from 'vue-router';
+import {useRouter, useRoute} from 'vue-router';
 
 export default defineComponent({
   name: 'EditBlog',
@@ -17,7 +17,10 @@ export default defineComponent({
     const BlogStore = useBlogStore();
     const popMessage = inject<typeof message>('$message');
     const router = useRouter();
-    const blogId = ref(1);
+    const route = useRoute();
+    const blogId = ref<number>(0);
+
+    blogId.value = parseInt(route.params.blogId as string);
 
     // TODO 将所有逻辑 合并到 store 中
     const postEditedBlog = () => {
