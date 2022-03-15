@@ -25,10 +25,6 @@ export default {
     return request(AuthURL.login, 'POST', data);
   },
   logout(): Promise<responseData> {
-    // 用户登出，删除 jwt parameters
-    window.localStorage
-      ? localStorage.removeItem('token')
-      : (localStorage.token = null);
     return request(AuthURL.logout, 'GET');
   },
   getUserInfo(): Promise<responseAuthData> {

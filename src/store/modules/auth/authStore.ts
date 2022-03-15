@@ -31,9 +31,11 @@ export const useAuthStore = defineStore('authStore', {
     login({username, password}: logString) {
       return auth.login({username, password})
         .then(res => {
-          this.setUser({userData: res.data});
-          this.setLogin({isLogin: true});
-          message.success(res.msg);
+          if (res.isLogin && res.data) {
+            this.setUser({userData: res.data});
+            this.setLogin({isLogin: res.isLogin});
+            message.success(res.msg);
+          }
           return res;
         });
     },
@@ -65,10 +67,14 @@ export const useAuthStore = defineStore('authStore', {
       return res.isLogin;
 
     },
-    async logout() {
-      // 注销用户
+    async logout() { // 注销用户
+      // 清空 store
       this.userData = null;
       this.isLogin = false;
+      // 删除localstorage jwt parameters
+      window.localStorage
+        ? localStorage.removeItem('token')
+        : (localStorage.token = null);
       const res = await auth.logout();
       message.info(res.msg);
     }

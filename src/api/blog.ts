@@ -39,11 +39,11 @@ export function getDetail({blogId}: { blogId: number }): Promise<responseBlogDet
 }
 
 export function createBlog({
-                             title,
-                             content,
-                             description,
-                             atIndex
-                           } = {
+  title,
+  content,
+  description,
+  atIndex
+} = {
   title: '',
   content: '',
   description: '',

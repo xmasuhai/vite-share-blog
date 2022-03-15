@@ -1,4 +1,9 @@
-import {createRouter, /*createWebHistory*/ createWebHashHistory, RouteRecordRaw} from 'vue-router';
+import {
+  createRouter, /*createWebHistory*/
+  createWebHashHistory,
+  // RouteLocationNormalized,
+  RouteRecordRaw
+} from 'vue-router';
 import {storeToRefs} from 'pinia';
 import useStore from '@/store';
 import useAuthStore from '@/store/modules/auth';
