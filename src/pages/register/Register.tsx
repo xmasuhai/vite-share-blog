@@ -1,7 +1,11 @@
+import {useCheckIsLogin} from '@/hooks/useCheckIsLogin';
 import useIdentifyCompName from '@/hooks/useIdentifyCompName';
+import {useIfLoading} from '@/hooks/useIfLoading';
 import useAuthStore from '@/store/modules/auth';
-import {defineComponent, ref,} from 'vue';
+import {Spin} from 'ant-design-vue';
+import {defineComponent, onMounted, ref,} from 'vue';
 import cssAuth from '@/styles/auth.module.scss';
+import maskLayer from '@/styles/mask-layer.module.scss';
 import UserInput from '@/components/user-authentication/UserInput';
 import UserSubmitBtnTip from '@/components/user-authentication/UserSubmitBtnTip';
 import {useRouter} from 'vue-router';
@@ -12,11 +16,20 @@ export default defineComponent({
   props: {},
   components: {},
   setup(/*props, ctx*/) {
+    // 是否处于读取中状态，用来判断是否展示骨架屏
+    const isLoading = ref<boolean>(false);
+
+    const checkIsLogin = useCheckIsLogin();
+
+    onMounted(async () => {
+      await checkIsLogin();
+    });
+
+    // 拿到当前组件 type 名称，作为判断是否为登录或注册组件的依据
     useIdentifyCompName();
 
     const authStore = useAuthStore();
     const router = useRouter();
-
     const username = ref('');
     const password = ref('');
     const passwordCheck = ref('');
@@ -32,6 +45,9 @@ export default defineComponent({
     const onRegister = (logString: logString) => {
       authStore.register(logString)
         .then(() => {
+          // 记录 加载状态
+          isLoading.value = useIfLoading().loading.value;
+
           // 成功，跳转首页
           return router.push({path: '/login'});
         }, /* reject */);
@@ -56,7 +72,8 @@ export default defineComponent({
       userLoginInfo,
       onRegister,
       keyUpHandler,
-      clickHandler
+      clickHandler,
+      isLoading
     };
   },
   render() {
@@ -88,6 +105,12 @@ export default defineComponent({
                             linkText="立即登录"
                             onHandleSubmit={() => {this.clickHandler(this.userLoginInfo);}}/>
 
+        </section>
+        <section class={maskLayer.mask}
+                 v-show={this.isLoading}>
+          <Spin tip="Loading..."
+                size="large"
+                spinning={this.isLoading}/>
         </section>
       </>
     );

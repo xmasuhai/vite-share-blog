@@ -1,0 +1,17 @@
+@import '../assets/style/variables';
+
+.mask {
+  align-items: center;
+  background-color: $layer-mask;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  left: 0;
+  pointer-events: auto;
+  position: fixed;
+  text-align: center;
+  top: 0;
+  user-select: none;
+  width: 100vw;
+  z-index: 999;
+}
