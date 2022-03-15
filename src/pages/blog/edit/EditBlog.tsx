@@ -21,9 +21,6 @@ export default defineComponent({
 
     // TODO 将所有逻辑 合并到 store 中
     const postEditedBlog = () => {
-      console.log('blogId.value', blogId.value);
-      console.log('BlogStore.getBlogFullInfo', BlogStore.getBlogFullInfo);
-
       updateBlog({blogId: blogId.value}, BlogStore.getBlogFullInfo)
         .then(res => {
           popMessage && popMessage.success(res.msg);
