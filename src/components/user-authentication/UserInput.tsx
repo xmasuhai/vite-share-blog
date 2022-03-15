@@ -9,7 +9,8 @@ const UserInputProps = {
   errorText: String,
   keyUpHandler: Function as PropType<() => void>,
   autoComplete: {type: String, default: 'on'},
-  inputValue: {type: String, default: ''}
+  inputValue: {type: String, default: ''},
+  showError: {type: Boolean, default: false},
 };
 
 export default defineComponent({
@@ -18,6 +19,10 @@ export default defineComponent({
   emits: ['keyUp', 'update:username', 'update:password', 'update:passwordCheck'],
   components: {},
   setup(props, ctx) {
+    const isShowError = computed(() => {
+      return props.showError;
+    });
+
     const keyUpHandler = (e: KeyboardEvent) => {
       ctx.emit('keyUp', e);
     };
@@ -30,7 +35,8 @@ export default defineComponent({
 
     return {
       keyUpHandler,
-      changeValue
+      changeValue,
+      isShowError
     };
   },
   render() {
@@ -49,7 +55,8 @@ export default defineComponent({
             // @ts-ignore
                  autoComplete={this.autoComplete}/>
         </label>
-        <p class={cssAuth.error}>
+        <p class={cssAuth.error}
+           v-show={this.isShowError}>
           {this.errorText}
         </p>
       </div>

@@ -20,20 +20,20 @@ export default defineComponent({
   props: BlogHeaderProps,
   setup(/*props, ctx*/) {
     /* Data from store Start useAuthStore() */
-    const store = useAuthStore();
+    const authStore = useAuthStore();
     // computed
     const getUser = computed(() => {
-      return store.getUser;
+      return authStore.getUser;
     });
     const getIsLogin = computed(() => {
-      return store.getIsLogin;
+      return authStore.getIsLogin;
     });
     // actions
     const checkLogin = () => {
-      store.checkLogin();
+      authStore.checkLogin();
     };
     const logout = () => {
-      store.logout();
+      authStore.logout();
     };
     /* Data from store End */
 
@@ -105,11 +105,13 @@ export default defineComponent({
       return (
         <div class={blogHeaderClass.user}>
           <router-link to={'/create'}>
-            <i class={blogHeaderClass.editIcon}>
+            <em class={blogHeaderClass.editIcon}>
               <SvgIcon name="create"
                        color="white"/>
-            </i>
+            </em>
           </router-link>
+
+
           <img class={blogHeaderClass.avatar}
                src={this.getUser?.avatar}
                alt={this.getUser?.username}

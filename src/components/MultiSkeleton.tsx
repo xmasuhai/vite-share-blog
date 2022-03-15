@@ -50,15 +50,16 @@ export default defineComponent({
 
     const renderFakeArticleNode = () => {
       return (
-        <>
+        <div class={skeleton.space}>
           <Skeleton loading={props.isLoading}
                     avatar={props.hasAvatar || false}
                     paragraph={props.hasParagraph || true}
                     title={props.hasTitle || true}
-                    class={skeleton.space}
                     active/>
+          <br/>
           <hr v-show={isShowHr}/>
-        </>
+          <br/>
+        </div>
       );
     };
     return {

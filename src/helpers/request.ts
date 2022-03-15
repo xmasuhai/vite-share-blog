@@ -24,7 +24,7 @@ axios.defaults.baseURL = 'https://blog-server.hunger-valley.com';
 axios.interceptors.request.use(config => {
   const store = useStore();
   // config 请求配置
-  console.log('请求拦截器config', config);
+  // console.log('请求拦截器config', config);
   store.updateAjaxCount({ajaxCount: 1});
   console.log('store', store.ajaxCount);
 
@@ -41,10 +41,11 @@ axios.interceptors.response.use(res => {
 
   // res 响应结果
   // console.log('响应拦截器res', res);
+  // console.log('响应拦截器config', config);
 
   // 请求成功 或是 失败 对 ajaxCount 减 1
   store.updateAjaxCount({ajaxCount: -1});
-  // console.log('store', store.ajaxCount);
+  console.log('store', store.ajaxCount);
 
   return res;
 }, err => {

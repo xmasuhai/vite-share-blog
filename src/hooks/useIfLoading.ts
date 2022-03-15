@@ -20,7 +20,7 @@ export const useIfLoading = () => {
   watch(getAjaxCount, (getAjaxCount, /*getPrevAjaxCount*/) => {
     // getAjaxCount > 0 表示有 ajax 请求正在执行中， pageInit 表示刚进入新页面， loading表示读取中状态
     if ((getAjaxCount > 0) && getPageInit && (loading.value === false)) {
-      loading.value = true;
+      loading.value = true; // 将loading状态设置为 true
     }
     if (getAjaxCount === 0) {
       loading.value = false;

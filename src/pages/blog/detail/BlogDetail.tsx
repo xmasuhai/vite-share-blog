@@ -1,4 +1,4 @@
-import {defineComponent, onMounted,} from 'vue';
+import {defineComponent, onMounted, ref} from 'vue';
 import {useRoute} from 'vue-router';
 import {getDetail} from '@/api/blog';
 import {blogUser} from '@/types/responseData';
@@ -23,6 +23,7 @@ export default defineComponent({
     const createdAt = ref('');
     const rawContent = ref('');
     const user = ref<blogUser | null>(null);
+    const isLoading = ref<boolean>(true);
 
     // 是否处于读取中状态，用来判断是否展示骨架屏
     const {loading} = useIfLoading();
@@ -49,6 +50,7 @@ export default defineComponent({
     onMounted(async () => {
       scrollToTop();
       await getBlogDetail();
+      isLoading.value = loading.value;
     });
 
     return {
@@ -56,7 +58,7 @@ export default defineComponent({
       title,
       createdAt,
       rawContent,
-      loading
+      isLoading
     };
   },
   render() {
@@ -90,7 +92,7 @@ export default defineComponent({
 
           {/* 骨架屏内容 */}
           <section class={skeleton.space}>
-            <Skeleton loading={this.loading}
+            <Skeleton loading={this.isLoading}
                       avatar={false}
                       paragraph={{rows: 8}}
                       title={true}
@@ -99,7 +101,7 @@ export default defineComponent({
 
           {/* 正文内容 */}
           <section class={classNames(['article'])}
-                   v-show={!this.loading}>
+                   v-show={!this.isLoading}>
             <article class={classNames(['blog-article', 'markdown-body'])}
                      v-html={markdown(this.rawContent)}>
               {/* renderArticleDom() */}
