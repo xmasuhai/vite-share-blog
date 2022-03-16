@@ -36,11 +36,11 @@ const prodEnabled: boolean = (process.env.USE_CHUNK_MOCK as unknown as boolean) 
 // https://vitejs.dev/config/
 export default defineConfig({
   // 项目根目录（index.html 文件所在的位置）
-  root : './',
+  root: './',
   // 开发或生产环境服务的公共基础路径
-  base : './',
+  base: './',
   // 开发模式 默认：'development'（开发模式），'production'（生产模式）
-  mode : 'production',
+  mode: 'production',
   esbuild: {
     jsxFactory: 'h',
     jsxFragment: 'Fragment'
