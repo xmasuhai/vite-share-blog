@@ -53,7 +53,7 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/myblog',
     name: 'MyBlog',
-    component: () => import('@/pages/myBlog/MyBlog'),
+    component: () => import('@/pages/myblog/MyBlog'),
     meta: {requiresAuth: true},
   },
   {
