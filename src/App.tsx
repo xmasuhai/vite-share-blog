@@ -14,8 +14,8 @@ import 'ant-design-vue/es/input/style/index.css';
 import 'ant-design-vue/es/input-number/style/index.css';
 import 'ant-design-vue/es/pagination/style/index.css';
 import 'ant-design-vue/es/modal/style/index.css';
-import 'ant-design-vue/es/Skeleton/style/index.css';
-import 'ant-design-vue/es/Spin/style/index.css';
+import 'ant-design-vue/es/skeleton/style/index.css';
+import 'ant-design-vue/es/spin/style/index.css';
 
 // Cover ant-design-vue
 import '@/assets/style/cover-ant.scss';
