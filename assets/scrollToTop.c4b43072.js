@@ -1,0 +1,1 @@
+const c="_article_1vhq4_47",e="_space_1vhq4_111";var t={article:c,space:e};const s=()=>{const o=document.documentElement.scrollTop||document.body.scrollTop;o>0&&(window.requestAnimationFrame(s),window.scrollTo(0,o-o/8))};export{t as a,s};

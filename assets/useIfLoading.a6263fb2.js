@@ -1,0 +1,1 @@
+import{a as n}from"./index.4eec2726.js";import{k as u,f as o,z as f}from"./vendor.925d87d6.js";const t=n(),c=()=>{const e=u(!0),r=o(()=>t.getAjaxCount),s=o(()=>t.getPageInit);return f(r,a=>{a>0&&s&&e.value===!1&&(e.value=!0),a===0&&(e.value=!1,t.updatePageInit({pageInit:!1}))}),{loading:e}};export{c as u};
