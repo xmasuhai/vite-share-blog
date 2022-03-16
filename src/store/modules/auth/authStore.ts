@@ -53,13 +53,11 @@ export const useAuthStore = defineStore('authStore', {
     async checkLogin(): Promise<boolean> {
       // 已处于登录状态，直接返回 true，短路先验
       if (this.isLogin) {return true;}
-
       // 处于非登录状态
       // 向服务器发出 auth.getInfo() 请求，验证用户是否处于登录状态
       const res = await auth.getUserInfo();
-
       // 将返回结果的 isLogin 设置到 本地状态
-      this.setLogin({isLogin: res.isLogin});
+      res.isLogin && this.setLogin({isLogin: res.isLogin});
       res.isLogin
         ? (this.setUser({userData: res.data})) // 服务器 验证用户 已登录
         : (this.setUser({userData: null})); // 服务器 验证用户 未登录

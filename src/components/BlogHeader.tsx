@@ -1,14 +1,14 @@
-import {computed, defineComponent, onMounted,} from 'vue';
+// Comps
+import SvgIcon from '@/components/SvgIcon';
 import router from '@/router';
 import useAuthStore from '@/store/modules/auth';
+import basic from '@/styles/basic.module.scss';
+import blogHeaderClass from '@/styles/blog-header.module.scss';
 // UI lib
 import {Button,} from 'ant-design-vue';
 // CSS module
 import classNames from 'classnames';
-import blogHeaderClass from '@/styles/blog-header.module.scss';
-import basic from '@/styles/basic.module.scss';
-// Comps
-import SvgIcon from '@/components/SvgIcon';
+import {computed, defineComponent, onMounted,} from 'vue';
 
 // props
 const BlogHeaderProps = {
@@ -29,8 +29,8 @@ export default defineComponent({
       return authStore.getIsLogin;
     });
     // actions
-    const checkLogin = () => {
-      authStore.checkLogin();
+    const checkLogin = async (): Promise<boolean> => {
+      return await authStore.checkLogin();
     };
     const logout = () => {
       authStore.logout();
@@ -58,9 +58,9 @@ export default defineComponent({
           : [blogHeaderClass.logo, blogHeaderClass.defaultLogo]);
     });
 
-    onMounted(() => {
+    onMounted(async () => {
       // 创建时 向服务器验证以下身份 登录状态
-      checkLogin();
+      await checkLogin();
     });
 
     return {
@@ -110,7 +110,6 @@ export default defineComponent({
                        color="white"/>
             </em>
           </router-link>
-
 
           <img class={blogHeaderClass.avatar}
                src={this.getUser?.avatar}

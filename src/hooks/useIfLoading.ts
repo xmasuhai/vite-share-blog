@@ -5,7 +5,8 @@ import {computed, ref} from 'vue';
 const store = useStore();
 
 export const useIfLoading = () => {
-  const loading = ref<boolean>(true);
+  // 默认为 false 不展示 loading 画面
+  const loading = ref<boolean>(false);
 
 // 监控 ajaxCount 等于 0 时，即 ajax 请求全部结束时
 // 设置 loading 为 false，关闭加载中状态，设置 pageInit 为 false，显示数据
@@ -20,7 +21,7 @@ export const useIfLoading = () => {
   watch(getAjaxCount, (getAjaxCount, /*getPrevAjaxCount*/) => {
     // getAjaxCount > 0 表示有 ajax 请求正在执行中， pageInit 表示刚进入新页面， loading表示读取中状态
     if ((getAjaxCount > 0) && getPageInit && (loading.value === false)) {
-      loading.value = true; // 将loading状态设置为 true
+      loading.value = true; // 将 loading 状态设置为 true
     }
     if (getAjaxCount === 0) {
       loading.value = false;
@@ -29,7 +30,5 @@ export const useIfLoading = () => {
 
   });
 
-  return {
-    loading
-  };
+  return loading;
 };
