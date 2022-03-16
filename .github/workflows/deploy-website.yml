@@ -28,5 +28,6 @@ jobs:
         with:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           REPOSITORY_NAME: xmasuhai/vite-share-blog
+          BASE_BRANCH: main
           BRANCH: gh-pages
           FOLDER: dist
