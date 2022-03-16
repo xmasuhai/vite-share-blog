@@ -16,6 +16,7 @@ import 'ant-design-vue/es/pagination/style/index.css';
 import 'ant-design-vue/es/modal/style/index.css';
 import 'ant-design-vue/es/skeleton/style/index.css';
 import 'ant-design-vue/es/spin/style/index.css';
+import 'github-markdown-css/github-markdown-light.css';
 
 // Cover ant-design-vue
 import '@/assets/style/cover-ant.scss';
