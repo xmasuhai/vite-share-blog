@@ -1,11 +1,16 @@
 {
   "name": "vite-share-blog",
+  "author": "Xu Shuai",
   "version": "0.0.1",
   "license": "MIT",
-  "main": "main.ts",
+  "main": "dist/main.ts",
+  "files": [
+    "dist/*"
+  ],
   "scripts": {
     "dev": "cross-env NODE_ENV=development vite",
     "build": "vue-tsc --noEmit && vite build",
+    "build:app": "vite build --config vite.config.ts",
     "preview": "vite preview"
   },
   "dependencies": {
