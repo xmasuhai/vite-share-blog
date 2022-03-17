@@ -2,14 +2,19 @@ import {defineComponent, onMounted, ref} from 'vue';
 import {useRoute} from 'vue-router';
 import {getDetail} from '@/api/blog';
 import {blogUser} from '@/types/responseData';
-import UserLink from '@/components/user-authentication/UserLink';
-import markdown from '@/utils/markdown';
-import cssDetail from '@/styles/blog-detail.module.scss';
 import classNames from 'classnames';
-import {beautifyDate} from '@/utils/beautifyDate';
+// Comps
+import UserLink from '@/components/user-authentication/UserLink';
+// hooks
 import {useIfLoading} from '@/hooks/useIfLoading';
-import {Skeleton} from 'ant-design-vue';
+// css module
+import cssDetail from '@/styles/blog-detail.module.scss';
 import skeleton from '@/styles/skeleton.module.scss';
+// UI lib
+import {Skeleton} from 'ant-design-vue';
+// utils
+import {beautifyDate} from '@/utils/beautifyDate';
+import markdown from '@/utils/markdown';
 import {scrollToTop} from '@/utils/scrollToTop';
 
 export default defineComponent({
@@ -18,6 +23,7 @@ export default defineComponent({
   components: {},
   setup(/*props, ctx*/) {
     const route = useRoute();
+    // data
     const blogId = ref('');
     const title = ref('');
     const createdAt = ref('');

@@ -15,13 +15,9 @@ import UserSubmitBtnTip from '@/components/user-authentication/UserSubmitBtnTip'
 import cssAuth from '@/styles/auth.module.scss';
 import maskLayer from '@/styles/mask-layer.module.scss';
 
-const LoginProps = {
-  // onHandleSubmit: Function as PropType<() => void>,
-};
-
 export default defineComponent({
   name: 'Login',
-  props: LoginProps,
+  props: {},
   components: {},
   setup(/*props, ctx*/) {
     // 是否处于读取中状态，用来判断是否展示骨架屏 默认 false
