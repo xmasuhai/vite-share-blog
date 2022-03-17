@@ -53,14 +53,13 @@ export default defineComponent({
       // 发起登录请求
       const res = await authStore.login(logString);
       // 验证已登录
-      if (res.isLogin && res.data) {
+      if (res.data) {
         // 变更 加载状态 为 加载结果
         isLoading.value = useIfLoading().value;
         // 路由增加一条记录 resolve => router.push
         // 成功，跳转重定向页面 或者 首页 作为保底
         router.push({path: (router.currentRoute.value.query.redirect as string) || '/'  /* 首页保底 */})
           .then(() => {
-            console.log('useIfLoading().value', useIfLoading().value);
             isLoading.value = useIfLoading().value;
           });
       } else {

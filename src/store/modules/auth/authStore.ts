@@ -28,25 +28,32 @@ export const useAuthStore = defineStore('authStore', {
       this.isLogin = payload.isLogin;
     },
     // async Promise
-    login({username, password}: logString) {
+    login({username, password}: logString): Promise<responseAuthData> {
       return auth.login({username, password})
         .then(res => {
           if (res.isLogin && res.data) {
             this.setUser({userData: res.data});
             this.setLogin({isLogin: res.isLogin});
-            message.success(res.msg);
+            res.status === 'ok' && message.success(res.msg);
+            res.status === 'fail' && message.error(res.msg);
           }
           return res;
         });
     },
-    async register({username, password}: logString): Promise<responseAuthData> {
+    async register({username, password}: logString) {
       const res = await auth.register({username, password});
       // this.setUser({userData: res.data});
       this.setUser({userData: null});
       // this.setLogin({isLogin: true});
       this.setLogin({isLogin: false});
-      message.success(res.msg);
-      message.info('请重新登录');
+      res.status === 'ok' && message.info(`${res.msg},　请重新登录`);
+      res.status === 'fail' && message.error(res.msg);
+
+      // 删除localstorage jwt parameters
+      window.localStorage
+        ? localStorage.removeItem('token')
+        : (localStorage.token = null);
+
       // 提示注册成功 重新登录
       return res;// 做进一步的处理
     },
@@ -74,7 +81,8 @@ export const useAuthStore = defineStore('authStore', {
         ? localStorage.removeItem('token')
         : (localStorage.token = null);
       const res = await auth.logout();
-      message.info(res.msg);
+      res.status === 'ok' && message.info(res.msg);
+      res.status === 'fail' && message.error(res.msg);
     }
   },
 });
