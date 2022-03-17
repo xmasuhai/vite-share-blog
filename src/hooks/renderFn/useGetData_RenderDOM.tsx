@@ -17,7 +17,7 @@ import {useRenderUserInfo} from '@/hooks/renderFn/useRenderUserInfo';
 
 export default function useGetData_RenderDOM(blogUserStr: blogUserType) {
   // 是否处于读取中状态，用来判断是否展示骨架屏
-  const {loading} = useIfLoading();
+  const loading = useIfLoading();
 
   // 从 authStore 中获取已登录用户信息
   const authStore = useAuthStore();

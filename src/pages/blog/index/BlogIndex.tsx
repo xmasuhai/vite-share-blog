@@ -19,7 +19,7 @@ export default defineComponent({
   props: {},
   setup(/*props, ctx*/) {
     // 是否处于读取中状态，用来判断是否展示骨架屏
-    const {loading} = useIfLoading();
+    const loading = useIfLoading();
 
     // 路由实例
     const router = useRouter();
