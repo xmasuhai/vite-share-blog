@@ -32,8 +32,12 @@ export default defineComponent({
     const checkLogin = async (): Promise<boolean> => {
       return await authStore.checkLogin();
     };
-    const logout = () => {
-      authStore.logout();
+
+    // 登出后 重新刷新页面
+    const logout = async () => {
+      await authStore.logout();
+      await router.push({path: '/'});
+      window.location.reload();
     };
     /* Data from store End */
 

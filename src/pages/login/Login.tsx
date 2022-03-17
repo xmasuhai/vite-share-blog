@@ -62,6 +62,7 @@ export default defineComponent({
           .then(() => {
             isLoading.value = useIfLoading().value;
           });
+        window && window.location.reload();
       } else {
         // 验证未登录 展示登录错误提示信息
         res.status === 'fail' && (showErrorTips.value = true);
