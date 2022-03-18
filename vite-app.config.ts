@@ -1,3 +1,3 @@
-import basicConfig from './build/vite.base.config';
+import basicConfig from './vite.base.config';
 
 export default basicConfig;
