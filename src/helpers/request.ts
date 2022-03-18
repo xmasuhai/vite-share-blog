@@ -10,15 +10,19 @@ import {
   responseGetBlogsData,
   responsePossibleData,
   userAuthInfo,
-  /*, userAuthInfo*/
 } from '@/types/responseData';
 import axios, {AxiosRequestConfig, Method,} from 'axios';
 import {message} from 'ant-design-vue';
 import useStore from '@/store';
 
+/* 全局配置 */
+// 需要传递的自定义请求头
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+// 基本请求公共路径
 axios.defaults.baseURL = 'https://blog-server.hunger-valley.com';
-
+// 超时时间
+axios.defaults.timeout = 10000;
+/* 拦截器 */
 /* 请求开始，则对 ajaxCount 加 1，请求成功 或是 失败 对 ajaxCount 减 1 */
 // 添加请求拦截器
 axios.interceptors.request.use(config => {
@@ -34,7 +38,6 @@ axios.interceptors.request.use(config => {
   store.updateAjaxCount({ajaxCount: -1});
   return Promise.reject(err);
 });
-
 // 添加响应拦截器
 axios.interceptors.response.use(res => {
   const store = useStore();
@@ -55,10 +58,10 @@ axios.interceptors.response.use(res => {
   return Promise.reject(err);
 });
 
+// 辅助方法
 const errorMsg = (msg: string) => {
   message.error(msg);
 };
-
 const storeToken = (tokenStr: string) => {
   window.localStorage
     ? localStorage.setItem('token', tokenStr)
