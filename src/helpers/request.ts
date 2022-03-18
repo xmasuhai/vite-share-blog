@@ -1,3 +1,4 @@
+import axios, {AxiosRequestConfig, Method,} from 'axios';
 import {
   authString,
   blogInfo,
@@ -11,17 +12,20 @@ import {
   responsePossibleData,
   userAuthInfo,
 } from '@/types/responseData';
-import axios, {AxiosRequestConfig, Method,} from 'axios';
-import {message} from 'ant-design-vue';
+import {
+  BASE_URL,
+  TIME_OUT
+} from './env';
 import useStore from '@/store';
+import {message} from 'ant-design-vue';
 
 /* 全局配置 */
 // 需要传递的自定义请求头
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 // 基本请求公共路径
-axios.defaults.baseURL = 'https://blog-server.hunger-valley.com';
+axios.defaults.baseURL = BASE_URL;
 // 超时时间
-axios.defaults.timeout = 10000;
+axios.defaults.timeout = TIME_OUT;
 /* 拦截器 */
 /* 请求开始，则对 ajaxCount 加 1，请求成功 或是 失败 对 ajaxCount 减 1 */
 // 添加请求拦截器

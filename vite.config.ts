@@ -26,6 +26,9 @@ import AutoImport from 'unplugin-auto-import/vite';
 //mock
 import {viteMockServe} from 'vite-plugin-mock';
 
+// 使用
+// console.log(import.meta.env.VITE_APP_TITLE)
+
 /*
 // 本地开发模式
 const localEnabled: boolean = (process.env.USE_MOCK as unknown as boolean) || false;
