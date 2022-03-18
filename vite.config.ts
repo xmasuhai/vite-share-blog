@@ -28,6 +28,13 @@ import {viteMockServe} from 'vite-plugin-mock';
 
 // 使用
 // console.log(import.meta.env.VITE_APP_TITLE)
+// console.log('import.meta', import.meta);
+/*
+*
+* 在开发中，分为本地，测试，和线上三种环境，
+* 需要根据不同的环境配置项目接口请求地址，
+* 可以根据node提供的全局对象process.env
+* */
 
 /*
 // 本地开发模式
