@@ -1,0 +1,1 @@
+import{B as r}from"./BlogListOfSelfOrOthers.ac9b239e.js";import{b as e,e as t}from"./vendor.c3c68332.js";import"./index.b2d1c1d8.js";import"./useIfLoading.4a4d055b.js";import"./blog.75390598.js";import"./scrollToTop.c4b43072.js";import"./useRenderMultiSkeleton.e44f1279.js";var n=e({name:"MyBlog",setup(){return{}},render(){return t(r,{userStr:"self"},null)}});export{n as default};
