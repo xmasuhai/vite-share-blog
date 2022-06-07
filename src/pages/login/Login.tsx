@@ -33,7 +33,7 @@ export default defineComponent({
     const password = ref('');
 
     // 默认用户提示
-    const defaultUsername = ref('admin001');
+    const defaultUsername = ref('admin000');
     const defaultPassword = ref('123456');
 
     const userLoginInfo = computed(() => {
