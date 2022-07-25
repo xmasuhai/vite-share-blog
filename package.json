@@ -25,8 +25,7 @@
     "marked": "^4.0.12",
     "pinia": "^2.0.11",
     "vue": "^3.2.31",
-    "vue-router": "4",
-    "@jonny1994/postcss-px-to-viewport": "^1.1.0"
+    "vue-router": "4"
   },
   "devDependencies": {
     "@types/dompurify": "^2.3.3",

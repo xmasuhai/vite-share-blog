@@ -1,23 +1,22 @@
 // base.ts 基础配置
 
 // @types/node
+// @ts-ignore
 import path from 'path';
 
 // plugins
 import vueJsx from '@vitejs/plugin-vue-jsx';
 import {createSvgIconsPlugin} from 'vite-plugin-svg-icons';
-import postcssPxToViewport from '@jonny1994/postcss-px-to-viewport';
-
 // @ts-ignore
 import removeConsole from 'vite-plugin-remove-console';
 
 // setup name
 import VueSetupExtend from 'vite-plugin-vue-setup-extend';
 // 自动引入组件和方法
-import autoComponents from 'unplugin-vue-components/dist/vite';
+import autoComponents from 'unplugin-vue-components/vite';
 import {
   AntDesignVueResolver,
-} from 'unplugin-vue-components/dist/resolvers';
+} from 'unplugin-vue-components/resolvers';
 import AutoImport from 'unplugin-auto-import/vite';
 import {resolve} from 'path';
 import {defineConfig} from 'vite';
@@ -111,9 +110,6 @@ export default defineConfig({
        * @default: __svg__icons__dom__
        */
       customDomId: '__svg__icons__dom__',
-    }),
-    postcssPxToViewport({
-      viewportWidth: 375
     })
   ],
   css: {

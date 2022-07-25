@@ -1,7 +1,6 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@jonny1994/postcss-px-to-viewport': ^1.1.0
   '@types/dompurify': ^2.3.3
   '@types/marked': ^4.0.2
   '@types/node': ^17.0.15
@@ -49,7 +48,6 @@ dependencies:
   vue-router: 4.0.12_vue@3.2.31
 
 devDependencies:
-  '@jonny1994/postcss-px-to-viewport': 1.1.0_postcss@8.4.7
   '@types/dompurify': 2.3.3
   '@types/marked': 4.0.2
   '@types/node': 17.0.15
@@ -445,14 +443,6 @@ packages:
     resolution: {integrity: sha512-JZButFdZ1+/xAfpguQHoabIXkcqRRKpMrWKBkpEZZyxfY9C1DpADFB8PEqGSTeFr135SaTRfKqGKx5xSCLI7ZQ==}
     engines: {node: '>=10'}
     dev: false
-
-  /@jonny1994/postcss-px-to-viewport/1.1.0_postcss@8.4.7:
-    resolution: {integrity: sha512-fPyZlv+fgb3AEj7+nSg7Sh85OunrX+167MFlNe1WFh0KU1i6RXlEI0qnQ1RSxv2Of9ytB1vGTiPpwUV5rAiQ9A==}
-    peerDependencies:
-      postcss: '>=8.0.0'
-    dependencies:
-      postcss: 8.4.7
-    dev: true
 
   /@jridgewell/resolve-uri/3.0.4:
     resolution: {integrity: sha512-cz8HFjOFfUBtvN+NXYSFMHYRdxZMaEl0XypVrhzxBgadKIXhIkRd8aMeHhmF56Sl7SuS8OnUpQ73/k9LE4VnLg==}
