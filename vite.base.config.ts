@@ -6,16 +6,18 @@ import path from 'path';
 // plugins
 import vueJsx from '@vitejs/plugin-vue-jsx';
 import {createSvgIconsPlugin} from 'vite-plugin-svg-icons';
+import postcssPxToViewport from '@jonny1994/postcss-px-to-viewport';
+
 // @ts-ignore
 import removeConsole from 'vite-plugin-remove-console';
 
 // setup name
 import VueSetupExtend from 'vite-plugin-vue-setup-extend';
 // 自动引入组件和方法
-import autoComponents from 'unplugin-vue-components/vite';
+import autoComponents from 'unplugin-vue-components/dist/vite';
 import {
   AntDesignVueResolver,
-} from 'unplugin-vue-components/resolvers';
+} from 'unplugin-vue-components/dist/resolvers';
 import AutoImport from 'unplugin-auto-import/vite';
 import {resolve} from 'path';
 import {defineConfig} from 'vite';
@@ -110,6 +112,9 @@ export default defineConfig({
        */
       customDomId: '__svg__icons__dom__',
     }),
+    postcssPxToViewport({
+      viewportWidth: 375
+    })
   ],
   css: {
     // 配置 css modules 的行为
@@ -117,6 +122,9 @@ export default defineConfig({
       scopeBehaviour: 'local',
       // generateScopedName: // default,
       localsConvention: 'camelCase',
+    },
+    postcss: {
+      plugins: []
     },
     preprocessorOptions: {
       scss: {

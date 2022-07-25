@@ -12,7 +12,7 @@ import removeConsole from 'vite-plugin-remove-console';
 // setup name
 import VueSetupExtend from 'vite-plugin-vue-setup-extend';
 // 自动引入组件和方法
-import autoComponents from 'unplugin-vue-components/vite';
+import autoComponents from 'unplugin-vue-components/dist/vite';
 import {
   AntDesignVueResolver,
   /*
@@ -20,11 +20,11 @@ import {
   VantResolver,
   HeadlessUiResolver,
   */
-} from 'unplugin-vue-components/resolvers';
+} from 'unplugin-vue-components/dist/resolvers';
 import AutoImport from 'unplugin-auto-import/vite';
 
 //mock
-import {viteMockServe} from 'vite-plugin-mock';
+import {viteMockServe} from 'vite-plugin-mock/dist';
 
 // 使用
 // console.log(import.meta.env.VITE_APP_TITLE)

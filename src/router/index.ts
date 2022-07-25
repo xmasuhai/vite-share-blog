@@ -1,12 +1,11 @@
 import {
-  createRouter, /*createWebHistory*/
-  createWebHashHistory,
-  // RouteLocationNormalized,
+  createRouter,
   RouteRecordRaw
 } from 'vue-router';
 import {storeToRefs} from 'pinia';
 import useStore from '@/store';
 import useAuthStore from '@/store/modules/auth';
+import {history} from '@/router/history';
 
 const routes: RouteRecordRaw[] = [
   {
@@ -67,7 +66,7 @@ const routes: RouteRecordRaw[] = [
 ];
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history,
   routes,
   /*  scrollBehavior(to, from, savedPosition) {
       // 模拟 “滚动到锚点”，并开启流畅滚动
