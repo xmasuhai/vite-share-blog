@@ -1,1 +1,0 @@
-import{d as e,c as r,b as t,F as o}from"./index.d10dc684.js";var n=e({name:"About",props:{},components:{},setup(){return{}},render(){return r(o,null,[t("\u5173\u4E8E\u9875\u9762")])}});export{n as default};
